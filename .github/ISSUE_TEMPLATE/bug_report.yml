@@ -1,0 +1,31 @@
+name: Bug report
+description: Report a reproducible problem in KRAFT.
+title: "bug: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "Please remove API keys, bearer tokens, personal notes and screenshots with private data."
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open …
+        2. Tap …
+        3. Observe …
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: Platform and version
+      placeholder: macOS 15 / iPadOS 18, KRAFT version, Flutter version
+    validations:
+      required: true

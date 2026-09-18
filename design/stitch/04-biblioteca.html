@@ -1,0 +1,465 @@
+<!-- KRAFT - Biblioteca de Componentes de Lienzo -->
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><title>KRAFT</title><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=JetBrains+Mono:wght@500;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100vh;}body{overscroll-behavior-y:none;background-color:#fcf9f8;color:#1c1b1b;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "tertiary-fixed-dim": "#00daf3", "surface-container-lowest": "#ffffff", "surface-variant": "#e5e2e1", "secondary": "#006d35", "error-container": "#ffdad6", "primary-fixed": "#fde400", "on-secondary-container": "#006e36", "on-secondary-fixed-variant": "#005227", "on-primary-container": "#726600", "on-primary-fixed": "#201c00", "secondary-fixed-dim": "#00e476", "error": "#ba1a1a", "surface-container-low": "#f6f3f2", "surface-tint": "#6a5f00", "outline": "#7c775f", "surface-bright": "#fcf9f8", "on-tertiary-fixed": "#001f24", "on-surface": "#1c1b1b", "on-tertiary": "#ffffff", "primary-container": "#ffe600", "primary-fixed-dim": "#dec800", "on-error": "#ffffff", "on-secondary-fixed": "#00210c", "on-primary": "#ffffff", "on-secondary": "#ffffff", "surface": "#fcf9f8", "outline-variant": "#cdc7aa", "surface-dim": "#dcd9d9", "secondary-container": "#00fa82", "inverse-primary": "#dec800", "background": "#fcf9f8", "on-surface-variant": "#4b4731", "tertiary-container": "#a5f1ff", "primary": "#6a5f00", "surface-container": "#f0edec", "on-primary-fixed-variant": "#504700", "inverse-on-surface": "#f3f0ef", "tertiary": "#006875", "on-error-container": "#93000a", "on-tertiary-fixed-variant": "#004f58", "inverse-surface": "#313030", "on-tertiary-container": "#00707e", "secondary-fixed": "#61ff97", "tertiary-fixed": "#9cf0ff", "on-background": "#1c1b1b", "surface-container-high": "#ebe7e7", "surface-container-highest": "#e5e2e1" }, borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, spacing: { "gutter": "1rem", "space-md": "1rem", "space-xl": "2rem", "margin-compact": "1rem", "space-lg": "1.5rem", "space-sm": "0.5rem", "gutter-compact": "0.75rem", "margin": "1.5rem", "space-xs": "0.25rem" }, fontFamily: { "label-tech-badge": ["JetBrains Mono"], "body-md": ["Hanken Grotesk"], "headline-xl": ["Space Grotesk"], "headline-sm": ["Space Grotesk"], "headline-lg-mobile": ["Space Grotesk"], "body-sm": ["Hanken Grotesk"], "body-lg": ["Hanken Grotesk"], "headline-xl-mobile": ["Space Grotesk"], "headline-lg": ["Space Grotesk"], "label-code": ["JetBrains Mono"] }, fontSize: { "label-tech-badge": ["11px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "700" }], "body-md": ["15px", { "lineHeight": "22px", "fontWeight": "400" }], "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "700" }], "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "500" }], "body-lg": ["17px", { "lineHeight": "26px", "fontWeight": "400" }], "headline-xl-mobile": ["30px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "label-code": ["13px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }] } } } };</script></head><body class="bg-surface font-body-md text-on-surface min-h-screen flex flex-col antialiased selection:bg-primary-container selection:text-on-surface"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl pt-safe"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm"><img alt="Utilitarian neobrutalist geometric mark for a tactile canvas and notes app, featuring a bold black frame with an offset yellow square and intersecting technical vector compass / pen cursor symbol. Brand logo. - Primary color: #ffe600
+- Font: spaceGrotesk
+- Mode: light
+- Roundness: rounded-sm
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VuVwt_d3oc2fCZqt4Yb-c566Z7-vddUNLxmmWiu26Fh8yaSpymVNmlQnfh-cUDX0Gnf86XHbZybYb9FKfWw2h00CsaMfyEnc9WEnv4JyEIAYkgo-c63lJFOpDwtiFwIiOE8cE-eN189uZV55hlwJYgnHDwtzkuggU5Eld2m5YdHpp5Y0pLv6vMMzkYCEsMH9biXD2QukHpxttE51k16kCFUyKQOHSMyEd8cMrhpPaQUt5LBOYSnwp52fze"/><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm uppercase text-on-surface tracking-tight">KRAFT</span><span class="font-label-tech-badge text-label-tech-badge bg-surface-container-high text-on-surface px-1.5 py-0.5 rounded-DEFAULT">v2.4</span></div><span class="hidden sm:inline-block font-label-code text-label-code text-on-surface-variant">/ Notas</span></div><div class="flex items-center gap-space-xs"><button aria-label="Buscar" class="w-11 h-11 flex items-center justify-center rounded-lg bg-surface-container hover:bg-surface-container-high active:bg-primary-container text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">search</span></button><button aria-label="Nueva acción" class="w-11 h-11 flex items-center justify-center rounded-lg bg-primary-container hover:bg-primary-fixed-dim text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">add</span></button><div class="flex items-center pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1VytUFC3lFcSalOMYvdBZLZmppuDmdX4HirPgJ998Ac7cBRC5pIDnwWujXTk_ZsnR3XijFVuDqotdIwl-CFmtWo5bvNcMaXyELc2wndT_btGIi_f4CYjlYO8_u4ui5fXQc5jCZBWGxwRy2XOxlbmy4bBs89VbfQ3ZqiZaTLOHOl3bGvbdnIgWHaE__y_1Nf8zzfsAEQTQIYv27Ks2YhDe56UVMzTF_EKxU2UNNbOpi8CanvEzmj3UflAB5J"/></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface"><div class="flex flex-col w-full">
+<!-- Toast Notificación de Inserción -->
+<div class="fixed top-20 right-4 z-50 bg-secondary-container text-on-surface px-4 py-2.5 rounded-lg shadow-[3px_3px_0px_#1c1b1b] flex items-center gap-2 transform translate-y-[-100px] opacity-0 transition-all duration-300 pointer-events-none" id="toast-stash">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span class="font-label-code text-label-code font-bold" id="toast-text">Elemento añadido al lienzo</span>
+</div>
+<!-- Header & Filtro de Búsqueda -->
+<section class="px-gutter pt-4 pb-3 flex flex-col gap-3">
+<div class="flex items-end justify-between">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-tech-badge text-label-tech-badge bg-primary-container text-on-surface px-2 py-0.5 rounded-DEFAULT shadow-[1px_1px_0px_#1c1b1b]">STASH // CAJÓN V2</span>
+<span class="font-label-code text-label-code text-on-surface-variant">RECINTO #04</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight mt-1">Biblioteca de Elementos</h1>
+</div>
+<div class="bg-surface-container-high px-2.5 py-1 rounded-DEFAULT shadow-[2px_2px_0px_#1c1b1b] flex items-center gap-1.5">
+<span class="inline-block w-2 h-2 rounded-full bg-secondary-container"></span>
+<span class="font-label-tech-badge text-label-tech-badge text-on-surface">32 LISTOS</span>
+</div>
+</div>
+<!-- Barra de Búsqueda Táctil -->
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full bg-surface-container-lowest text-on-surface pl-11 pr-10 py-3 rounded-lg font-body-md text-body-md shadow-[3px_3px_0px_#1c1b1b] placeholder:text-on-surface-variant/60 focus:outline-none focus:shadow-[4px_4px_0px_#1c1b1b] focus:bg-surface-container-lowest transition-all" id="component-search" placeholder="Buscar componente, forma o nota..." type="text"/>
+<button aria-label="Limpiar búsqueda" class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+</div>
+<!-- Pestañas de Categoría (Scroll Horizontal Neobrutalista) -->
+<div class="flex items-center gap-2 overflow-x-auto pb-2 pt-1 no-scrollbar -mx-gutter px-gutter">
+<button class="cat-pill active flex-shrink-0 bg-primary-container text-on-surface font-label-code text-label-code px-3.5 py-2 rounded-DEFAULT shadow-[3px_3px_0px_#1c1b1b] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all" onclick="filterCategory('all', this)" type="button">
+        TODOS (32)
+      </button>
+<button class="cat-pill flex-shrink-0 bg-surface-container-lowest text-on-surface font-label-code text-label-code px-3.5 py-2 rounded-DEFAULT shadow-[3px_3px_0px_#1c1b1b] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all hover:bg-surface-container-low" onclick="filterCategory('stickies', this)" type="button">
+        NOTAS &amp; ADHESIVOS
+      </button>
+<button class="cat-pill flex-shrink-0 bg-surface-container-lowest text-on-surface font-label-code text-label-code px-3.5 py-2 rounded-DEFAULT shadow-[3px_3px_0px_#1c1b1b] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all hover:bg-surface-container-low" onclick="filterCategory('diagrams', this)" type="button">
+        DIAGRAMAS &amp; NODOS
+      </button>
+<button class="cat-pill flex-shrink-0 bg-surface-container-lowest text-on-surface font-label-code text-label-code px-3.5 py-2 rounded-DEFAULT shadow-[3px_3px_0px_#1c1b1b] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all hover:bg-surface-container-low" onclick="filterCategory('wireframes', this)" type="button">
+        WIREFRAMES UI
+      </button>
+<button class="cat-pill flex-shrink-0 bg-surface-container-lowest text-on-surface font-label-code text-label-code px-3.5 py-2 rounded-DEFAULT shadow-[3px_3px_0px_#1c1b1b] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all hover:bg-surface-container-low" onclick="filterCategory('badges', this)" type="button">
+        SELLOS &amp; MARCADORES
+      </button>
+</div>
+</section>
+<!-- Contenedor Principal de Secciones -->
+<div class="px-gutter flex flex-col gap-6 pb-20">
+<!-- SECCIÓN 1: NOTAS ADHESIVAS & TARJETAS DE IDEAS -->
+<section class="stash-section flex flex-col gap-3" data-cat="stickies">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 bg-primary-container rounded-sm shadow-[1px_1px_0px_#1c1b1b]"></span>
+<h2 class="font-headline-sm text-headline-sm uppercase tracking-tight text-on-surface">Notas &amp; Adhesivos</h2>
+</div>
+<span class="font-label-tech-badge text-label-tech-badge text-on-surface-variant">04 ITEMS</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+<!-- Post-it Cuadrado Amarillo -->
+<div class="component-card group bg-primary-container text-on-surface p-3.5 rounded-lg shadow-[3px_3px_0px_#1c1b1b] flex flex-col justify-between relative active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer" onclick="addToCanvas('Post-it Amarillo Idea Clave')">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-1.5">
+<div class="w-3 h-3 rounded-full bg-error shadow-[1px_1px_0px_#1c1b1b]"></div>
+<span class="font-label-tech-badge text-label-tech-badge uppercase">STICKY_SQ_YEL</span>
+</div>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">drag_indicator</span>
+</div>
+<div class="py-4 px-1">
+<span class="font-headline-sm text-headline-sm block leading-tight">Idea Clave / Insight</span>
+<p class="font-body-sm text-body-sm text-on-surface mt-1">El usuario prioriza la latencia cero antes que los efectos visuales complejos.</p>
+</div>
+<div class="flex items-center justify-between pt-2">
+<span class="font-label-code text-label-code text-on-surface-variant">#240x240px</span>
+<button class="w-8 h-8 rounded bg-surface-container-lowest text-on-surface flex items-center justify-center shadow-[2px_2px_0px_#1c1b1b]" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+</div>
+<!-- Nota de Advertencia / Alerta -->
+<div class="component-card group bg-surface-container-lowest text-on-surface p-3.5 rounded-lg shadow-[3px_3px_0px_#1c1b1b] flex flex-col justify-between relative active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer" onclick="addToCanvas('Nota de Alerta')">
+<div class="flex items-start justify-between">
+<span class="font-label-tech-badge text-label-tech-badge bg-error text-on-error px-1.5 py-0.5 rounded-DEFAULT shadow-[1px_1px_0px_#1c1b1b]">REVISAR_URGENTE</span>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">drag_indicator</span>
+</div>
+<div class="py-3 px-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-error text-[20px]">warning</span>
+<span class="font-headline-sm text-headline-sm">Bloqueo Técnico</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">API v1 deprecada el 15/05. Requiere migración a endpoints GraphQL.</p>
+</div>
+<div class="flex items-center justify-between pt-2">
+<span class="font-label-code text-label-code text-on-surface-variant">STICKY_ALERT_RED</span>
+<button class="w-8 h-8 rounded bg-primary-container text-on-surface flex items-center justify-center shadow-[2px_2px_0px_#1c1b1b]" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+</div>
+<!-- Tarjeta de Cita / Inspiración -->
+<div class="component-card group bg-tertiary-container text-on-surface p-3.5 rounded-lg shadow-[3px_3px_0px_#1c1b1b] flex flex-col justify-between relative active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer" onclick="addToCanvas('Tarjeta de Cita / Referencia')">
+<div class="flex items-start justify-between">
+<span class="font-label-tech-badge text-label-tech-badge uppercase">QUOTE_BLOCK_CYAN</span>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">format_quote</span>
+</div>
+<div class="py-3 px-1">
+<p class="font-body-md text-body-md italic leading-tight text-on-surface font-medium">“Lo simple es más difícil que lo complejo: tienes que trabajar duro para dejar tu pensamiento limpio.”</p>
+<span class="font-label-code text-label-code text-on-surface block mt-2">— Steve Jobs</span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-label-code text-label-code text-on-surface-variant">#CARD_QUOTE</span>
+<button class="w-8 h-8 rounded bg-surface-container-lowest text-on-surface flex items-center justify-center shadow-[2px_2px_0px_#1c1b1b]" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+</div>
+<!-- Bloque de Título / Cartel Técnico -->
+<div class="component-card group bg-inverse-surface text-inverse-on-surface p-3.5 rounded-lg shadow-[3px_3px_0px_#dec800] flex flex-col justify-between relative active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer" onclick="addToCanvas('Pancarta Técnica de Sección')">
+<div class="flex items-start justify-between">
+<span class="font-label-tech-badge text-label-tech-badge bg-primary-container text-on-surface px-1.5 py-0.5 rounded-DEFAULT">SECCIÓN_ROOT</span>
+<span class="material-symbols-outlined text-[18px] text-inverse-on-surface/70">drag_indicator</span>
+</div>
+<div class="py-3">
+<span class="font-headline-lg-mobile text-headline-lg-mobile uppercase tracking-tight text-primary-container block leading-none">FASE 01: ARQUITECTURA</span>
+<p class="font-label-code text-label-code text-inverse-on-surface/80 mt-1">MÓDULO DE DISTRIBUCIÓN ESPACIAL</p>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-label-code text-label-code text-inverse-on-surface/60">BANNER_HERO_BLK</span>
+<button class="w-8 h-8 rounded bg-primary-container text-on-surface flex items-center justify-center shadow-[2px_2px_0px_#ffffff]" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- SECCIÓN 2: DIAGRAMAS & CONECTORES -->
+<section class="stash-section flex flex-col gap-3" data-cat="diagrams">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 bg-secondary-container rounded-sm shadow-[1px_1px_0px_#1c1b1b]"></span>
+<h2 class="font-headline-sm text-headline-sm uppercase tracking-tight text-on-surface">Diagramación &amp; Nodos</h2>
+</div>
+<span class="font-label-tech-badge text-label-tech-badge text-on-surface-variant">05 ITEMS</span>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<!-- Nodo Disparador / Inicio -->
+<div class="component-card bg-surface-container-lowest p-3 rounded-lg shadow-[3px_3px_0px_#1c1b1b] flex flex-col justify-between active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer" onclick="addToCanvas('Nodo Inicio / Disparador')">
+<div class="flex items-center justify-between">
+<span class="font-label-tech-badge text-label-tech-badge text-on-surface-variant">TRIGGER</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">drag_indicator</span>
+</div>
+<div class="py-2 flex items-center justify-center">
+<div class="bg-secondary-container text-on-secondary-container px-3 py-1.5 rounded-full shadow-[2px_2px_0px_#1c1b1b] flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">play_arrow</span>
+<span class="font-headline-sm text-headline-sm text-[13px] font-bold">INICIO / EVENTO</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-label-code text-label-code text-on-surface-variant">#NODE_START</span>
+<span class="material-symbols-outlined text-[18px] text-secondary">add_circle</span>
+</div>
+</div>
+<!-- Nodo Paso de Proceso -->
+<div class="component-card bg-surface-container-lowest p-3 rounded-lg shadow-[3px_3px_0px_#1c1b1b] flex flex-col justify-between active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer" onclick="addToCanvas('Nodo Paso de Proceso')">
+<div class="flex items-center justify-between">
+<span class="font-label-tech-badge text-label-tech-badge text-on-surface-variant">STEP_PROC</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">drag_indicator</span>
+</div>
+<div class="py-2 flex items-center justify-center">
+<div class="bg-surface-container-high text-on-surface px-3 py-1.5 rounded-DEFAULT shadow-[2px_2px_0px_#1c1b1b] flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+<span class="font-headline-sm text-headline-sm text-[13px]">PROCESAR DATOS</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-label-code text-label-code text-on-surface-variant">#NODE_TASK</span>
+<span class="material-symbols-outlined text-[18px] text-primary">add_circle</span>
+</div>
+</div>
+<!-- Nodo Decisión (Rombo) -->
+<div class="component-card bg-surface-container-lowest p-3 rounded-lg shadow-[3px_3px_0px_#1c1b1b] flex flex-col justify-between active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer" onclick="addToCanvas('Nodo Decisión')">
+<div class="flex items-center justify-between">
+<span class="font-label-tech-badge text-label-tech-badge text-on-surface-variant">LOGIC_GATE</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">drag_indicator</span>
+</div>
+<div class="py-3 flex items-center justify-center">
+<div class="w-12 h-12 bg-primary-container rotate-45 shadow-[2px_2px_0px_#1c1b1b] flex items-center justify-center">
+<span class="material-symbols-outlined -rotate-45 text-[18px] text-on-surface">help_outline</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-label-code text-label-code text-on-surface-variant">DECISIÓN (¿SÍ/NO?)</span>
+<span class="material-symbols-outlined text-[18px] text-on-surface">add_circle</span>
+</div>
+</div>
+<!-- Nodo Fin / Resultado -->
+<div class="component-card bg-surface-container-lowest p-3 rounded-lg shadow-[3px_3px_0px_#1c1b1b] flex flex-col justify-between active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer" onclick="addToCanvas('Nodo Fin / Salida')">
+<div class="flex items-center justify-between">
+<span class="font-label-tech-badge text-label-tech-badge text-on-surface-variant">ENDPOINT</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">drag_indicator</span>
+</div>
+<div class="py-2 flex items-center justify-center">
+<div class="bg-error-container text-on-error-container px-3 py-1.5 rounded-full shadow-[2px_2px_0px_#1c1b1b] flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">sports_score</span>
+<span class="font-headline-sm text-headline-sm text-[13px] font-bold">SALIDA / FIN</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-label-code text-label-code text-on-surface-variant">#NODE_END</span>
+<span class="material-symbols-outlined text-[18px] text-error">add_circle</span>
+</div>
+</div>
+</div>
+<!-- Kit de Conectores Gráficos -->
+<div class="bg-surface-container-low p-3.5 rounded-lg shadow-[3px_3px_0px_#1c1b1b] flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-tech-badge text-label-tech-badge uppercase text-on-surface">CONECTORES VECTORIALES ACTIVOS</span>
+<span class="font-label-code text-label-code text-on-surface-variant">3 TIPOS</span>
+</div>
+<div class="grid grid-cols-3 gap-2 pt-1">
+<!-- Flecha Ortogonal -->
+<button class="bg-surface-container-lowest p-2 rounded-DEFAULT shadow-[2px_2px_0px_#1c1b1b] flex flex-col items-center gap-1 active:translate-x-[1px] active:translate-y-[1px] active:shadow-none" onclick="addToCanvas('Conector Ortogonal')" type="button">
+<svg class="w-full h-8 text-on-surface" fill="none" viewbox="0 0 80 32">
+<path d="M10 24H40V8H68" stroke="currentColor" stroke-linecap="square" stroke-width="2.5"></path>
+<path d="M64 4L72 8L64 12" stroke="currentColor" stroke-linecap="square" stroke-width="2.5"></path>
+</svg>
+<span class="font-label-code text-label-code text-[10px]">ORTOGONAL</span>
+</button>
+<!-- Punteado Curvo -->
+<button class="bg-surface-container-lowest p-2 rounded-DEFAULT shadow-[2px_2px_0px_#1c1b1b] flex flex-col items-center gap-1 active:translate-x-[1px] active:translate-y-[1px] active:shadow-none" onclick="addToCanvas('Conector Punteado')" type="button">
+<svg class="w-full h-8 text-on-surface" fill="none" viewbox="0 0 80 32">
+<path d="M10 26C30 26 50 6 70 6" stroke="currentColor" stroke-dasharray="4 3" stroke-width="2.5"></path>
+<circle cx="70" cy="6" fill="currentColor" r="3"></circle>
+</svg>
+<span class="font-label-code text-label-code text-[10px]">PUNTEADO</span>
+</button>
+<!-- Relación Bidireccional -->
+<button class="bg-surface-container-lowest p-2 rounded-DEFAULT shadow-[2px_2px_0px_#1c1b1b] flex flex-col items-center gap-1 active:translate-x-[1px] active:translate-y-[1px] active:shadow-none" onclick="addToCanvas('Conector Bidireccional')" type="button">
+<svg class="w-full h-8 text-on-surface" fill="none" viewbox="0 0 80 32">
+<path d="M14 16H66" stroke="currentColor" stroke-width="2.5"></path>
+<path d="M18 11L12 16L18 21" stroke="currentColor" stroke-width="2.5"></path>
+<path d="M62 11L68 16L62 21" stroke="currentColor" stroke-width="2.5"></path>
+</svg>
+<span class="font-label-code text-label-code text-[10px]">BIDIRECCIONAL</span>
+</button>
+</div>
+</div>
+</section>
+<!-- SECCIÓN 3: WIREFRAMES UI PARA IPAD & MÓVIL -->
+<section class="stash-section flex flex-col gap-3" data-cat="wireframes">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 bg-tertiary-fixed-dim rounded-sm shadow-[1px_1px_0px_#1c1b1b]"></span>
+<h2 class="font-headline-sm text-headline-sm uppercase tracking-tight text-on-surface">Bloques Wireframe UI</h2>
+</div>
+<span class="font-label-tech-badge text-label-tech-badge text-on-surface-variant">05 MODELOS</span>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Wireframe: Tarjeta de Perfil / Producto -->
+<div class="component-card bg-surface-container-lowest p-3.5 rounded-lg shadow-[3px_3px_0px_#1c1b1b] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer" onclick="addToCanvas('Wireframe Card Producto')">
+<div class="flex items-center justify-between pb-2">
+<span class="font-label-tech-badge text-label-tech-badge text-on-surface-variant">WF_CARD_PRODUCT</span>
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+</div>
+<!-- Vista Esquemática Mock -->
+<div class="bg-surface-container-low p-3 rounded-DEFAULT flex gap-3 items-center">
+<!-- Placeholder vectorial de imagen -->
+<div class="w-16 h-16 bg-surface-container-highest rounded-DEFAULT flex items-center justify-center relative shadow-[1px_1px_0px_#1c1b1b] flex-shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant/60 text-[24px]">image</span>
+</div>
+<div class="flex flex-col gap-1.5 w-full">
+<div class="h-4 bg-on-surface/80 rounded-sm w-3/4"></div>
+<div class="h-2.5 bg-on-surface-variant/40 rounded-sm w-full"></div>
+<div class="h-2.5 bg-on-surface-variant/30 rounded-sm w-1/2"></div>
+</div>
+</div>
+</div>
+<!-- Wireframe: Barra Dual de Botones CTA -->
+<div class="component-card bg-surface-container-lowest p-3.5 rounded-lg shadow-[3px_3px_0px_#1c1b1b] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer" onclick="addToCanvas('Wireframe Barra CTA Dual')">
+<div class="flex items-center justify-between pb-2">
+<span class="font-label-tech-badge text-label-tech-badge text-on-surface-variant">WF_CTA_BUTTON_BAR</span>
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+</div>
+<div class="bg-surface-container-low p-2.5 rounded-DEFAULT flex gap-2">
+<div class="flex-1 py-2 bg-surface-container-lowest text-center rounded-DEFAULT shadow-[2px_2px_0px_#1c1b1b] font-label-code text-[11px] font-bold">CANCELAR</div>
+<div class="flex-1 py-2 bg-primary-container text-center rounded-DEFAULT shadow-[2px_2px_0px_#1c1b1b] font-label-code text-[11px] font-bold">CONTINUAR →</div>
+</div>
+</div>
+<!-- Wireframe: Campo de Formulario Input -->
+<div class="component-card bg-surface-container-lowest p-3.5 rounded-lg shadow-[3px_3px_0px_#1c1b1b] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer" onclick="addToCanvas('Wireframe Input Formulario')">
+<div class="flex items-center justify-between pb-2">
+<span class="font-label-tech-badge text-label-tech-badge text-on-surface-variant">WF_TEXT_INPUT_BLOCK</span>
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+</div>
+<div class="bg-surface-container-low p-3 rounded-DEFAULT flex flex-col gap-1.5">
+<span class="font-label-code text-label-code text-on-surface uppercase text-[10px]">NOMBRE DEL ARCHIVO *</span>
+<div class="bg-surface-container-lowest px-3 py-2 rounded-DEFAULT shadow-[2px_2px_0px_#1c1b1b] flex items-center justify-between">
+<span class="font-label-code text-[12px] text-on-surface">kraft_layout_01.kft</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">edit</span>
+</div>
+</div>
+</div>
+<!-- Wireframe: Modal / Sheet Flotante Esquemático -->
+<div class="component-card bg-surface-container-lowest p-3.5 rounded-lg shadow-[3px_3px_0px_#1c1b1b] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer" onclick="addToCanvas('Wireframe Modal Sheet')">
+<div class="flex items-center justify-between pb-2">
+<span class="font-label-tech-badge text-label-tech-badge text-on-surface-variant">WF_DRAWER_MODAL_SHEET</span>
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+</div>
+<div class="bg-surface-container-high p-3 rounded-t-lg shadow-[3px_3px_0px_#1c1b1b] flex flex-col items-center gap-2">
+<div class="w-10 h-1.5 bg-on-surface-variant/60 rounded-full"></div>
+<div class="w-full flex justify-between items-center px-1">
+<span class="font-headline-sm text-[13px] font-bold">Exportar Tablero</span>
+<span class="material-symbols-outlined text-[16px]">close</span>
+</div>
+<div class="w-full h-8 bg-surface-container-lowest rounded-DEFAULT flex items-center px-2 justify-between">
+<span class="font-label-code text-[11px]">PDF Vectorial (.pdf)</span>
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECCIÓN 4: SELLOS, MARCADORES & ANOTACIONES -->
+<section class="stash-section flex flex-col gap-3" data-cat="badges">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 bg-error rounded-sm shadow-[1px_1px_0px_#1c1b1b]"></span>
+<h2 class="font-headline-sm text-headline-sm uppercase tracking-tight text-on-surface">Sellos &amp; Anotaciones</h2>
+</div>
+<span class="font-label-tech-badge text-label-tech-badge text-on-surface-variant">06 STAMPS</span>
+</div>
+<!-- Sellos de Estado Neobrutalistas -->
+<div class="grid grid-cols-3 gap-2.5">
+<!-- Aprobado -->
+<button class="component-card bg-secondary-container text-on-secondary-container p-2.5 rounded-DEFAULT shadow-[3px_3px_0px_#1c1b1b] flex flex-col items-center justify-center gap-1 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all" onclick="addToCanvas('Sello APROBADO')" type="button">
+<span class="material-symbols-outlined text-[24px]">verified</span>
+<span class="font-headline-sm text-[12px] font-bold tracking-tight">APROBADO</span>
+<span class="font-label-code text-[9px] opacity-80">v.STAMP</span>
+</button>
+<!-- En Progreso -->
+<button class="component-card bg-primary-container text-on-surface p-2.5 rounded-DEFAULT shadow-[3px_3px_0px_#1c1b1b] flex flex-col items-center justify-center gap-1 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all" onclick="addToCanvas('Sello EN PROGRESO')" type="button">
+<span class="material-symbols-outlined text-[24px]">pending</span>
+<span class="font-headline-sm text-[12px] font-bold tracking-tight">EN PROGRESO</span>
+<span class="font-label-code text-[9px] opacity-80">v.WIP</span>
+</button>
+<!-- Descartado -->
+<button class="component-card bg-error-container text-on-error-container p-2.5 rounded-DEFAULT shadow-[3px_3px_0px_#1c1b1b] flex flex-col items-center justify-center gap-1 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all" onclick="addToCanvas('Sello DESCARTADO')" type="button">
+<span class="material-symbols-outlined text-[24px]">cancel</span>
+<span class="font-headline-sm text-[12px] font-bold tracking-tight">DESCARTADO</span>
+<span class="font-label-code text-[9px] opacity-80">v.DROP</span>
+</button>
+</div>
+<!-- Punteros y Calcomanías Técnicas -->
+<div class="bg-surface-container-lowest p-3.5 rounded-lg shadow-[3px_3px_0px_#1c1b1b] flex flex-col gap-3">
+<span class="font-label-tech-badge text-label-tech-badge uppercase text-on-surface">PUNTEROS NUMERADOS DE AUDITORÍA</span>
+<div class="flex items-center justify-between gap-2">
+<div class="flex-1 py-2 bg-surface-container text-center rounded-DEFAULT shadow-[2px_2px_0px_#1c1b1b] font-headline-sm text-[15px] font-bold cursor-pointer active:translate-x-[1px] active:translate-y-[1px] active:shadow-none flex items-center justify-center gap-1" onclick="addToCanvas('Puntero [1]')">
+<span class="w-5 h-5 bg-on-surface text-surface rounded-full text-[11px] flex items-center justify-center font-label-code">1</span>
+<span class="text-xs">NOTA</span>
+</div>
+<div class="flex-1 py-2 bg-surface-container text-center rounded-DEFAULT shadow-[2px_2px_0px_#1c1b1b] font-headline-sm text-[15px] font-bold cursor-pointer active:translate-x-[1px] active:translate-y-[1px] active:shadow-none flex items-center justify-center gap-1" onclick="addToCanvas('Puntero [2]')">
+<span class="w-5 h-5 bg-primary text-on-primary rounded-full text-[11px] flex items-center justify-center font-label-code">2</span>
+<span class="text-xs">CRÍTICO</span>
+</div>
+<div class="flex-1 py-2 bg-surface-container text-center rounded-DEFAULT shadow-[2px_2px_0px_#1c1b1b] font-headline-sm text-[15px] font-bold cursor-pointer active:translate-x-[1px] active:translate-y-[1px] active:shadow-none flex items-center justify-center gap-1" onclick="addToCanvas('Puntero [3]')">
+<span class="w-5 h-5 bg-secondary text-on-secondary rounded-full text-[11px] flex items-center justify-center font-label-code">3</span>
+<span class="text-xs">TEST</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-label-tech-badge text-label-tech-badge text-on-surface-variant uppercase">STICKERS RÁPIDOS</span>
+<div class="flex items-center gap-2">
+<button class="w-9 h-9 bg-primary-container rounded-DEFAULT shadow-[2px_2px_0px_#1c1b1b] flex items-center justify-center active:translate-x-[1px] active:translate-y-[1px] active:shadow-none" onclick="addToCanvas('Sticker Estrella')" type="button">
+<span class="material-symbols-outlined text-[18px]">star</span>
+</button>
+<button class="w-9 h-9 bg-surface-container-high rounded-DEFAULT shadow-[2px_2px_0px_#1c1b1b] flex items-center justify-center active:translate-x-[1px] active:translate-y-[1px] active:shadow-none" onclick="addToCanvas('Sticker Stylus Pencil')" type="button">
+<span class="material-symbols-outlined text-[18px]">draw</span>
+</button>
+<button class="w-9 h-9 bg-tertiary-container rounded-DEFAULT shadow-[2px_2px_0px_#1c1b1b] flex items-center justify-center active:translate-x-[1px] active:translate-y-[1px] active:shadow-none" onclick="addToCanvas('Sticker Pin')" type="button">
+<span class="material-symbols-outlined text-[18px]">push_pin</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Barra Flotante de Retorno al Lienzo -->
+<div class="sticky bottom-20 inset-x-0 px-gutter pointer-events-none z-40 mb-2 flex justify-center">
+<a class="pointer-events-auto w-full max-w-md bg-primary-container text-on-surface py-3.5 px-4 rounded-xl shadow-[4px_4px_0px_#1c1b1b] flex items-center justify-between active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all group" data-path="lienzo" href="#">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 bg-on-surface text-primary-container rounded-lg flex items-center justify-center shadow-[2px_2px_0px_#ffffff]">
+<span class="material-symbols-outlined text-[20px]">gesture</span>
+</div>
+<div class="flex flex-col text-left">
+<span class="font-headline-sm text-[15px] font-bold uppercase tracking-tight">Volver al Lienzo Activo</span>
+<span class="font-label-code text-[11px] text-on-surface-variant font-medium">Lienzo "Sistema KRAFT #09"</span>
+</div>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-lowest px-2 py-1 rounded-DEFAULT shadow-[1px_1px_0px_#1c1b1b]">
+<span class="font-label-tech-badge text-[11px]">X, Y</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</div>
+</a>
+</div>
+<!-- Micro-interacciones locales (Filtros y Notificaciones de arrastre) -->
+<script>
+    function filterCategory(category, buttonEl) {
+      // Toggle estados de botones
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        btn.classList.remove('bg-primary-container');
+        btn.classList.add('bg-surface-container-lowest');
+      });
+      buttonEl.classList.remove('bg-surface-container-lowest');
+      buttonEl.classList.add('bg-primary-container');
+
+      // Filtrar secciones
+      const sections = document.querySelectorAll('.stash-section');
+      sections.forEach(sec => {
+        if (category === 'all' || sec.dataset.cat === category) {
+          sec.style.display = 'flex';
+        } else {
+          sec.style.display = 'none';
+        }
+      });
+    }
+
+    function addToCanvas(elementName) {
+      const toast = document.getElementById('toast-stash');
+      const text = document.getElementById('toast-text');
+      if (toast && text) {
+        text.innerText = `"${elementName}" añadido al portapapeles`;
+        toast.classList.remove('translate-y-[-100px]', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+
+        setTimeout(() => {
+          toast.classList.remove('translate-y-0', 'opacity-100');
+          toast.classList.add('translate-y-[-100px]', 'opacity-0');
+        }, 1800);
+      }
+    }
+
+    // Filtro instantáneo de input
+    document.getElementById('component-search')?.addEventListener('input', function(e) {
+      const query = e.target.value.toLowerCase();
+      const cards = document.querySelectorAll('.component-card');
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (text.includes(query)) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</div></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]" data-active-classes="bg-primary-container text-on-surface shadow-[2px_2px_0px_#121212]"><div class="max-w-2xl mx-auto flex justify-between items-center h-16 px-gutter"><a class="flex-1 min-h-[44px] py-1 px-2 mx-1 flex flex-col items-center justify-center rounded-lg text-on-surface-variant hover:text-on-surface transition-all" data-path="inicio" href="#"><span class="material-symbols-outlined text-[22px]">grid_view</span><span class="font-label-tech-badge text-label-tech-badge uppercase tracking-wider mt-0.5">Inicio</span></a><a class="flex-1 min-h-[44px] py-1 px-2 mx-1 flex flex-col items-center justify-center rounded-lg text-on-surface-variant hover:text-on-surface transition-all" data-path="lienzo" href="#"><span class="material-symbols-outlined text-[22px]">draw</span><span class="font-label-tech-badge text-label-tech-badge uppercase tracking-wider mt-0.5">Lienzo</span></a><a aria-current="page" class="flex-1 min-h-[44px] py-1 px-2 mx-1 flex flex-col items-center justify-center rounded-lg transition-all bg-primary-container text-on-surface shadow-[2px_2px_0px_#121212]" data-path="notas" href="#"><span class="material-symbols-outlined text-[22px]">edit_note</span><span class="font-label-tech-badge text-label-tech-badge uppercase tracking-wider mt-0.5">Notas</span></a><a class="flex-1 min-h-[44px] py-1 px-2 mx-1 flex flex-col items-center justify-center rounded-lg text-on-surface-variant hover:text-on-surface transition-all" data-path="grafo" href="#"><span class="material-symbols-outlined text-[22px]">hub</span><span class="font-label-tech-badge text-label-tech-badge uppercase tracking-wider mt-0.5">Grafo</span></a></div></nav></body></html>

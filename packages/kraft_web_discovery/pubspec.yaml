@@ -1,0 +1,5 @@
+name: kraft_web_discovery
+description: Experimental HTML web discovery adapter for KRAFT.
+version: 0.0.1
+environment:
+  sdk: ^3.10.0

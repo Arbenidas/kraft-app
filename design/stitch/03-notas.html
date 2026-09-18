@@ -1,0 +1,237 @@
+<!-- KRAFT - Editor de Notas Simplificado -->
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><title>KRAFT</title><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=JetBrains+Mono:wght@500;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100vh;}body{overscroll-behavior-y:none;background-color:#fcf9f8;color:#1c1b1b;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "tertiary-fixed-dim": "#00daf3", "surface-container-lowest": "#ffffff", "surface-variant": "#e5e2e1", "secondary": "#006d35", "error-container": "#ffdad6", "primary-fixed": "#fde400", "on-secondary-container": "#006e36", "on-secondary-fixed-variant": "#005227", "on-primary-container": "#726600", "on-primary-fixed": "#201c00", "secondary-fixed-dim": "#00e476", "error": "#ba1a1a", "surface-container-low": "#f6f3f2", "surface-tint": "#6a5f00", "outline": "#7c775f", "surface-bright": "#fcf9f8", "on-tertiary-fixed": "#001f24", "on-surface": "#1c1b1b", "on-tertiary": "#ffffff", "primary-container": "#ffe600", "primary-fixed-dim": "#dec800", "on-error": "#ffffff", "on-secondary-fixed": "#00210c", "on-primary": "#ffffff", "on-secondary": "#ffffff", "surface": "#fcf9f8", "outline-variant": "#cdc7aa", "surface-dim": "#dcd9d9", "secondary-container": "#00fa82", "inverse-primary": "#dec800", "background": "#fcf9f8", "on-surface-variant": "#4b4731", "tertiary-container": "#a5f1ff", "primary": "#6a5f00", "surface-container": "#f0edec", "on-primary-fixed-variant": "#504700", "inverse-on-surface": "#f3f0ef", "tertiary": "#006875", "on-error-container": "#93000a", "on-tertiary-fixed-variant": "#004f58", "inverse-surface": "#313030", "on-tertiary-container": "#00707e", "secondary-fixed": "#61ff97", "tertiary-fixed": "#9cf0ff", "on-background": "#1c1b1b", "surface-container-high": "#ebe7e7", "surface-container-highest": "#e5e2e1" }, borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, spacing: { "gutter": "1rem", "space-md": "1rem", "space-xl": "2rem", "margin-compact": "1rem", "space-lg": "1.5rem", "space-sm": "0.5rem", "gutter-compact": "0.75rem", "margin": "1.5rem", "space-xs": "0.25rem" }, fontFamily: { "label-tech-badge": ["JetBrains Mono"], "body-md": ["Hanken Grotesk"], "headline-xl": ["Space Grotesk"], "headline-sm": ["Space Grotesk"], "headline-lg-mobile": ["Space Grotesk"], "body-sm": ["Hanken Grotesk"], "body-lg": ["Hanken Grotesk"], "headline-xl-mobile": ["Space Grotesk"], "headline-lg": ["Space Grotesk"], "label-code": ["JetBrains Mono"] }, fontSize: { "label-tech-badge": ["11px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "700" }], "body-md": ["15px", { "lineHeight": "22px", "fontWeight": "400" }], "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "700" }], "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "500" }], "body-lg": ["17px", { "lineHeight": "26px", "fontWeight": "400" }], "headline-xl-mobile": ["30px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "label-code": ["13px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }] } } } };</script></head><body class="bg-surface font-body-md text-on-surface min-h-screen flex flex-col antialiased selection:bg-primary-container selection:text-on-surface"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl pt-safe"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm"><img alt="Utilitarian neobrutalist geometric mark for a tactile canvas and notes app, featuring a bold black frame with an offset yellow square and intersecting technical vector compass / pen cursor symbol. Brand logo. - Primary color: #ffe600
+- Font: spaceGrotesk
+- Mode: light
+- Roundness: rounded-sm
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VuVwt_d3oc2fCZqt4Yb-c566Z7-vddUNLxmmWiu26Fh8yaSpymVNmlQnfh-cUDX0Gnf86XHbZybYb9FKfWw2h00CsaMfyEnc9WEnv4JyEIAYkgo-c63lJFOpDwtiFwIiOE8cE-eN189uZV55hlwJYgnHDwtzkuggU5Eld2m5YdHpp5Y0pLv6vMMzkYCEsMH9biXD2QukHpxttE51k16kCFUyKQOHSMyEd8cMrhpPaQUt5LBOYSnwp52fze"/><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm uppercase text-on-surface tracking-tight">KRAFT</span><span class="font-label-tech-badge text-label-tech-badge bg-surface-container-high text-on-surface px-1.5 py-0.5 rounded-DEFAULT">v2.4</span></div><span class="hidden sm:inline-block font-label-code text-label-code text-on-surface-variant">/ Notas</span></div><div class="flex items-center gap-space-xs"><button aria-label="Buscar" class="w-11 h-11 flex items-center justify-center rounded-lg bg-surface-container hover:bg-surface-container-high active:bg-primary-container text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">search</span></button><button aria-label="Nueva acción" class="w-11 h-11 flex items-center justify-center rounded-lg bg-primary-container hover:bg-primary-fixed-dim text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">add</span></button><div class="flex items-center pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1VytUFC3lFcSalOMYvdBZLZmppuDmdX4HirPgJ998Ac7cBRC5pIDnwWujXTk_ZsnR3XijFVuDqotdIwl-CFmtWo5bvNcMaXyELc2wndT_btGIi_f4CYjlYO8_u4ui5fXQc5jCZBWGxwRy2XOxlbmy4bBs89VbfQ3ZqiZaTLOHOl3bGvbdnIgWHaE__y_1Nf8zzfsAEQTQIYv27Ks2YhDe56UVMzTF_EKxU2UNNbOpi8CanvEzmj3UflAB5J"/></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface"><div class="flex flex-col w-full max-w-3xl mx-auto px-gutter py-space-sm space-y-space-md">
+<!-- 1. Header de Estado y Búsqueda -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-tight">Notas</span>
+<span class="font-label-tech-badge text-label-tech-badge bg-surface-container-high text-on-surface px-2 py-0.5 rounded-DEFAULT shadow-[1px_1px_0px_#121212]">
+          24 guardadas
+        </span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button aria-label="Historial" class="h-10 px-2.5 flex items-center gap-1.5 bg-surface-container-lowest text-on-surface rounded-DEFAULT shadow-[2px_2px_0px_#121212] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">history</span>
+<span class="font-label-code text-label-code hidden sm:inline">Versiones</span>
+</button>
+<button aria-label="Exportar nota" class="h-10 w-10 flex items-center justify-center bg-surface-container-lowest text-on-surface rounded-DEFAULT shadow-[2px_2px_0px_#121212] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">ios_share</span>
+</button>
+</div>
+</div>
+<!-- Buscador Rápido -->
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-on-surface-variant text-[20px] pointer-events-none">search</span>
+<input class="w-full h-11 pl-10 pr-4 bg-surface-container-lowest text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/60 rounded-DEFAULT shadow-[2px_2px_0px_#121212] focus:outline-none focus:bg-surface-bright focus:shadow-[3px_3px_0px_#121212] transition-all" placeholder="Buscar por palabra clave, etiquetas o ideas..." type="search"/>
+</div>
+<!-- Píldoras de Filtro Rápido (Scroll horizontal táctil) -->
+<div class="flex items-center gap-2 overflow-x-auto py-1 no-scrollbar">
+<button class="px-3 py-1.5 flex items-center gap-1.5 bg-primary-container text-on-surface rounded-DEFAULT shadow-[2px_2px_0px_#121212] font-label-code text-label-code uppercase active:translate-x-[1px] active:translate-y-[1px] active:shadow-none" type="button">
+<span class="material-symbols-outlined text-[16px]">done_all</span>
+        Todas
+      </button>
+<button class="px-3 py-1.5 flex items-center gap-1.5 bg-surface-container-lowest text-on-surface hover:bg-surface-container rounded-DEFAULT shadow-[2px_2px_0px_#121212] font-label-code text-label-code uppercase active:translate-x-[1px] active:translate-y-[1px] active:shadow-none" type="button">
+<span class="material-symbols-outlined text-[16px]">lightbulb</span>
+        Ideas
+      </button>
+<button class="px-3 py-1.5 flex items-center gap-1.5 bg-surface-container-lowest text-on-surface hover:bg-surface-container rounded-DEFAULT shadow-[2px_2px_0px_#121212] font-label-code text-label-code uppercase active:translate-x-[1px] active:translate-y-[1px] active:shadow-none" type="button">
+<span class="material-symbols-outlined text-[16px]">groups</span>
+        Reuniones
+      </button>
+<button class="px-3 py-1.5 flex items-center gap-1.5 bg-surface-container-lowest text-on-surface hover:bg-surface-container rounded-DEFAULT shadow-[2px_2px_0px_#121212] font-label-code text-label-code uppercase active:translate-x-[1px] active:translate-y-[1px] active:shadow-none" type="button">
+<span class="material-symbols-outlined text-[16px]">gesture</span>
+        Bocetos
+      </button>
+<button class="px-2.5 py-1.5 flex items-center gap-1 bg-surface-container-low text-on-surface-variant hover:text-on-surface rounded-DEFAULT shadow-[1px_1px_0px_#121212] font-label-code text-label-code" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+        Etiqueta
+      </button>
+</div>
+</section>
+<!-- 2. Tarjeta Principal de la Nota Abierta -->
+<article class="bg-surface-container-lowest rounded-DEFAULT p-space-md shadow-[3px_3px_0px_#121212] space-y-space-md">
+<!-- Metadatos y Cabecera de Nota -->
+<div class="space-y-space-xs">
+<div class="flex flex-wrap items-center justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-secondary-container text-on-secondary-container font-label-tech-badge text-label-tech-badge uppercase rounded-DEFAULT shadow-[1px_1px_0px_#121212]">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+            Proyecto: Arch-01
+          </span>
+<span class="font-label-code text-label-code text-on-surface-variant">
+            Editado hace 10 min
+          </span>
+</div>
+<div class="flex items-center gap-1">
+<span class="font-label-tech-badge text-label-tech-badge bg-surface-container text-on-surface-variant px-2 py-0.5 rounded-DEFAULT">
+            450 palabras
+          </span>
+<span class="font-label-tech-badge text-label-tech-badge bg-tertiary-container text-on-tertiary-container px-2 py-0.5 rounded-DEFAULT">
+            2 bocetos
+          </span>
+</div>
+</div>
+<!-- Título de la Nota Editable -->
+<div class="group relative pt-1">
+<input aria-label="Título de la nota" class="w-full font-headline-lg-mobile text-headline-lg-mobile text-on-surface bg-transparent focus:outline-none focus:bg-surface-container-low px-1 py-0.5 rounded-DEFAULT transition-colors" type="text" value="Diseño de Experiencia iPad &amp; Stylus"/>
+</div>
+</div>
+<!-- 3. Idea Clave (Callout Neobrutalista Vibrante) -->
+<aside class="bg-primary-container text-on-surface rounded-DEFAULT p-space-md shadow-[3px_3px_0px_#121212] flex gap-space-sm items-start">
+<div class="w-9 h-9 rounded-DEFAULT bg-surface-container-lowest text-on-surface flex items-center justify-center shrink-0 shadow-[1px_1px_0px_#121212]">
+<span class="material-symbols-outlined text-[20px]">lightbulb</span>
+</div>
+<div class="space-y-0.5">
+<p class="font-headline-sm text-[15px] leading-tight font-bold tracking-tight uppercase">Idea central</p>
+<p class="font-body-md text-body-md text-on-surface font-medium leading-snug">
+          La interacción táctil debe alternar de forma transparente entre navegación suave con los dedos y trazo preciso con el Apple Pencil, sin fricción de modos manuales.
+        </p>
+</div>
+</aside>
+<!-- 4. Cuerpo de la Nota Estructurada -->
+<div class="space-y-space-sm pt-space-xs">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">1. Principios de Interacción</h2>
+<span class="font-label-code text-label-code text-on-surface-variant">Prioridad Alta</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+        Para mantener una sensación analógica y moderna, las respuestas cinéticas de la pantalla deben reducir la latencia de dibujo al mínimo posible, reconociendo intenciones antes del toque físico.
+      </p>
+<!-- Checklist Interactiva Táctil -->
+<div class="space-y-2 pt-1" id="interactive-checklist">
+<!-- Item 1 completado -->
+<label class="flex items-center gap-3 p-2.5 bg-surface-container-low rounded-DEFAULT cursor-pointer shadow-[1px_1px_0px_#121212] hover:bg-surface-container transition-colors">
+<input checked="" class="w-5 h-5 accent-secondary cursor-pointer rounded-DEFAULT" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface line-through opacity-75 select-none">
+            Detectar apoyo de la palma de la mano (Palm rejection nativo)
+          </span>
+</label>
+<!-- Item 2 completado -->
+<label class="flex items-center gap-3 p-2.5 bg-surface-container-low rounded-DEFAULT cursor-pointer shadow-[1px_1px_0px_#121212] hover:bg-surface-container transition-colors">
+<input checked="" class="w-5 h-5 accent-secondary cursor-pointer rounded-DEFAULT" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface line-through opacity-75 select-none">
+            Sensibilidad a la presión para variar grosor del trazo orgánico
+          </span>
+</label>
+<!-- Item 3 pendiente -->
+<label class="flex items-center gap-3 p-2.5 bg-surface-container-lowest rounded-DEFAULT cursor-pointer shadow-[2px_2px_0px_#121212] hover:bg-surface-container-low transition-all">
+<input class="w-5 h-5 accent-primary cursor-pointer rounded-DEFAULT" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface font-medium select-none">
+            Menú radial flotante para cambio rápido de herramientas
+          </span>
+</label>
+</div>
+</div>
+<!-- 5. Bloque de Boceto Integrado (Hybrid Canvas Block) -->
+<div class="space-y-2 pt-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[20px] text-on-surface">draw</span>
+<span class="font-headline-sm text-[16px] font-bold">Boceto #02: Dinámica de Presión</span>
+</div>
+<span class="font-label-code text-label-code text-on-surface-variant">Lienzo vectorial sincronizado</span>
+</div>
+<div class="relative bg-surface rounded-DEFAULT p-3 shadow-[2px_2px_0px_#121212] overflow-hidden">
+<!-- Dot Grid Pattern Fondo Técnico Utilitario -->
+<div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: radial-gradient(#121212 1px, transparent 1px); background-size: 16px 16px;"></div>
+<!-- Contenedor del Diagrama Ilustrado a Mano -->
+<div class="relative z-10 w-full min-h-[190px] flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="font-label-tech-badge text-label-tech-badge bg-surface-container-highest px-2 py-0.5 rounded-DEFAULT shadow-[1px_1px_0px_#121212]">
+              MODO: STYLUS DIRECTO
+            </span>
+<span class="font-label-code text-[11px] text-on-surface-variant">LATENCIA &lt; 8ms</span>
+</div>
+<!-- SVG Boceto Ilustrado y Dinámico -->
+<div class="w-full py-2">
+<svg class="w-full h-24 text-on-surface overflow-visible" fill="none" viewbox="0 0 320 80" xmlns="http://www.w3.org/2000/svg">
+<!-- Ejes de referencia sutiles -->
+<line stroke="#cdc7aa" stroke-dasharray="3 3" stroke-width="1.5" x1="10" x2="310" y1="70" y2="70"></line>
+<line stroke="#cdc7aa" stroke-dasharray="3 3" stroke-width="1.5" x1="10" x2="10" y1="10" y2="70"></line>
+<!-- Curva de respuesta táctil dibujada a mano -->
+<path d="M 15 65 Q 80 62 130 40 T 240 18 T 305 14" fill="none" stroke="#121212" stroke-linecap="round" stroke-width="3"></path>
+<path d="M 130 40 Q 150 48 180 50" stroke="#dec800" stroke-dasharray="2 4" stroke-linecap="round" stroke-width="2.5"></path>
+<!-- Anotaciones gráficas de boceto con aspecto analógico -->
+<circle cx="130" cy="40" fill="#00fa82" r="4" stroke="#121212" stroke-width="1.5"></circle>
+<text class="font-label-code text-[10px] fill-current font-bold" x="140" y="38">Umbral de Entrada</text>
+<circle cx="240" cy="18" fill="#dec800" r="4" stroke="#121212" stroke-width="1.5"></circle>
+<text class="font-label-code text-[10px] fill-current font-bold" x="220" y="12">Trazo Pleno (100%)</text>
+</svg>
+</div>
+<!-- Botón de acción para saltar al Canvas -->
+<div class="flex items-center justify-between pt-1 border-t-0">
+<div class="flex items-center gap-1 text-on-surface-variant font-label-code text-[12px]">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed-dim"></span>
+              2 capas vectoriales activas
+            </div>
+<button class="h-9 px-3.5 flex items-center gap-1.5 bg-primary-container text-on-surface font-label-tech-badge text-label-tech-badge rounded-DEFAULT shadow-[2px_2px_0px_#121212] hover:bg-primary-fixed-dim active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">edit_square</span>
+              Editar en Canvas
+            </button>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- Espacio para evitar superposición con la barra flotante -->
+<div class="h-16 w-full"></div>
+<!-- 6. Barra de Herramientas Flotante para el Pulgar (Floating Format Bar) -->
+<aside aria-label="Herramientas de edición rápida" class="sticky bottom-20 z-40 self-center w-full max-w-md px-2">
+<div class="bg-surface-container-lowest p-1.5 rounded-full shadow-[3px_3px_0px_#121212] flex items-center justify-between gap-1">
+<!-- H1 -->
+<button class="w-10 h-10 flex items-center justify-center font-headline-sm text-[16px] text-on-surface hover:bg-surface-container rounded-DEFAULT active:scale-95 transition-all" title="Título H1" type="button">
+        H1
+      </button>
+<!-- H2 -->
+<button class="w-10 h-10 flex items-center justify-center font-headline-sm text-[14px] text-on-surface hover:bg-surface-container rounded-DEFAULT active:scale-95 transition-all" title="Título H2" type="button">
+        H2
+      </button>
+<!-- Negrita -->
+<button class="w-10 h-10 flex items-center justify-center font-body-md font-bold text-on-surface hover:bg-surface-container rounded-DEFAULT active:scale-95 transition-all" title="Negrita" type="button">
+        B
+      </button>
+<!-- Lista Tarea -->
+<button class="w-10 h-10 flex items-center justify-center text-on-surface hover:bg-surface-container rounded-DEFAULT active:scale-95 transition-all" title="Lista de verificación" type="button">
+<span class="material-symbols-outlined text-[20px]">check_box</span>
+</button>
+<span class="w-[1px] h-6 bg-outline-variant/60"></span>
+<!-- Boceto a mano alzada (Destacado Apple Pencil) -->
+<button class="h-10 px-3 flex items-center gap-1 bg-primary-container text-on-surface font-label-tech-badge text-label-tech-badge rounded-DEFAULT shadow-[1.5px_1.5px_0px_#121212] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all" title="Trazar con stylus" type="button">
+<span class="material-symbols-outlined text-[18px]">stylus_note</span>
+<span class="hidden sm:inline">Lápiz</span>
+</button>
+<!-- Añadir Imagen -->
+<button class="w-10 h-10 flex items-center justify-center text-on-surface hover:bg-surface-container rounded-DEFAULT active:scale-95 transition-all" title="Insertar imagen" type="button">
+<span class="material-symbols-outlined text-[20px]">add_photo_alternate</span>
+</button>
+<!-- Selector de Color / Etiqueta -->
+<button class="w-10 h-10 flex items-center justify-center text-on-surface hover:bg-surface-container rounded-DEFAULT active:scale-95 transition-all" title="Color de nota" type="button">
+<span class="w-4 h-4 rounded-full bg-primary-container shadow-[1px_1px_0px_#121212]"></span>
+</button>
+</div>
+</aside>
+</div>
+<script>
+  // Micro-interacción: toggle dinámico en la lista de verificación
+  document.querySelectorAll('#interactive-checklist label input[type="checkbox"]').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+      const textSpan = this.nextElementSibling;
+      if (this.checked) {
+        textSpan.classList.add('line-through', 'opacity-75');
+        textSpan.classList.remove('font-medium');
+        this.closest('label').classList.replace('bg-surface-container-lowest', 'bg-surface-container-low');
+      } else {
+        textSpan.classList.remove('line-through', 'opacity-75');
+        textSpan.classList.add('font-medium');
+        this.closest('label').classList.replace('bg-surface-container-low', 'bg-surface-container-lowest');
+      }
+    });
+  });
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]" data-active-classes="bg-primary-container text-on-surface shadow-[2px_2px_0px_#121212]"><div class="max-w-2xl mx-auto flex justify-between items-center h-16 px-gutter"><a class="flex-1 min-h-[44px] py-1 px-2 mx-1 flex flex-col items-center justify-center rounded-lg text-on-surface-variant hover:text-on-surface transition-all" data-path="inicio" href="#"><span class="material-symbols-outlined text-[22px]">grid_view</span><span class="font-label-tech-badge text-label-tech-badge uppercase tracking-wider mt-0.5">Inicio</span></a><a class="flex-1 min-h-[44px] py-1 px-2 mx-1 flex flex-col items-center justify-center rounded-lg text-on-surface-variant hover:text-on-surface transition-all" data-path="lienzo" href="#"><span class="material-symbols-outlined text-[22px]">draw</span><span class="font-label-tech-badge text-label-tech-badge uppercase tracking-wider mt-0.5">Lienzo</span></a><a aria-current="page" class="flex-1 min-h-[44px] py-1 px-2 mx-1 flex flex-col items-center justify-center rounded-lg transition-all bg-primary-container text-on-surface shadow-[2px_2px_0px_#121212]" data-path="notas" href="#"><span class="material-symbols-outlined text-[22px]">edit_note</span><span class="font-label-tech-badge text-label-tech-badge uppercase tracking-wider mt-0.5">Notas</span></a><a class="flex-1 min-h-[44px] py-1 px-2 mx-1 flex flex-col items-center justify-center rounded-lg text-on-surface-variant hover:text-on-surface transition-all" data-path="grafo" href="#"><span class="material-symbols-outlined text-[22px]">hub</span><span class="font-label-tech-badge text-label-tech-badge uppercase tracking-wider mt-0.5">Grafo</span></a></div></nav></body></html>
