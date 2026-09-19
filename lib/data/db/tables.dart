@@ -148,6 +148,7 @@ class WorkItems extends Table {
   TextColumn get acceptance => text().withDefault(const Constant(''))();
   TextColumn get kind => text().withDefault(const Constant('activity'))();
   TextColumn get status => text().withDefault(const Constant('todo'))();
+
   /// Columna del tablero. El estado legacy se conserva para actividades y
   /// compatibilidad de las herramientas anteriores.
   IntColumn get columnId => integer().nullable().references(
@@ -160,6 +161,7 @@ class WorkItems extends Table {
       text().map(const TagsConverter()).withDefault(const Constant('[]'))();
   TextColumn get priority => text().withDefault(const Constant('normal'))();
   DateTimeColumn get dueAt => dateTime().nullable()();
+
   /// Fecha civil para vencimientos de todo el día. Es excluyente con [dueAt].
   TextColumn get dueDay => text().nullable()();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
@@ -168,13 +170,11 @@ class WorkItems extends Table {
 /// Estados configurables por proyecto para los requerimientos.
 class RequirementColumns extends Table {
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get projectId => integer().references(
-    Projects,
-    #id,
-    onDelete: KeyAction.cascade,
-  )();
+  IntColumn get projectId =>
+      integer().references(Projects, #id, onDelete: KeyAction.cascade)();
   TextColumn get title => text().withLength(min: 1, max: 80)();
   TextColumn get color => text().withDefault(const Constant('#6C8CFF'))();
+
   /// Semántica estable para métricas, calendario y compatibilidad.
   TextColumn get category => text().withDefault(const Constant('todo'))();
   IntColumn get position => integer().withDefault(const Constant(0))();
@@ -183,16 +183,10 @@ class RequirementColumns extends Table {
 /// Actividades planificadas vinculables a un requerimiento, sin confundirlas
 /// con el registro de seguimiento.
 class WorkItemLinks extends Table {
-  IntColumn get workItemId => integer().references(
-    WorkItems,
-    #id,
-    onDelete: KeyAction.cascade,
-  )();
-  IntColumn get requirementId => integer().references(
-    WorkItems,
-    #id,
-    onDelete: KeyAction.cascade,
-  )();
+  IntColumn get workItemId =>
+      integer().references(WorkItems, #id, onDelete: KeyAction.cascade)();
+  IntColumn get requirementId =>
+      integer().references(WorkItems, #id, onDelete: KeyAction.cascade)();
   @override
   Set<Column> get primaryKey => {workItemId, requirementId};
 }
@@ -200,11 +194,8 @@ class WorkItemLinks extends Table {
 /// Registro append-only de cambios y comentarios del requerimiento.
 class RequirementHistory extends Table {
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get requirementId => integer().references(
-    WorkItems,
-    #id,
-    onDelete: KeyAction.cascade,
-  )();
+  IntColumn get requirementId =>
+      integer().references(WorkItems, #id, onDelete: KeyAction.cascade)();
   TextColumn get kind => text().withDefault(const Constant('comment'))();
   TextColumn get message => text()();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();

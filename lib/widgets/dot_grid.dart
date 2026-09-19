@@ -8,11 +8,7 @@ import '../theme/kraft_colors.dart';
 /// Fondo técnico de puntos (equivalente al `radial-gradient` de Stitch).
 /// Todos los puntos se envían en una sola llamada `drawRawPoints`.
 class DotGridPainter extends CustomPainter {
-  const DotGridPainter({
-    this.spacing = 24,
-    this.radius = 1.2,
-    this.color,
-  });
+  const DotGridPainter({this.spacing = 24, this.radius = 1.2, this.color});
 
   final double spacing;
   final double radius;
@@ -61,7 +57,11 @@ class DotGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     Theme.of(context);
     return CustomPaint(
-      painter: DotGridPainter(spacing: spacing, radius: radius, color: color ?? KraftColors.dots),
+      painter: DotGridPainter(
+        spacing: spacing,
+        radius: radius,
+        color: color ?? KraftColors.dots,
+      ),
       child: const SizedBox.expand(),
     );
   }

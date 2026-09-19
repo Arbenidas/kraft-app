@@ -31,13 +31,17 @@ abstract final class CanvasCodec {
   static const version = 2;
 
   static String encode(CanvasData data) => jsonEncode({
-        'v': version,
-        'items': [for (final i in data.items) i.toJson()],
-        'strokes': [for (final s in data.strokes) s.toJson()],
-        'links': [for (final l in data.links) l.toJson()],
-        if (data.viewCenter != null)
-          'view': {'x': data.viewCenter!.dx, 'y': data.viewCenter!.dy, 's': data.viewScale ?? 1},
-      });
+    'v': version,
+    'items': [for (final i in data.items) i.toJson()],
+    'strokes': [for (final s in data.strokes) s.toJson()],
+    'links': [for (final l in data.links) l.toJson()],
+    if (data.viewCenter != null)
+      'view': {
+        'x': data.viewCenter!.dx,
+        'y': data.viewCenter!.dy,
+        's': data.viewScale ?? 1,
+      },
+  });
 
   /// Tolera cadenas vacías o inválidas devolviendo un lienzo vacío.
   static CanvasData decode(String raw) {
@@ -46,13 +50,24 @@ abstract final class CanvasCodec {
       final json = jsonDecode(raw) as Map<String, Object?>;
       final view = json['view'] as Map<String, Object?>?;
       return CanvasData(
-        items: [for (final i in (json['items'] as List? ?? const [])) CanvasItem.fromJson((i as Map).cast())],
-        strokes: [for (final s in (json['strokes'] as List? ?? const [])) Stroke.fromJson((s as Map).cast())],
+        items: [
+          for (final i in (json['items'] as List? ?? const []))
+            CanvasItem.fromJson((i as Map).cast()),
+        ],
+        strokes: [
+          for (final s in (json['strokes'] as List? ?? const []))
+            Stroke.fromJson((s as Map).cast()),
+        ],
         links: [
           for (final (i, l) in (json['links'] as List? ?? const []).indexed)
             CanvasLink.fromJson(l as Object, fallbackId: 'link-${i + 1}'),
         ],
-        viewCenter: view == null ? null : Offset((view['x']! as num).toDouble(), (view['y']! as num).toDouble()),
+        viewCenter: view == null
+            ? null
+            : Offset(
+                (view['x']! as num).toDouble(),
+                (view['y']! as num).toDouble(),
+              ),
         viewScale: (view?['s'] as num?)?.toDouble(),
       );
     } on Object {
@@ -61,5 +76,7 @@ abstract final class CanvasCodec {
   }
 
   /// El boceto de ejemplo.
-  static String seed() => encode(const CanvasData(items: CanvasSeed.items, links: CanvasSeed.links));
+  static String seed() => encode(
+    const CanvasData(items: CanvasSeed.items, links: CanvasSeed.links),
+  );
 }

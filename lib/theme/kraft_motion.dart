@@ -18,7 +18,9 @@ abstract final class KraftMotion {
   static const Curve settle = Curves.easeOutCubic;
 
   /// Respeta "Reducir movimiento" del sistema.
-  static bool reduced(BuildContext context) => MediaQuery.maybeDisableAnimationsOf(context) ?? false;
+  static bool reduced(BuildContext context) =>
+      MediaQuery.maybeDisableAnimationsOf(context) ?? false;
 
-  static Duration of(BuildContext context, Duration duration) => reduced(context) ? Duration.zero : duration;
+  static Duration of(BuildContext context, Duration duration) =>
+      reduced(context) ? Duration.zero : duration;
 }

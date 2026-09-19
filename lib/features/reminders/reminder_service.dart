@@ -14,10 +14,10 @@ class ReminderService extends ChangeNotifier {
     required SettingsRepository settings,
     ReminderPlatform platform = const ChannelReminderPlatform(),
     DateTime Function()? clock,
-  })  : _tasks = tasks,
-        _settings = settings,
-        _platform = platform,
-        _clock = clock ?? DateTime.now;
+  }) : _tasks = tasks,
+       _settings = settings,
+       _platform = platform,
+       _clock = clock ?? DateTime.now;
 
   final TasksRepository _tasks;
   final SettingsRepository _settings;
@@ -39,7 +39,9 @@ class ReminderService extends ChangeNotifier {
   Future<void> start() async {
     _appleSync = await _settings.get(appleSyncKey) == 'true';
     notifyListeners();
-    _subscription = _tasks.watchAll().listen((list) => _queue = _queue.then((_) => _reconcile(list)));
+    _subscription = _tasks.watchAll().listen(
+      (list) => _queue = _queue.then((_) => _reconcile(list)),
+    );
   }
 
   /// Pide permiso de notificaciones la primera vez que se pone un recordatorio.
@@ -84,7 +86,8 @@ class ReminderService extends ChangeNotifier {
       if (next.containsKey(entry.key)) continue;
       await _platform.cancel([notificationId(entry.key)]);
       final appleId = entry.value.appleId;
-      if (_appleSync && appleId != null) await _platform.deleteReminder(appleId);
+      if (_appleSync && appleId != null)
+        await _platform.deleteReminder(appleId);
     }
   }
 
@@ -118,7 +121,8 @@ class ReminderService extends ChangeNotifier {
       at: task.remindAt,
       done: task.done,
     );
-    if (saved != null && saved != appleId) await _tasks.setAppleReminderId(task.id, saved);
+    if (saved != null && saved != appleId)
+      await _tasks.setAppleReminderId(task.id, saved);
   }
 
   @override
@@ -131,9 +135,16 @@ class ReminderService extends ChangeNotifier {
 /// Lo que importa para avisar; el identificador de Apple se guarda aparte para no provocar bucles.
 @immutable
 class _TaskState {
-  const _TaskState(this.title, this.detail, this.remindAt, this.done, this.appleId);
+  const _TaskState(
+    this.title,
+    this.detail,
+    this.remindAt,
+    this.done,
+    this.appleId,
+  );
 
-  factory _TaskState.of(QuickTask t) => _TaskState(t.title, t.detail, t.remindAt, t.done, t.appleReminderId);
+  factory _TaskState.of(QuickTask t) =>
+      _TaskState(t.title, t.detail, t.remindAt, t.done, t.appleReminderId);
 
   final String title;
   final String detail;
@@ -143,7 +154,11 @@ class _TaskState {
 
   @override
   bool operator ==(Object other) =>
-      other is _TaskState && other.title == title && other.detail == detail && other.remindAt == remindAt && other.done == done;
+      other is _TaskState &&
+      other.title == title &&
+      other.detail == detail &&
+      other.remindAt == remindAt &&
+      other.done == done;
 
   @override
   int get hashCode => Object.hash(title, detail, remindAt, done);

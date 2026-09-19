@@ -29,7 +29,10 @@ void main() {
           matching: find.byType(NeoCheckbox),
         )
         .first;
+    await tester.ensureVisible(target);
+    await tester.pumpAndSettle();
     await tester.tap(target, warnIfMissed: true);
+    await tester.pump(const Duration(milliseconds: 300));
     await settle(tester);
 
     expect((await tasks.get(id))!.done, isTrue);

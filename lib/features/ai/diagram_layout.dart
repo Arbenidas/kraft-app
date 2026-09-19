@@ -33,9 +33,29 @@ Map<String, Offset> layoutDiagram({
       if (known.contains(a) && known.contains(b) && a != b) (a, b),
   ];
   final positions = switch (layout) {
-    DiagramLayout.horizontal => _layered(ids, sizes, validEdges, horizontal: true, gapMain: gapMain, gapCross: gapCross),
-    DiagramLayout.vertical => _layered(ids, sizes, validEdges, horizontal: false, gapMain: gapMain * 0.8, gapCross: gapCross),
-    DiagramLayout.mindmap => _mindmap(ids, sizes, validEdges, gapMain: gapMain * 0.8, gapCross: gapCross * 0.5),
+    DiagramLayout.horizontal => _layered(
+      ids,
+      sizes,
+      validEdges,
+      horizontal: true,
+      gapMain: gapMain,
+      gapCross: gapCross,
+    ),
+    DiagramLayout.vertical => _layered(
+      ids,
+      sizes,
+      validEdges,
+      horizontal: false,
+      gapMain: gapMain * 0.8,
+      gapCross: gapCross,
+    ),
+    DiagramLayout.mindmap => _mindmap(
+      ids,
+      sizes,
+      validEdges,
+      gapMain: gapMain * 0.8,
+      gapCross: gapCross * 0.5,
+    ),
     DiagramLayout.grid => _grid(ids, sizes, gap: gapCross),
   };
   return _normalize(positions, sizes);
@@ -89,22 +109,37 @@ Map<String, Offset> layoutDiagram({
   final groups = <String, Rect>{};
   var laneTop = 0.0;
   for (final lane in lanes) {
-    final members = [for (final id in ids) if ((groupOf[id] ?? '') == lane) id];
-    final byLevel = List.generate(rankCount, (r) => [for (final id in members) if (rank[id] == r) id]);
+    final members = [
+      for (final id in ids)
+        if ((groupOf[id] ?? '') == lane) id,
+    ];
+    final byLevel = List.generate(
+      rankCount,
+      (r) => [
+        for (final id in members)
+          if (rank[id] == r) id,
+      ],
+    );
     final laneContent = byLevel.fold(0.0, (m, level) {
-      final stack = level.fold(0.0, (sum, id) => sum + cross(sizes[id]!)) + gapCross * (level.length - 1);
+      final stack =
+          level.fold(0.0, (sum, id) => sum + cross(sizes[id]!)) +
+          gapCross * (level.length - 1);
       return math.max(m, stack);
     });
     final header = lane.isEmpty ? 0.0 : frameHeader;
     final padding = lane.isEmpty ? 0.0 : framePadding;
 
     for (final (r, level) in byLevel.indexed) {
-      final stack = level.fold(0.0, (sum, id) => sum + cross(sizes[id]!)) + gapCross * (level.length - 1);
+      final stack =
+          level.fold(0.0, (sum, id) => sum + cross(sizes[id]!)) +
+          gapCross * (level.length - 1);
       var crossCursor = laneTop + header + padding + (laneContent - stack) / 2;
       for (final id in level) {
         final size = sizes[id]!;
         final mainPos = levelStart[r] + (levelSize[r] - main(size)) / 2;
-        positions[id] = horizontal ? Offset(mainPos, crossCursor) : Offset(crossCursor, mainPos);
+        positions[id] = horizontal
+            ? Offset(mainPos, crossCursor)
+            : Offset(crossCursor, mainPos);
         crossCursor += cross(size) + gapCross;
       }
     }
@@ -135,7 +170,10 @@ Map<String, Offset> layoutDiagram({
 
   // Todo empieza en (0, 0).
   var origin = const Offset(double.infinity, double.infinity);
-  for (final p in [...positions.values, ...groups.values.map((r) => r.topLeft)]) {
+  for (final p in [
+    ...positions.values,
+    ...groups.values.map((r) => r.topLeft),
+  ]) {
     origin = Offset(math.min(origin.dx, p.dx), math.min(origin.dy, p.dy));
   }
   if (!origin.dx.isFinite) origin = Offset.zero;
@@ -145,7 +183,10 @@ Map<String, Offset> layoutDiagram({
   );
 }
 
-Map<String, Offset> _normalize(Map<String, Offset> positions, Map<String, Size> sizes) {
+Map<String, Offset> _normalize(
+  Map<String, Offset> positions,
+  Map<String, Size> sizes,
+) {
   var left = double.infinity, top = double.infinity;
   for (final MapEntry(key: id, value: p) in positions.entries) {
     left = math.min(left, p.dx);
@@ -166,7 +207,10 @@ Map<String, int> _ranks(List<String> ids, List<(String, String)> edges) {
   }
   final indegree = {for (final id in ids) id: incoming[id]!.length};
   final rank = <String, int>{};
-  final queue = [for (final id in ids) if (indegree[id] == 0) id];
+  final queue = [
+    for (final id in ids)
+      if (indegree[id] == 0) id,
+  ];
   final done = <String>{};
 
   while (done.length < ids.length) {
@@ -178,7 +222,12 @@ Map<String, int> _ranks(List<String> ids, List<(String, String)> edges) {
     }
     final id = queue.removeAt(0);
     if (!done.add(id)) continue;
-    rank[id] = incoming[id]!.where(done.contains).where((p) => p != id).fold(-1, (m, p) => math.max(m, rank[p] ?? -1)) + 1;
+    rank[id] =
+        incoming[id]!
+            .where(done.contains)
+            .where((p) => p != id)
+            .fold(-1, (m, p) => math.max(m, rank[p] ?? -1)) +
+        1;
     for (final child in outgoing[id]!) {
       if (done.contains(child)) continue;
       indegree[child] = indegree[child]! - 1;
@@ -211,12 +260,19 @@ Map<String, Offset> _layered(
   for (final (l, layer) in layers.indexed) {
     if (l > 0) {
       double key(String id) {
-        final parents = [for (final (a, b) in edges) if (b == id && order.containsKey(a)) order[a]!];
-        return parents.isEmpty ? double.infinity : parents.reduce((x, y) => x + y) / parents.length;
+        final parents = [
+          for (final (a, b) in edges)
+            if (b == id && order.containsKey(a)) order[a]!,
+        ];
+        return parents.isEmpty
+            ? double.infinity
+            : parents.reduce((x, y) => x + y) / parents.length;
       }
 
       final indexed = [for (final (i, id) in layer.indexed) (id, key(id), i)];
-      indexed.sort((a, b) => a.$2 == b.$2 ? a.$3.compareTo(b.$3) : a.$2.compareTo(b.$2));
+      indexed.sort(
+        (a, b) => a.$2 == b.$2 ? a.$3.compareTo(b.$3) : a.$2.compareTo(b.$2),
+      );
       layer
         ..clear()
         ..addAll(indexed.map((e) => e.$1));
@@ -227,7 +283,9 @@ Map<String, Offset> _layered(
   }
 
   final crossSpans = [
-    for (final layer in layers) layer.fold(0.0, (sum, id) => sum + cross(sizes[id]!)) + gapCross * (layer.length - 1),
+    for (final layer in layers)
+      layer.fold(0.0, (sum, id) => sum + cross(sizes[id]!)) +
+          gapCross * (layer.length - 1),
   ];
   final widest = crossSpans.fold(0.0, math.max);
 
@@ -240,7 +298,9 @@ Map<String, Offset> _layered(
       final s = sizes[id]!;
       // Centrado en el grosor de la capa.
       final m = mainCursor + (thickness - main(s)) / 2;
-      positions[id] = horizontal ? Offset(m, crossCursor) : Offset(crossCursor, m);
+      positions[id] = horizontal
+          ? Offset(m, crossCursor)
+          : Offset(crossCursor, m);
       crossCursor += cross(s) + gapCross;
     }
     mainCursor += thickness + gapMain;
@@ -256,7 +316,10 @@ Map<String, Offset> _mindmap(
   required double gapCross,
 }) {
   final hasIncoming = {for (final (_, b) in edges) b};
-  final root = ids.firstWhere((id) => !hasIncoming.contains(id), orElse: () => ids.first);
+  final root = ids.firstWhere(
+    (id) => !hasIncoming.contains(id),
+    orElse: () => ids.first,
+  );
 
   // Árbol por recorrido en anchura sobre las conexiones sin dirección.
   final neighbours = {for (final id in ids) id: <String>[]};
@@ -289,17 +352,27 @@ Map<String, Offset> _mindmap(
     final kids = children[id]!;
     final own = sizes[id]!.height;
     if (kids.isEmpty) return own;
-    final kidsHeight = kids.fold(0.0, (sum, k) => sum + subtreeHeight(k)) + gapCross * (kids.length - 1);
+    final kidsHeight =
+        kids.fold(0.0, (sum, k) => sum + subtreeHeight(k)) +
+        gapCross * (kids.length - 1);
     return math.max(own, kidsHeight);
   }
 
   // Coloca los hijos de [id] a un lado (dir = 1 derecha, -1 izquierda) repartidos en [top, top + height].
-  void place(String id, List<String> kids, double parentEdgeX, double top, int dir) {
+  void place(
+    String id,
+    List<String> kids,
+    double parentEdgeX,
+    double top,
+    int dir,
+  ) {
     var cursor = top;
     for (final kid in kids) {
       final h = subtreeHeight(kid);
       final s = sizes[kid]!;
-      final x = dir > 0 ? parentEdgeX + gapMain : parentEdgeX - gapMain - s.width;
+      final x = dir > 0
+          ? parentEdgeX + gapMain
+          : parentEdgeX - gapMain - s.width;
       positions[kid] = Offset(x, cursor + (h - s.height) / 2);
       final edge = dir > 0 ? x + s.width : x;
       place(kid, children[kid]!, edge, cursor, dir);
@@ -314,17 +387,30 @@ Map<String, Offset> _mindmap(
   }
   for (final (side, dir) in [(right, 1), (left, -1)]) {
     if (side.isEmpty) continue;
-    final total = side.fold(0.0, (sum, k) => sum + subtreeHeight(k)) + gapCross * (side.length - 1);
-    place(root, side, dir > 0 ? rootSize.width / 2 : -rootSize.width / 2, -total / 2, dir);
+    final total =
+        side.fold(0.0, (sum, k) => sum + subtreeHeight(k)) +
+        gapCross * (side.length - 1);
+    place(
+      root,
+      side,
+      dir > 0 ? rootSize.width / 2 : -rootSize.width / 2,
+      -total / 2,
+      dir,
+    );
   }
   return positions;
 }
 
-Map<String, Offset> _grid(List<String> ids, Map<String, Size> sizes, {required double gap}) {
+Map<String, Offset> _grid(
+  List<String> ids,
+  Map<String, Size> sizes, {
+  required double gap,
+}) {
   final columns = math.max(1, math.sqrt(ids.length).ceil());
   final cellW = ids.fold(0.0, (m, id) => math.max(m, sizes[id]!.width)) + gap;
   final cellH = ids.fold(0.0, (m, id) => math.max(m, sizes[id]!.height)) + gap;
   return {
-    for (final (i, id) in ids.indexed) id: Offset((i % columns) * cellW, (i ~/ columns) * cellH),
+    for (final (i, id) in ids.indexed)
+      id: Offset((i % columns) * cellW, (i ~/ columns) * cellH),
   };
 }

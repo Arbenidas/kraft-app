@@ -20,13 +20,24 @@ Future<T?> showNeoSheet<T>(
     barrierLabel: 'Cerrar',
     barrierColor: KraftColors.scrim,
     transitionDuration: KraftMotion.of(context, KraftMotion.slow),
-    pageBuilder: (context, _, _) => _NeoSheetFrame(title: title, eyebrow: eyebrow, child: builder(context)),
+    pageBuilder: (context, _, _) =>
+        _NeoSheetFrame(title: title, eyebrow: eyebrow, child: builder(context)),
     transitionBuilder: (context, animation, _, child) {
-      final curved = CurvedAnimation(parent: animation, curve: KraftMotion.pop, reverseCurve: Curves.easeIn);
+      final curved = CurvedAnimation(
+        parent: animation,
+        curve: KraftMotion.pop,
+        reverseCurve: Curves.easeIn,
+      );
       return FadeTransition(
-        opacity: CurvedAnimation(parent: animation, curve: const Interval(0, 0.4)),
+        opacity: CurvedAnimation(
+          parent: animation,
+          curve: const Interval(0, 0.4),
+        ),
         child: SlideTransition(
-          position: Tween(begin: const Offset(0, 0.12), end: Offset.zero).animate(curved),
+          position: Tween(
+            begin: const Offset(0, 0.12),
+            end: Offset.zero,
+          ).animate(curved),
           child: child,
         ),
       );
@@ -35,7 +46,11 @@ Future<T?> showNeoSheet<T>(
 }
 
 class _NeoSheetFrame extends StatelessWidget {
-  const _NeoSheetFrame({required this.title, required this.child, this.eyebrow});
+  const _NeoSheetFrame({
+    required this.title,
+    required this.child,
+    this.eyebrow,
+  });
 
   final String title;
   final String? eyebrow;
@@ -47,7 +62,12 @@ class _NeoSheetFrame extends StatelessWidget {
     final insets = MediaQuery.viewInsetsOf(context).bottom;
     return SafeArea(
       child: Padding(
-        padding: EdgeInsets.fromLTRB(KraftSpace.md, KraftSpace.md, KraftSpace.md, KraftSpace.md + insets),
+        padding: EdgeInsets.fromLTRB(
+          KraftSpace.md,
+          KraftSpace.md,
+          KraftSpace.md,
+          KraftSpace.md + insets,
+        ),
         child: Align(
           alignment: Alignment.bottomCenter,
           child: ConstrainedBox(
@@ -74,8 +94,19 @@ class _NeoSheetFrame extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 if (eyebrow != null)
-                                  Text(eyebrow!, style: KraftText.techBadge.copyWith(color: KraftColors.onSurfaceVariant)),
-                                Text(title, style: KraftText.headlineSm.copyWith(fontSize: 24, fontWeight: FontWeight.w700)),
+                                  Text(
+                                    eyebrow!,
+                                    style: KraftText.techBadge.copyWith(
+                                      color: KraftColors.onSurfaceVariant,
+                                    ),
+                                  ),
+                                Text(
+                                  title,
+                                  style: KraftText.headlineSm.copyWith(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -127,7 +158,12 @@ class NeoTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(label.toUpperCase(), style: KraftText.techBadge.copyWith(color: KraftColors.onSurfaceVariant)),
+        Text(
+          label.toUpperCase(),
+          style: KraftText.techBadge.copyWith(
+            color: KraftColors.onSurfaceVariant,
+          ),
+        ),
         const SizedBox(height: 6),
         NeoBox(
           shadow: 2,
@@ -178,7 +214,12 @@ class NeoChoice<T> extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label.toUpperCase(), style: KraftText.techBadge.copyWith(color: KraftColors.onSurfaceVariant)),
+        Text(
+          label.toUpperCase(),
+          style: KraftText.techBadge.copyWith(
+            color: KraftColors.onSurfaceVariant,
+          ),
+        ),
         const SizedBox(height: 6),
         Wrap(
           spacing: KraftSpace.sm,
@@ -191,10 +232,15 @@ class NeoChoice<T> extends StatelessWidget {
                 borderWidth: 1.5,
                 shadow: v == value ? 2 : 0,
                 radius: KraftRadius.sm,
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
                 child: Text(
                   text,
-                  style: KraftText.labelCode.copyWith(fontWeight: v == value ? FontWeight.w700 : FontWeight.w500),
+                  style: KraftText.labelCode.copyWith(
+                    fontWeight: v == value ? FontWeight.w700 : FontWeight.w500,
+                  ),
                 ),
               ),
           ],
@@ -206,7 +252,12 @@ class NeoChoice<T> extends StatelessWidget {
 
 /// Fila de acciones de una hoja: borrar (opcional) a la izquierda, guardar a la derecha.
 class NeoSheetActions extends StatelessWidget {
-  const NeoSheetActions({super.key, required this.onSave, this.saveLabel = 'Guardar', this.onDelete});
+  const NeoSheetActions({
+    super.key,
+    required this.onSave,
+    this.saveLabel = 'Guardar',
+    this.onDelete,
+  });
 
   final VoidCallback? onSave;
   final String saveLabel;
@@ -226,9 +277,19 @@ class NeoSheetActions extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             child: Row(
               children: [
-                Icon(Symbols.delete, size: 18, color: KraftColors.onErrorContainer),
+                Icon(
+                  Symbols.delete,
+                  size: 18,
+                  color: KraftColors.onErrorContainer,
+                ),
                 const SizedBox(width: 6),
-                Text('BORRAR', style: KraftText.labelCode.copyWith(fontWeight: FontWeight.w700, color: KraftColors.onErrorContainer)),
+                Text(
+                  'BORRAR',
+                  style: KraftText.labelCode.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: KraftColors.onErrorContainer,
+                  ),
+                ),
               ],
             ),
           ),
@@ -243,7 +304,13 @@ class NeoSheetActions extends StatelessWidget {
             shadow: 3,
             radius: KraftRadius.sm,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            child: Text(saveLabel.toUpperCase(), style: KraftText.labelCode.copyWith(fontWeight: FontWeight.w700, color: KraftColors.onPrimaryContainer)),
+            child: Text(
+              saveLabel.toUpperCase(),
+              style: KraftText.labelCode.copyWith(
+                fontWeight: FontWeight.w700,
+                color: KraftColors.onPrimaryContainer,
+              ),
+            ),
           ),
         ),
       ],

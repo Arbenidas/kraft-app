@@ -173,7 +173,9 @@ class _NavItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Theme.of(context); // Rebuild when the active palette changes.
-    final fg = active ? KraftColors.onPrimaryContainer : KraftColors.onSurfaceVariant;
+    final fg = active
+        ? KraftColors.onPrimaryContainer
+        : KraftColors.onSurfaceVariant;
     return Semantics(
       button: true,
       selected: active,

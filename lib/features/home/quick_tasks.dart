@@ -33,7 +33,9 @@ class QuickTaskList extends ConsumerWidget {
         child: Text(
           'Nada pendiente. Añade una nota rápida.',
           textAlign: TextAlign.center,
-          style: KraftText.labelCode.copyWith(color: KraftColors.onSurfaceVariant),
+          style: KraftText.labelCode.copyWith(
+            color: KraftColors.onSurfaceVariant,
+          ),
         ),
       );
     }
@@ -47,7 +49,10 @@ class QuickTaskList extends ConsumerWidget {
             Padding(
               key: ValueKey(task.id),
               padding: EdgeInsets.only(top: i == 0 ? 0 : KraftSpace.xs + 2),
-              child: Entrance(index: i, child: _QuickTaskTile(task: task)),
+              child: Entrance(
+                index: i,
+                child: _QuickTaskTile(task: task),
+              ),
             ),
         ],
       ),
@@ -86,7 +91,10 @@ class _QuickTaskTileState extends ConsumerState<_QuickTaskTile> {
   void _toggle(bool value) {
     setState(() => _pendingDone = value);
     _commit?.cancel();
-    _commit = Timer(KraftMotion.slow, () => ref.read(tasksRepositoryProvider).setDone(widget.task, value));
+    _commit = Timer(
+      KraftMotion.slow,
+      () => ref.read(tasksRepositoryProvider).setDone(widget.task, value),
+    );
   }
 
   @override
@@ -94,7 +102,9 @@ class _QuickTaskTileState extends ConsumerState<_QuickTaskTile> {
     Theme.of(context); // Rebuild when the active palette changes.
     final task = widget.task;
     final meta = _done
-        ? (task.completedAt != null ? 'Completado ${relativeTime(task.completedAt!).toLowerCase()}' : 'Completado')
+        ? (task.completedAt != null
+              ? 'Completado ${relativeTime(task.completedAt!).toLowerCase()}'
+              : 'Completado')
         : [
             if (task.remindAt != null) '⏰ ${reminderLabel(task.remindAt!)}',
             if (task.highPriority) 'Prioridad alta',
@@ -144,9 +154,15 @@ class _QuickTaskTileState extends ConsumerState<_QuickTaskTile> {
                       AnimatedDefaultTextStyle(
                         duration: KraftMotion.of(context, KraftMotion.fast),
                         style: KraftText.bodyMd.copyWith(
-                          color: _done ? KraftColors.onSurfaceVariant : KraftColors.onSurface,
-                          decoration: _done ? TextDecoration.lineThrough : TextDecoration.none,
-                          fontWeight: task.highPriority && !_done ? FontWeight.w600 : FontWeight.w400,
+                          color: _done
+                              ? KraftColors.onSurfaceVariant
+                              : KraftColors.onSurface,
+                          decoration: _done
+                              ? TextDecoration.lineThrough
+                              : TextDecoration.none,
+                          fontWeight: task.highPriority && !_done
+                              ? FontWeight.w600
+                              : FontWeight.w400,
                         ),
                         // Lo dictado suele ser una frase entera: en una línea no cabía.
                         child: Text(
@@ -164,19 +180,32 @@ class _QuickTaskTileState extends ConsumerState<_QuickTaskTile> {
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: KraftText.labelCode.copyWith(
-                                  color: _done ? KraftColors.secondary : KraftColors.onSurfaceVariant,
-                                  fontWeight: _done ? FontWeight.w700 : FontWeight.w500,
+                                  color: _done
+                                      ? KraftColors.secondary
+                                      : KraftColors.onSurfaceVariant,
+                                  fontWeight: _done
+                                      ? FontWeight.w700
+                                      : FontWeight.w500,
                                 ),
                               ),
                             ),
                           if (task.label != null && !_done) ...[
                             if (meta.isNotEmpty)
-                              Text(' • ', style: KraftText.labelCode.copyWith(color: KraftColors.onSurfaceVariant)),
+                              Text(
+                                ' • ',
+                                style: KraftText.labelCode.copyWith(
+                                  color: KraftColors.onSurfaceVariant,
+                                ),
+                              ),
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 4),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 4,
+                              ),
                               decoration: BoxDecoration(
                                 color: KraftColors.primaryContainer,
-                                borderRadius: BorderRadius.circular(KraftRadius.sm),
+                                borderRadius: BorderRadius.circular(
+                                  KraftRadius.sm,
+                                ),
                               ),
                               child: Text(
                                 task.label!,
@@ -196,7 +225,11 @@ class _QuickTaskTileState extends ConsumerState<_QuickTaskTile> {
             ),
             PopupMenuButton<String>(
               tooltip: 'Más opciones',
-              icon: Icon(Symbols.more_vert, size: 18, color: KraftColors.onSurfaceVariant),
+              icon: Icon(
+                Symbols.more_vert,
+                size: 18,
+                color: KraftColors.onSurfaceVariant,
+              ),
               color: KraftColors.surfaceContainerLowest,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(KraftRadius.lg),
@@ -215,7 +248,10 @@ class _QuickTaskTileState extends ConsumerState<_QuickTaskTile> {
               },
               itemBuilder: (_) => const [
                 PopupMenuItem(value: 'edit', child: Text('Editar')),
-                PopupMenuItem(value: 'project', child: Text('Mover a proyecto')),
+                PopupMenuItem(
+                  value: 'project',
+                  child: Text('Mover a proyecto'),
+                ),
                 PopupMenuItem(value: 'delete', child: Text('Borrar')),
               ],
             ),

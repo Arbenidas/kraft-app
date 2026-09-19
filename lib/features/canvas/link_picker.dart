@@ -11,7 +11,10 @@ import '../../widgets/neo_box.dart';
 import '../../widgets/neo_sheet.dart';
 
 /// Elige un lienzo o una nota para enlazarlo. Devuelve `canvas:<id>` / `note:<id>` y su título.
-Future<({String target, String title})?> showLinkPicker(BuildContext context, {String? exclude}) {
+Future<({String target, String title})?> showLinkPicker(
+  BuildContext context, {
+  String? exclude,
+}) {
   return showNeoSheet<({String target, String title})>(
     context,
     eyebrow: 'ENLAZAR',
@@ -32,7 +35,8 @@ class _LinkPicker extends ConsumerStatefulWidget {
 class _LinkPickerState extends ConsumerState<_LinkPicker> {
   String _query = '';
 
-  bool _matches(String title) => _query.isEmpty || title.toLowerCase().contains(_query.toLowerCase());
+  bool _matches(String title) =>
+      _query.isEmpty || title.toLowerCase().contains(_query.toLowerCase());
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +46,21 @@ class _LinkPickerState extends ConsumerState<_LinkPicker> {
     final rows = [
       for (final c in canvases)
         if ('canvas:${c.id}' != widget.exclude && _matches(c.title))
-          (target: 'canvas:${c.id}', title: c.title, updated: c.updatedAt, isNote: false),
+          (
+            target: 'canvas:${c.id}',
+            title: c.title,
+            updated: c.updatedAt,
+            isNote: false,
+          ),
       for (final n in notes)
-        if ('note:${n.id}' != widget.exclude && _matches(n.title.isEmpty ? 'Nota sin título' : n.title))
-          (target: 'note:${n.id}', title: n.title.isEmpty ? 'Nota sin título' : n.title, updated: n.updatedAt, isNote: true),
+        if ('note:${n.id}' != widget.exclude &&
+            _matches(n.title.isEmpty ? 'Nota sin título' : n.title))
+          (
+            target: 'note:${n.id}',
+            title: n.title.isEmpty ? 'Nota sin título' : n.title,
+            updated: n.updatedAt,
+            isNote: true,
+          ),
     ]..sort((a, b) => b.updated.compareTo(a.updated));
 
     return Column(
@@ -60,20 +75,30 @@ class _LinkPickerState extends ConsumerState<_LinkPicker> {
             hintText: 'Buscar lienzos y notas…',
             filled: true,
             fillColor: KraftColors.surfaceContainer,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(KraftRadius.sm), borderSide: BorderSide.none),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(KraftRadius.sm),
+              borderSide: BorderSide.none,
+            ),
           ),
         ),
         const SizedBox(height: KraftSpace.md),
         if (rows.isEmpty)
           Padding(
             padding: const EdgeInsets.all(KraftSpace.lg),
-            child: Text('No hay nada que enlazar todavía.', textAlign: TextAlign.center, style: KraftText.labelCode),
+            child: Text(
+              'No hay nada que enlazar todavía.',
+              textAlign: TextAlign.center,
+              style: KraftText.labelCode,
+            ),
           ),
         for (final row in rows.take(12))
           Padding(
             padding: const EdgeInsets.only(bottom: KraftSpace.sm),
             child: NeoBox(
-              onTap: () => Navigator.pop(context, (target: row.target, title: row.title)),
+              onTap: () => Navigator.pop(context, (
+                target: row.target,
+                title: row.title,
+              )),
               shadow: 2,
               borderWidth: 1.5,
               radius: KraftRadius.md,
@@ -84,21 +109,33 @@ class _LinkPickerState extends ConsumerState<_LinkPicker> {
                     width: 36,
                     height: 36,
                     decoration: BoxDecoration(
-                      color: row.isNote ? KraftColors.secondaryContainer : KraftColors.tertiaryContainer,
+                      color: row.isNote
+                          ? KraftColors.secondaryContainer
+                          : KraftColors.tertiaryContainer,
                       borderRadius: BorderRadius.circular(KraftRadius.sm),
                       border: KraftBorder.ink(),
                     ),
-                    child: Icon(row.isNote ? Symbols.sticky_note_2 : Symbols.gesture, size: 20),
+                    child: Icon(
+                      row.isNote ? Symbols.sticky_note_2 : Symbols.gesture,
+                      size: 20,
+                    ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(row.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: KraftText.headlineSm.copyWith(fontSize: 16)),
+                        Text(
+                          row.title,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: KraftText.headlineSm.copyWith(fontSize: 16),
+                        ),
                         Text(
                           '${row.isNote ? 'NOTA' : 'LIENZO'} · ${relativeTime(row.updated)}',
-                          style: KraftText.techBadge.copyWith(color: KraftColors.onSurfaceVariant),
+                          style: KraftText.techBadge.copyWith(
+                            color: KraftColors.onSurfaceVariant,
+                          ),
                         ),
                       ],
                     ),
@@ -113,4 +150,6 @@ class _LinkPickerState extends ConsumerState<_LinkPicker> {
   }
 }
 
-final _allNotesProvider = StreamProvider.autoDispose((ref) => ref.watch(notesRepositoryProvider).watchAll());
+final _allNotesProvider = StreamProvider.autoDispose(
+  (ref) => ref.watch(notesRepositoryProvider).watchAll(),
+);

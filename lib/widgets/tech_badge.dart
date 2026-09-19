@@ -25,7 +25,10 @@ class TechBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     Theme.of(context);
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: KraftSpace.xs + 1, vertical: 2),
+      padding: const EdgeInsets.symmetric(
+        horizontal: KraftSpace.xs + 1,
+        vertical: 2,
+      ),
       decoration: BoxDecoration(
         color: background ?? KraftColors.surfaceContainerHigh,
         borderRadius: BorderRadius.circular(KraftRadius.md),
@@ -37,7 +40,10 @@ class TechBadge extends StatelessWidget {
             Container(
               width: 6,
               height: 6,
-              decoration: BoxDecoration(color: leadingDot, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: leadingDot,
+                shape: BoxShape.circle,
+              ),
             ),
             const SizedBox(width: 4),
           ],
@@ -46,7 +52,14 @@ class TechBadge extends StatelessWidget {
               label,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: KraftText.techBadge.copyWith(color: foreground ?? KraftColors.onColor(background ?? KraftColors.surfaceContainerHigh), fontSize: fontSize),
+              style: KraftText.techBadge.copyWith(
+                color:
+                    foreground ??
+                    KraftColors.onColor(
+                      background ?? KraftColors.surfaceContainerHigh,
+                    ),
+                fontSize: fontSize,
+              ),
             ),
           ),
         ],

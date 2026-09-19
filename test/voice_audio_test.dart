@@ -13,18 +13,21 @@ void main() {
         .setMockMethodCallHandler(channel, null);
   });
 
-  test('un error nativo de AVAudio no se escapa como PlatformException', () async {
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-        .setMockMethodCallHandler(channel, (call) async {
-          throw PlatformException(
-            code: 'audio',
-            message:
-                'The operation couldn’t be completed. (com.apple.coreaudio.avfaudio error -10875.)',
-          );
-        });
+  test(
+    'un error nativo de AVAudio no se escapa como PlatformException',
+    () async {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (call) async {
+            throw PlatformException(
+              code: 'audio',
+              message:
+                  'The operation couldn’t be completed. (com.apple.coreaudio.avfaudio error -10875.)',
+            );
+          });
 
-    expect(await audio.start(), MicrophoneStart.failed);
-  });
+      expect(await audio.start(), MicrophoneStart.failed);
+    },
+  );
 
   test('sin permiso el canal nativo devuelve denied', () async {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger

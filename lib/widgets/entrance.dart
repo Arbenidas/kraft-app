@@ -26,7 +26,8 @@ class Entrance extends StatefulWidget {
   State<Entrance> createState() => _EntranceState();
 }
 
-class _EntranceState extends State<Entrance> with SingleTickerProviderStateMixin {
+class _EntranceState extends State<Entrance>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _move;
   late final Animation<double> _fade;
@@ -42,9 +43,18 @@ class _EntranceState extends State<Entrance> with SingleTickerProviderStateMixin
     final totalMs = KraftMotion.slow.inMilliseconds + delayMs;
     // El retraso vive dentro del propio controlador (sin Timer): nada queda colgando al desmontar.
     final start = delayMs / totalMs;
-    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: totalMs));
-    _move = CurvedAnimation(parent: _controller, curve: Interval(start, 1, curve: KraftMotion.pop));
-    _fade = CurvedAnimation(parent: _controller, curve: Interval(start, start + (1 - start) / 2, curve: Curves.easeOut));
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: totalMs),
+    );
+    _move = CurvedAnimation(
+      parent: _controller,
+      curve: Interval(start, 1, curve: KraftMotion.pop),
+    );
+    _fade = CurvedAnimation(
+      parent: _controller,
+      curve: Interval(start, start + (1 - start) / 2, curve: Curves.easeOut),
+    );
   }
 
   @override
@@ -77,7 +87,12 @@ class _EntranceState extends State<Entrance> with SingleTickerProviderStateMixin
           opacity: _fade.value.clamp(0.0, 1.0),
           child: Transform.translate(
             offset: widget.offset * (1 - t),
-            child: widget.scale == 1 ? child : Transform.scale(scale: widget.scale + (1 - widget.scale) * t, child: child),
+            child: widget.scale == 1
+                ? child
+                : Transform.scale(
+                    scale: widget.scale + (1 - widget.scale) * t,
+                    child: child,
+                  ),
           ),
         );
       },

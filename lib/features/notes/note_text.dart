@@ -12,40 +12,46 @@ import 'note_document.dart';
 /// el color de ese momento, así que al cambiar de tema la nota seguía pintándose
 /// con la paleta antigua.
 abstract final class NoteStyles {
-  static TextStyle get title => KraftText.headlineLg
-      .copyWith(fontSize: 32, height: 1.3, fontWeight: FontWeight.w700);
-  static TextStyle get body => KraftText.bodyLg
-      .copyWith(fontSize: 19, height: 1.6, color: KraftColors.onSurface);
+  static TextStyle get title => KraftText.headlineLg.copyWith(
+    fontSize: 32,
+    height: 1.3,
+    fontWeight: FontWeight.w700,
+  );
+  static TextStyle get body => KraftText.bodyLg.copyWith(
+    fontSize: 19,
+    height: 1.6,
+    color: KraftColors.onSurface,
+  );
   static TextStyle get heading =>
       body.copyWith(fontSize: 23, fontWeight: FontWeight.w700);
   static TextStyle headingLevel(int level) => switch (level) {
-        1 => title.copyWith(fontSize: 28, height: 1.25),
-        2 => heading,
-        3 => body.copyWith(fontSize: 20, fontWeight: FontWeight.w700, height: 1.4),
-        _ => body.copyWith(fontWeight: FontWeight.w700),
-      };
+    1 => title.copyWith(fontSize: 28, height: 1.25),
+    2 => heading,
+    3 => body.copyWith(fontSize: 20, fontWeight: FontWeight.w700, height: 1.4),
+    _ => body.copyWith(fontWeight: FontWeight.w700),
+  };
   static TextStyle get checkbox =>
       body.copyWith(fontSize: 22, color: KraftColors.ink);
   static TextStyle get checkboxDone =>
       checkbox.copyWith(color: KraftColors.secondary);
   static TextStyle get done => body.copyWith(
-        color: KraftColors.onSurfaceVariant,
-        decoration: TextDecoration.lineThrough,
-      );
+    color: KraftColors.onSurfaceVariant,
+    decoration: TextDecoration.lineThrough,
+  );
   static TextStyle get marker => body.copyWith(
-        fontSize: 11,
-        height: 1.6,
-        color: KraftColors.outline,
-        fontWeight: FontWeight.w400,
-      );
+    fontSize: 11,
+    height: 1.6,
+    color: KraftColors.outline,
+    fontWeight: FontWeight.w400,
+  );
   static TextStyle get rule => marker.copyWith(letterSpacing: 2);
   static TextStyle get bold => body.copyWith(fontWeight: FontWeight.w700);
   static TextStyle get italic => body.copyWith(fontStyle: FontStyle.italic);
   static TextStyle get code => KraftText.labelCode.copyWith(
-        fontSize: 16,
-        height: 1.5,
-        color: KraftColors.primary,
-      );
+    fontSize: 16,
+    height: 1.5,
+    color: KraftColors.primary,
+  );
 }
 
 /// Geometría de la página de una nota. La usa el editor para dibujarla y el asistente
@@ -91,13 +97,14 @@ class NoteTextController extends TextEditingController {
   static final _ul = RegExp(r'^([-*]) (.*)$');
   static final _ol = RegExp(r'^(\d+\.) (.*)$');
   static final _hr = RegExp(r'^(-{3,}|\*{3,}|_{3,})$');
-  static final _inline = RegExp(
-    r'(`[^`]+`|\*\*[^*]+\*\*|__[^_]+__|\*[^*]+\*)',
-  );
+  static final _inline = RegExp(r'(`[^`]+`|\*\*[^*]+\*\*|__[^_]+__|\*[^*]+\*)');
 
   @override
-  TextSpan buildTextSpan({required BuildContext context, TextStyle? style, required bool withComposing}) =>
-      spansFor(text);
+  TextSpan buildTextSpan({
+    required BuildContext context,
+    TextStyle? style,
+    required bool withComposing,
+  }) => spansFor(text);
 
   /// Los mismos estilos sin necesitar un `BuildContext`: también sirven para medir la página.
   static TextSpan spansFor(String text) {
@@ -109,16 +116,20 @@ class NoteTextController extends TextEditingController {
       final newline = i < lines.length - 1 ? '\n' : '';
       if (line.startsWith('```')) {
         inFence = !inFence;
-      children.add(TextSpan(text: line, style: NoteStyles.code));
-      if (newline.isNotEmpty) children.add(TextSpan(text: newline, style: NoteStyles.body));
-      continue;
-    }
-    if (inFence) {
-      children.add(TextSpan(text: line, style: NoteStyles.code));
-      if (newline.isNotEmpty) children.add(TextSpan(text: newline, style: NoteStyles.body));
+        children.add(TextSpan(text: line, style: NoteStyles.code));
+        if (newline.isNotEmpty)
+          children.add(TextSpan(text: newline, style: NoteStyles.body));
         continue;
       }
-      children.addAll(_lineSpans(line, newline, isTitle: i == titleIndex && !_isTask(line)));
+      if (inFence) {
+        children.add(TextSpan(text: line, style: NoteStyles.code));
+        if (newline.isNotEmpty)
+          children.add(TextSpan(text: newline, style: NoteStyles.body));
+        continue;
+      }
+      children.addAll(
+        _lineSpans(line, newline, isTitle: i == titleIndex && !_isTask(line)),
+      );
     }
     return TextSpan(style: NoteStyles.body, children: children);
   }
@@ -137,25 +148,36 @@ class NoteTextController extends TextEditingController {
       t = t.replaceFirst(RegExp(r'^[-*] '), '');
       t = t.replaceFirst(RegExp(r'^\d+\. '), '');
       if (_hr.hasMatch(t.trim())) continue;
-      t = t.replaceAll('**', '').replaceAll('__', '').replaceAll('`', '').replaceAll('*', '').trim();
+      t = t
+          .replaceAll('**', '')
+          .replaceAll('__', '')
+          .replaceAll('`', '')
+          .replaceAll('*', '')
+          .trim();
       if (t.isNotEmpty) parts.add(t);
     }
     return parts.join(' · ');
   }
 
-  static List<InlineSpan> _lineSpans(String line, String newline, {required bool isTitle}) {
+  static List<InlineSpan> _lineSpans(
+    String line,
+    String newline, {
+    required bool isTitle,
+  }) {
     if (isTitle) {
       final heading = _heading.firstMatch(line);
       if (heading != null) {
         return [
           TextSpan(text: '${heading[1]} ', style: NoteStyles.marker),
           ..._inlineSpans(heading[2]!, NoteStyles.title),
-          if (newline.isNotEmpty) TextSpan(text: newline, style: NoteStyles.title),
+          if (newline.isNotEmpty)
+            TextSpan(text: newline, style: NoteStyles.title),
         ];
       }
       return [
         ..._inlineSpans(line, NoteStyles.title),
-        if (newline.isNotEmpty) TextSpan(text: newline, style: NoteStyles.title),
+        if (newline.isNotEmpty)
+          TextSpan(text: newline, style: NoteStyles.title),
       ];
     }
     if (_isTask(line)) {
@@ -165,9 +187,15 @@ class NoteTextController extends TextEditingController {
           text: line.substring(0, 1),
           style: done ? NoteStyles.checkboxDone : NoteStyles.checkbox,
         ),
-        ..._inlineSpans(line.substring(1), done ? NoteStyles.done : NoteStyles.body),
+        ..._inlineSpans(
+          line.substring(1),
+          done ? NoteStyles.done : NoteStyles.body,
+        ),
         if (newline.isNotEmpty)
-          TextSpan(text: newline, style: done ? NoteStyles.done : NoteStyles.body),
+          TextSpan(
+            text: newline,
+            style: done ? NoteStyles.done : NoteStyles.body,
+          ),
       ];
     }
     if (_hr.hasMatch(line)) {
@@ -188,7 +216,10 @@ class NoteTextController extends TextEditingController {
     final ul = _ul.firstMatch(line);
     if (ul != null) {
       return [
-        TextSpan(text: '${ul[1]} ', style: NoteStyles.marker.copyWith(fontSize: 19)),
+        TextSpan(
+          text: '${ul[1]} ',
+          style: NoteStyles.marker.copyWith(fontSize: 19),
+        ),
         ..._inlineSpans(ul[2]!, NoteStyles.body),
         if (newline.isNotEmpty) TextSpan(text: newline, style: NoteStyles.body),
       ];
@@ -213,7 +244,9 @@ class NoteTextController extends TextEditingController {
     var start = 0;
     for (final match in _inline.allMatches(text)) {
       if (match.start > start) {
-        children.add(TextSpan(text: text.substring(start, match.start), style: base));
+        children.add(
+          TextSpan(text: text.substring(start, match.start), style: base),
+        );
       }
       children.addAll(_marked(match[0]!, base));
       start = match.end;
@@ -228,7 +261,10 @@ class NoteTextController extends TextEditingController {
     if (token.startsWith('`') && token.endsWith('`') && token.length >= 2) {
       return [
         TextSpan(text: '`', style: NoteStyles.marker),
-        TextSpan(text: token.substring(1, token.length - 1), style: NoteStyles.code),
+        TextSpan(
+          text: token.substring(1, token.length - 1),
+          style: NoteStyles.code,
+        ),
         TextSpan(text: '`', style: NoteStyles.marker),
       ];
     }
@@ -240,11 +276,15 @@ class NoteTextController extends TextEditingController {
     return [
       TextSpan(text: token.substring(0, wrap), style: NoteStyles.marker),
       TextSpan(text: inner, style: style),
-      TextSpan(text: token.substring(token.length - wrap), style: NoteStyles.marker),
+      TextSpan(
+        text: token.substring(token.length - wrap),
+        style: NoteStyles.marker,
+      ),
     ];
   }
 
-  static bool _isTask(String line) => line.startsWith('$checkboxOpen ') || line.startsWith('$checkboxDone ');
+  static bool _isTask(String line) =>
+      line.startsWith('$checkboxOpen ') || line.startsWith('$checkboxDone ');
 
   /// Inicio y fin de la línea que contiene [offset].
   (int, int) lineAt(int offset) {
@@ -270,11 +310,14 @@ class NoteTextController extends TextEditingController {
   }
 
   /// Convierte la línea actual en tarea (o la deja de ser).
-  void toggleTaskLine() => _togglePrefix('$checkboxOpen ', alsoRemove: '$checkboxDone ');
+  void toggleTaskLine() =>
+      _togglePrefix('$checkboxOpen ', alsoRemove: '$checkboxDone ');
 
   /// Convierte la línea actual en encabezado (o la deja de ser).
   void toggleHeadingLine() {
-    final offset = selection.baseOffset < 0 ? text.length : selection.baseOffset;
+    final offset = selection.baseOffset < 0
+        ? text.length
+        : selection.baseOffset;
     final (start, end) = lineAt(offset);
     final line = text.substring(start, end);
     final heading = _heading.firstMatch(line);
@@ -283,7 +326,10 @@ class NoteTextController extends TextEditingController {
       value = TextEditingValue(
         text: text.replaceRange(start, start + existing.length, ''),
         selection: TextSelection.collapsed(
-          offset: (offset - existing.length).clamp(start, text.length - existing.length),
+          offset: (offset - existing.length).clamp(
+            start,
+            text.length - existing.length,
+          ),
         ),
       );
       return;
@@ -292,23 +338,38 @@ class NoteTextController extends TextEditingController {
   }
 
   void _togglePrefix(String prefix, {String? alsoRemove}) {
-    final offset = selection.baseOffset < 0 ? text.length : selection.baseOffset;
+    final offset = selection.baseOffset < 0
+        ? text.length
+        : selection.baseOffset;
     final (start, end) = lineAt(offset);
     final line = text.substring(start, end);
-    final existing = line.startsWith(prefix) ? prefix : (alsoRemove != null && line.startsWith(alsoRemove) ? alsoRemove : null);
+    final existing = line.startsWith(prefix)
+        ? prefix
+        : (alsoRemove != null && line.startsWith(alsoRemove)
+              ? alsoRemove
+              : null);
     if (existing != null) {
       value = TextEditingValue(
         text: text.replaceRange(start, start + existing.length, ''),
-        selection: TextSelection.collapsed(offset: (offset - existing.length).clamp(start, text.length - existing.length)),
+        selection: TextSelection.collapsed(
+          offset: (offset - existing.length).clamp(
+            start,
+            text.length - existing.length,
+          ),
+        ),
       );
     } else {
       // Un encabezado no puede ser tarea y viceversa.
       final heading = _heading.firstMatch(line);
-      final clean = heading != null ? '${heading[1]} '.length : (_isTask(line) ? 2 : 0);
+      final clean = heading != null
+          ? '${heading[1]} '.length
+          : (_isTask(line) ? 2 : 0);
       final newText = text.replaceRange(start, start + clean, prefix);
       value = TextEditingValue(
         text: newText,
-        selection: TextSelection.collapsed(offset: (offset - clean + prefix.length).clamp(0, newText.length)),
+        selection: TextSelection.collapsed(
+          offset: (offset - clean + prefix.length).clamp(0, newText.length),
+        ),
       );
     }
   }
@@ -319,7 +380,10 @@ class NoteTextController extends TextEditingController {
     if (trimmed.isEmpty) return;
     final base = text.trimRight();
     final joined = base.isEmpty ? trimmed : '$base\n$trimmed';
-    value = TextEditingValue(text: joined, selection: TextSelection.collapsed(offset: joined.length));
+    value = TextEditingValue(
+      text: joined,
+      selection: TextSelection.collapsed(offset: joined.length),
+    );
   }
 }
 
@@ -328,21 +392,32 @@ class TaskContinuationFormatter extends TextInputFormatter {
   const TaskContinuationFormatter();
 
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     final inserted = newValue.text.length - oldValue.text.length;
     final cursor = newValue.selection.baseOffset;
-    if (inserted != 1 || cursor <= 0 || !newValue.selection.isCollapsed || newValue.text[cursor - 1] != '\n') {
+    if (inserted != 1 ||
+        cursor <= 0 ||
+        !newValue.selection.isCollapsed ||
+        newValue.text[cursor - 1] != '\n') {
       return newValue;
     }
     final text = newValue.text;
     final lineStart = text.lastIndexOf('\n', cursor - 2) + 1;
     final previous = text.substring(lineStart, cursor - 1);
-    if (!previous.startsWith('$checkboxOpen ') && !previous.startsWith('$checkboxDone ')) return newValue;
+    if (!previous.startsWith('$checkboxOpen ') &&
+        !previous.startsWith('$checkboxDone '))
+      return newValue;
 
     if (previous.trim().length <= 1) {
       // Tarea vacía + Intro: se sale de la lista.
       final cleaned = text.replaceRange(lineStart, cursor, '');
-      return TextEditingValue(text: cleaned, selection: TextSelection.collapsed(offset: lineStart));
+      return TextEditingValue(
+        text: cleaned,
+        selection: TextSelection.collapsed(offset: lineStart),
+      );
     }
     const prefix = '$checkboxOpen ';
     return TextEditingValue(

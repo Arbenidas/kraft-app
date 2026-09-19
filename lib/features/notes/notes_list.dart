@@ -45,14 +45,22 @@ class NotesList extends ConsumerWidget {
     return CustomScrollView(
       slivers: [
         SliverPadding(
-          padding: const EdgeInsets.fromLTRB(KraftSpace.lg, KraftSpace.lg, KraftSpace.lg, 0),
+          padding: const EdgeInsets.fromLTRB(
+            KraftSpace.lg,
+            KraftSpace.lg,
+            KraftSpace.lg,
+            0,
+          ),
           sliver: SliverList.list(
             children: [
               Row(
                 children: [
                   Text(
                     'Notas',
-                    style: KraftText.headlineSm.copyWith(fontSize: 24, fontWeight: FontWeight.w700),
+                    style: KraftText.headlineSm.copyWith(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                   const SizedBox(width: KraftSpace.sm),
                   TechBadge(
@@ -66,7 +74,10 @@ class NotesList extends ConsumerWidget {
                       backgroundColor: KraftColors.primaryContainer,
                       foregroundColor: KraftColors.onPrimaryContainer,
                       elevation: 0,
-                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 10,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(KraftRadius.md),
                         side: BorderSide(color: KraftColors.border, width: 1.2),
@@ -99,14 +110,19 @@ class NotesList extends ConsumerWidget {
                     label: 'TODAS (${allNotes.length})',
                     icon: Symbols.done_all,
                     selected: category == null,
-                    onTap: () => ref.read(noteCategoryFilterProvider.notifier).state = null,
+                    onTap: () =>
+                        ref.read(noteCategoryFilterProvider.notifier).state =
+                            null,
                   ),
                   for (final c in NoteCategory.values)
                     FilterPill(
-                      label: '${c.label.toUpperCase()} (${categoryCounts[c] ?? 0})',
+                      label:
+                          '${c.label.toUpperCase()} (${categoryCounts[c] ?? 0})',
                       icon: c.icon,
                       selected: category == c,
-                      onTap: () => ref.read(noteCategoryFilterProvider.notifier).state = c,
+                      onTap: () =>
+                          ref.read(noteCategoryFilterProvider.notifier).state =
+                              c,
                     ),
                 ],
               ),
@@ -126,20 +142,29 @@ class NotesList extends ConsumerWidget {
                     ref.read(noteQueryProvider).isEmpty && category == null
                         ? 'Aún no hay notas.'
                         : 'Sin resultados para la búsqueda actual.',
-                    style: KraftText.labelCode.copyWith(color: KraftColors.onSurfaceVariant),
+                    style: KraftText.labelCode.copyWith(
+                      color: KraftColors.onSurfaceVariant,
+                    ),
                   ),
                   const SizedBox(height: KraftSpace.md),
                   FilledButton.icon(
                     style: FilledButton.styleFrom(
                       backgroundColor: KraftColors.primaryContainer,
                       foregroundColor: KraftColors.onPrimaryContainer,
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(KraftRadius.md),
                         side: BorderSide(color: KraftColors.border),
                       ),
                     ),
-                    onPressed: () => createNoteAndOpen(context, ref, category: category ?? NoteCategory.idea),
+                    onPressed: () => createNoteAndOpen(
+                      context,
+                      ref,
+                      category: category ?? NoteCategory.idea,
+                    ),
                     icon: const Icon(Symbols.edit_note, size: 18),
                     label: Text(
                       'Crear primera nota',
@@ -155,7 +180,12 @@ class NotesList extends ConsumerWidget {
           )
         else
           SliverPadding(
-            padding: const EdgeInsets.fromLTRB(KraftSpace.lg, 0, KraftSpace.lg, KraftSpace.xl),
+            padding: const EdgeInsets.fromLTRB(
+              KraftSpace.lg,
+              0,
+              KraftSpace.lg,
+              KraftSpace.xl,
+            ),
             sliver: SliverGrid.builder(
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 380,
@@ -184,7 +214,9 @@ class _SearchField extends ConsumerStatefulWidget {
 }
 
 class _SearchFieldState extends ConsumerState<_SearchField> {
-  late final _controller = TextEditingController(text: ref.read(noteQueryProvider));
+  late final _controller = TextEditingController(
+    text: ref.read(noteQueryProvider),
+  );
   Timer? _debounce;
   bool _focused = false;
 
@@ -198,7 +230,10 @@ class _SearchFieldState extends ConsumerState<_SearchField> {
   void _onChanged(String value) {
     setState(() {});
     _debounce?.cancel();
-    _debounce = Timer(const Duration(milliseconds: 200), () => ref.read(noteQueryProvider.notifier).state = value);
+    _debounce = Timer(
+      const Duration(milliseconds: 200),
+      () => ref.read(noteQueryProvider.notifier).state = value,
+    );
   }
 
   @override
@@ -212,7 +247,9 @@ class _SearchFieldState extends ConsumerState<_SearchField> {
           color: KraftColors.surfaceContainerLowest,
           borderRadius: BorderRadius.circular(KraftRadius.md),
           border: Border.all(
-            color: _focused ? KraftColors.primary : KraftColors.outlineVariant.withValues(alpha: 0.6),
+            color: _focused
+                ? KraftColors.primary
+                : KraftColors.outlineVariant.withValues(alpha: 0.6),
             width: _focused ? 1.8 : 1.2,
           ),
           boxShadow: [
@@ -229,7 +266,9 @@ class _SearchFieldState extends ConsumerState<_SearchField> {
             Icon(
               Symbols.search,
               size: 20,
-              color: _focused ? KraftColors.primary : KraftColors.onSurfaceVariant,
+              color: _focused
+                  ? KraftColors.primary
+                  : KraftColors.onSurfaceVariant,
             ),
             const SizedBox(width: KraftSpace.sm),
             Expanded(
@@ -239,7 +278,9 @@ class _SearchFieldState extends ConsumerState<_SearchField> {
                 style: KraftText.bodyMd,
                 decoration: InputDecoration(
                   hintText: 'Buscar en notas por título o contenido...',
-                  hintStyle: KraftText.bodyMd.copyWith(color: KraftColors.outline),
+                  hintStyle: KraftText.bodyMd.copyWith(
+                    color: KraftColors.outline,
+                  ),
                   border: InputBorder.none,
                   contentPadding: const EdgeInsets.symmetric(vertical: 14),
                 ),
@@ -276,7 +317,9 @@ class _NoteTileState extends ConsumerState<_NoteTile> {
 
   static String cleanTitle(String raw) {
     var t = raw.trim();
-    if (t.startsWith(checkboxOpen) || t.startsWith(checkboxDone) || t.startsWith('☑')) {
+    if (t.startsWith(checkboxOpen) ||
+        t.startsWith(checkboxDone) ||
+        t.startsWith('☑')) {
       t = stripCheckbox(t);
     }
     t = t.replaceFirst(RegExp(r'^#{1,6}\s*'), '');
@@ -288,8 +331,14 @@ class _NoteTileState extends ConsumerState<_NoteTile> {
   Widget build(BuildContext context) {
     Theme.of(context); // Rebuild when the active palette changes.
     final note = widget.note;
-    final lines = (note.keyIdea.isNotEmpty ? note.keyIdea : note.body).split('\n');
-    final source = (lines.isNotEmpty && lines.first.trim() == note.title.trim() ? lines.skip(1) : lines).join('\n');
+    final lines = (note.keyIdea.isNotEmpty ? note.keyIdea : note.body).split(
+      '\n',
+    );
+    final source =
+        (lines.isNotEmpty && lines.first.trim() == note.title.trim()
+                ? lines.skip(1)
+                : lines)
+            .join('\n');
     final preview = NoteTextController.readablePreview(source);
 
     // Checklist stats
@@ -300,7 +349,9 @@ class _NoteTileState extends ConsumerState<_NoteTile> {
       final tr = l.trim();
       if (tr.startsWith(checkboxOpen) || tr.startsWith('- [ ]')) {
         openTasks++;
-      } else if (tr.startsWith(checkboxDone) || tr.startsWith('☑') || tr.startsWith('- [x]')) {
+      } else if (tr.startsWith(checkboxDone) ||
+          tr.startsWith('☑') ||
+          tr.startsWith('- [x]')) {
         doneTasks++;
       }
     }
@@ -308,7 +359,8 @@ class _NoteTileState extends ConsumerState<_NoteTile> {
     final allTasksDone = totalTasks > 0 && openTasks == 0;
 
     // Sketch / Canvas indicators
-    final hasSketch = note.category == NoteCategory.boceto ||
+    final hasSketch =
+        note.category == NoteCategory.boceto ||
         note.content.contains('"sketches"') ||
         note.content.contains('"strokes"');
     final hasCanvasLink = note.content.contains('canvas:');
@@ -346,7 +398,9 @@ class _NoteTileState extends ConsumerState<_NoteTile> {
             ),
             boxShadow: [
               BoxShadow(
-                color: KraftColors.shadow.withValues(alpha: _hovered ? 0.35 : 0.2),
+                color: KraftColors.shadow.withValues(
+                  alpha: _hovered ? 0.35 : 0.2,
+                ),
                 offset: Offset(0, _hovered ? 4 : 2),
                 blurRadius: _hovered ? 8 : 4,
               ),
@@ -382,7 +436,9 @@ class _NoteTileState extends ConsumerState<_NoteTile> {
                             style: KraftText.headlineSm.copyWith(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
-                              fontStyle: title.isEmpty ? FontStyle.italic : null,
+                              fontStyle: title.isEmpty
+                                  ? FontStyle.italic
+                                  : null,
                               color: title.isEmpty
                                   ? KraftColors.onSurfaceVariant
                                   : KraftColors.onSurface,
@@ -397,7 +453,9 @@ class _NoteTileState extends ConsumerState<_NoteTile> {
                       child: Text(
                         preview.isNotEmpty
                             ? preview
-                            : (title.isEmpty ? 'Nota vacía · toca para editar' : 'Sin contenido adicional'),
+                            : (title.isEmpty
+                                  ? 'Nota vacía · toca para editar'
+                                  : 'Sin contenido adicional'),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: KraftText.bodySm.copyWith(
@@ -412,25 +470,36 @@ class _NoteTileState extends ConsumerState<_NoteTile> {
                       children: [
                         TechBadge(
                           note.category.label.toUpperCase(),
-                          background: note.category.color.withValues(alpha: 0.25),
+                          background: note.category.color.withValues(
+                            alpha: 0.25,
+                          ),
                           foreground: KraftColors.onSurface,
                           leadingDot: note.category.color,
                         ),
                         if (totalTasks > 0) ...[
                           const SizedBox(width: 6),
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 2,
+                            ),
                             decoration: BoxDecoration(
                               color: allTasksDone
-                                  ? KraftColors.secondaryContainer.withValues(alpha: 0.3)
+                                  ? KraftColors.secondaryContainer.withValues(
+                                      alpha: 0.3,
+                                    )
                                   : KraftColors.surfaceContainerHigh,
-                              borderRadius: BorderRadius.circular(KraftRadius.sm),
+                              borderRadius: BorderRadius.circular(
+                                KraftRadius.sm,
+                              ),
                             ),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Icon(
-                                  allTasksDone ? Symbols.check_circle : Symbols.check_box,
+                                  allTasksDone
+                                      ? Symbols.check_circle
+                                      : Symbols.check_box,
                                   size: 12,
                                   color: allTasksDone
                                       ? KraftColors.secondary
@@ -454,10 +523,15 @@ class _NoteTileState extends ConsumerState<_NoteTile> {
                         if (hasSketch) ...[
                           const SizedBox(width: 6),
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 5,
+                              vertical: 2,
+                            ),
                             decoration: BoxDecoration(
                               color: KraftColors.surfaceContainerHigh,
-                              borderRadius: BorderRadius.circular(KraftRadius.sm),
+                              borderRadius: BorderRadius.circular(
+                                KraftRadius.sm,
+                              ),
                             ),
                             child: Icon(
                               Symbols.gesture,
@@ -469,10 +543,15 @@ class _NoteTileState extends ConsumerState<_NoteTile> {
                         if (hasCanvasLink) ...[
                           const SizedBox(width: 6),
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 5,
+                              vertical: 2,
+                            ),
                             decoration: BoxDecoration(
                               color: KraftColors.surfaceContainerHigh,
-                              borderRadius: BorderRadius.circular(KraftRadius.sm),
+                              borderRadius: BorderRadius.circular(
+                                KraftRadius.sm,
+                              ),
                             ),
                             child: Icon(
                               Symbols.link,
@@ -502,7 +581,11 @@ class _NoteTileState extends ConsumerState<_NoteTile> {
   }
 }
 
-Future<void> deleteNoteWithUndo(BuildContext context, WidgetRef ref, int noteId) async {
+Future<void> deleteNoteWithUndo(
+  BuildContext context,
+  WidgetRef ref,
+  int noteId,
+) async {
   final repo = ref.read(notesRepositoryProvider);
   final overlay = Overlay.of(context, rootOverlay: true);
   final snapshot = await repo.deleteWithSnapshot(noteId);
@@ -529,7 +612,9 @@ class NotesEmptyState extends ConsumerWidget {
           decoration: BoxDecoration(
             color: KraftColors.surfaceContainerLowest,
             borderRadius: BorderRadius.circular(KraftRadius.xl),
-            border: Border.all(color: KraftColors.outlineVariant.withValues(alpha: 0.5)),
+            border: Border.all(
+              color: KraftColors.outlineVariant.withValues(alpha: 0.5),
+            ),
             boxShadow: [
               BoxShadow(
                 color: KraftColors.shadow.withValues(alpha: 0.2),
@@ -548,18 +633,26 @@ class NotesEmptyState extends ConsumerWidget {
                   color: KraftColors.primaryContainer.withValues(alpha: 0.25),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(Symbols.edit_note, size: 32, color: KraftColors.primary),
+                child: Icon(
+                  Symbols.edit_note,
+                  size: 32,
+                  color: KraftColors.primary,
+                ),
               ),
               const SizedBox(height: KraftSpace.md),
               Text(
                 'Escribe tu primera nota',
-                style: KraftText.headlineSm.copyWith(fontWeight: FontWeight.w700),
+                style: KraftText.headlineSm.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: KraftSpace.xs),
               Text(
                 'Captura ideas, actas de reuniones o bocetos libres con soporte táctil y markdown.',
-                style: KraftText.bodySm.copyWith(color: KraftColors.onSurfaceVariant),
+                style: KraftText.bodySm.copyWith(
+                  color: KraftColors.onSurfaceVariant,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: KraftSpace.lg),
@@ -567,7 +660,10 @@ class NotesEmptyState extends ConsumerWidget {
                 style: FilledButton.styleFrom(
                   backgroundColor: KraftColors.primaryContainer,
                   foregroundColor: KraftColors.onPrimaryContainer,
-                  padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 12,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(KraftRadius.md),
                     side: BorderSide(color: KraftColors.border),

@@ -67,39 +67,43 @@ class ToolPalette extends StatelessWidget {
   }
 
   List<Widget> _toolButtons({required bool vertical}) => [
-        for (final t in CanvasTool.values) ...[
-          if (t == CanvasTool.eraser || t == CanvasTool.pen) vertical ? const _HDivider(width: 28) : const _VDivider(height: 28),
-          _ToolButton(
-            icon: t.icon,
-            tooltip: '${t.label}  ·  ${t.shortcut}',
-            selected: t == tool,
-            danger: t == CanvasTool.eraser,
-            vertical: vertical,
-            onTap: () => onTool(t),
-          ),
-        ],
+    for (final t in CanvasTool.values) ...[
+      if (t == CanvasTool.eraser || t == CanvasTool.pen)
         vertical ? const _HDivider(width: 28) : const _VDivider(height: 28),
-        _ToolButton(
-          icon: Symbols.widgets,
-          tooltip: 'Biblioteca de elementos',
-          selected: libraryOpen,
-          vertical: vertical,
-          onTap: onOpenLibrary,
-        ),
-        _ToolButton(
-          icon: Symbols.close_fullscreen,
-          tooltip: 'Hacer bolita',
-          selected: false,
-          vertical: vertical,
-          onTap: onCollapse,
-        ),
-      ];
+      _ToolButton(
+        icon: t.icon,
+        tooltip: '${t.label}  ·  ${t.shortcut}',
+        selected: t == tool,
+        danger: t == CanvasTool.eraser,
+        vertical: vertical,
+        onTap: () => onTool(t),
+      ),
+    ],
+    vertical ? const _HDivider(width: 28) : const _VDivider(height: 28),
+    _ToolButton(
+      icon: Symbols.widgets,
+      tooltip: 'Biblioteca de elementos',
+      selected: libraryOpen,
+      vertical: vertical,
+      onTap: onOpenLibrary,
+    ),
+    _ToolButton(
+      icon: Symbols.close_fullscreen,
+      tooltip: 'Hacer bolita',
+      selected: false,
+      vertical: vertical,
+      onTap: onCollapse,
+    ),
+  ];
 
   Widget _buildVertical() {
     final tools = _PaletteSurface(
       shadow: 4,
       padding: const EdgeInsets.all(4),
-      child: Column(mainAxisSize: MainAxisSize.min, children: _toolButtons(vertical: true)),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: _toolButtons(vertical: true),
+      ),
     );
     final settings = _PaletteSurface(
       shadow: 3,
@@ -120,20 +124,44 @@ class ToolPalette extends StatelessWidget {
                 children: tool == CanvasTool.eraser
                     ? [
                         for (final mode in EraserMode.values)
-                          _EraserModeChip(mode: mode, selected: mode == eraserMode, compact: true, onTap: () => onEraserMode(mode)),
+                          _EraserModeChip(
+                            mode: mode,
+                            selected: mode == eraserMode,
+                            compact: true,
+                            onTap: () => onEraserMode(mode),
+                          ),
                       ]
                     : [
                         for (final width in canvasStrokeWidths)
-                          _StrokeChip(width: width, selected: width == strokeWidth, onTap: () => onStrokeWidth(width)),
+                          _StrokeChip(
+                            width: width,
+                            selected: width == strokeWidth,
+                            onTap: () => onStrokeWidth(width),
+                          ),
                       ],
               ),
             ),
           ),
-          if (tool != CanvasTool.eraser) _PressureToggle(enabled: pressureEnabled, onChanged: onPressureChanged, compact: true),
-          _FingerToggle(enabled: fingerDraws, onChanged: onFingerDrawsChanged, compact: true),
+          if (tool != CanvasTool.eraser)
+            _PressureToggle(
+              enabled: pressureEnabled,
+              onChanged: onPressureChanged,
+              compact: true,
+            ),
+          _FingerToggle(
+            enabled: fingerDraws,
+            onChanged: onFingerDrawsChanged,
+            compact: true,
+          ),
           const _HDivider(width: 20),
           for (final (c, name) in canvasColors)
-            _ColorChip(color: c, name: name, selected: c == color, vertical: true, onTap: () => onColor(c)),
+            _ColorChip(
+              color: c,
+              name: name,
+              selected: c == color,
+              vertical: true,
+              onTap: () => onColor(c),
+            ),
         ],
       ),
     );
@@ -166,7 +194,11 @@ class ToolPalette extends StatelessWidget {
                   children: tool == CanvasTool.eraser
                       ? [
                           for (final mode in EraserMode.values)
-                            _EraserModeChip(mode: mode, selected: mode == eraserMode, onTap: () => onEraserMode(mode)),
+                            _EraserModeChip(
+                              mode: mode,
+                              selected: mode == eraserMode,
+                              onTap: () => onEraserMode(mode),
+                            ),
                         ]
                       : [
                           for (final width in canvasStrokeWidths)
@@ -178,11 +210,23 @@ class ToolPalette extends StatelessWidget {
                         ],
                 ),
               ),
-              if (tool != CanvasTool.eraser) _PressureToggle(enabled: pressureEnabled, onChanged: onPressureChanged),
-              _FingerToggle(enabled: fingerDraws, onChanged: onFingerDrawsChanged),
+              if (tool != CanvasTool.eraser)
+                _PressureToggle(
+                  enabled: pressureEnabled,
+                  onChanged: onPressureChanged,
+                ),
+              _FingerToggle(
+                enabled: fingerDraws,
+                onChanged: onFingerDrawsChanged,
+              ),
               const _VDivider(height: 20),
               for (final (c, name) in canvasColors)
-                _ColorChip(color: c, name: name, selected: c == color, onTap: () => onColor(c)),
+                _ColorChip(
+                  color: c,
+                  name: name,
+                  selected: c == color,
+                  onTap: () => onColor(c),
+                ),
             ],
           ),
         ),
@@ -190,7 +234,10 @@ class ToolPalette extends StatelessWidget {
         _PaletteSurface(
           shadow: 4,
           padding: const EdgeInsets.all(4),
-          child: Row(mainAxisSize: MainAxisSize.min, children: _toolButtons(vertical: false)),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: _toolButtons(vertical: false),
+          ),
         ),
       ],
     );
@@ -198,7 +245,11 @@ class ToolPalette extends StatelessWidget {
 }
 
 class _PaletteSurface extends StatelessWidget {
-  const _PaletteSurface({required this.child, required this.shadow, required this.padding});
+  const _PaletteSurface({
+    required this.child,
+    required this.shadow,
+    required this.padding,
+  });
 
   final Widget child;
   final double shadow;
@@ -255,7 +306,11 @@ class _HDivider extends StatelessWidget {
 }
 
 class _StrokeChip extends StatelessWidget {
-  const _StrokeChip({required this.width, required this.selected, required this.onTap});
+  const _StrokeChip({
+    required this.width,
+    required this.selected,
+    required this.onTap,
+  });
 
   final double width;
   final bool selected;
@@ -283,7 +338,10 @@ class _StrokeChip extends StatelessWidget {
               Container(
                 width: dot,
                 height: dot,
-                decoration: BoxDecoration(color: KraftColors.ink, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: KraftColors.ink,
+                  shape: BoxShape.circle,
+                ),
               ),
               const SizedBox(width: 4),
               Text(
@@ -291,7 +349,9 @@ class _StrokeChip extends StatelessWidget {
                 style: KraftText.labelCode.copyWith(
                   fontSize: 11,
                   fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
-                  color: selected ? KraftColors.onSurface : KraftColors.onSurfaceVariant,
+                  color: selected
+                      ? KraftColors.onSurface
+                      : KraftColors.onSurfaceVariant,
                 ),
               ),
             ],
@@ -327,13 +387,18 @@ class _ColorChip extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          margin: vertical ? const EdgeInsets.symmetric(vertical: 3) : const EdgeInsets.symmetric(horizontal: 3),
+          margin: vertical
+              ? const EdgeInsets.symmetric(vertical: 3)
+              : const EdgeInsets.symmetric(horizontal: 3),
           width: 32,
           height: 32,
           padding: const EdgeInsets.all(2),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.all(color: selected ? KraftColors.ink : Colors.transparent, width: 2),
+            border: Border.all(
+              color: selected ? KraftColors.ink : Colors.transparent,
+              width: 2,
+            ),
           ),
           child: Container(
             decoration: BoxDecoration(
@@ -371,8 +436,8 @@ class _ToolButton extends StatelessWidget {
     final fg = selected
         ? KraftColors.primaryContainer
         : danger
-            ? KraftColors.error
-            : KraftColors.onSurface;
+        ? KraftColors.error
+        : KraftColors.onSurface;
     return Tooltip(
       message: tooltip,
       child: Semantics(
@@ -385,7 +450,9 @@ class _ToolButton extends StatelessWidget {
             curve: KraftMotion.settle,
             width: 48,
             height: 48,
-            margin: vertical ? const EdgeInsets.symmetric(vertical: 1) : const EdgeInsets.symmetric(horizontal: 1),
+            margin: vertical
+                ? const EdgeInsets.symmetric(vertical: 1)
+                : const EdgeInsets.symmetric(horizontal: 1),
             decoration: BoxDecoration(
               color: selected ? KraftColors.ink : Colors.transparent,
               borderRadius: BorderRadius.circular(KraftRadius.lg),
@@ -405,7 +472,11 @@ class _ToolButton extends StatelessWidget {
 
 /// Activa o desactiva el grosor por presión del Apple Pencil.
 class _PressureToggle extends StatelessWidget {
-  const _PressureToggle({required this.enabled, required this.onChanged, this.compact = false});
+  const _PressureToggle({
+    required this.enabled,
+    required this.onChanged,
+    this.compact = false,
+  });
 
   final bool enabled;
   final ValueChanged<bool> onChanged;
@@ -427,12 +498,19 @@ class _PressureToggle extends StatelessWidget {
           child: AnimatedContainer(
             duration: KraftMotion.of(context, KraftMotion.fast),
             curve: KraftMotion.settle,
-            margin: compact ? const EdgeInsets.only(top: 6) : const EdgeInsets.only(left: 6),
+            margin: compact
+                ? const EdgeInsets.only(top: 6)
+                : const EdgeInsets.only(left: 6),
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
             decoration: BoxDecoration(
-              color: enabled ? KraftColors.primaryContainer : KraftColors.surfaceContainer,
+              color: enabled
+                  ? KraftColors.primaryContainer
+                  : KraftColors.surfaceContainer,
               borderRadius: BorderRadius.circular(KraftRadius.md),
-              border: Border.all(color: enabled ? KraftColors.ink : Colors.transparent, width: 1.5),
+              border: Border.all(
+                color: enabled ? KraftColors.ink : Colors.transparent,
+                width: 1.5,
+              ),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -444,20 +522,24 @@ class _PressureToggle extends StatelessWidget {
                     height: 12,
                     margin: const EdgeInsets.only(right: 2),
                     decoration: BoxDecoration(
-                      color: enabled ? KraftColors.ink : KraftColors.onSurfaceVariant,
+                      color: enabled
+                          ? KraftColors.ink
+                          : KraftColors.onSurfaceVariant,
                       borderRadius: BorderRadius.circular(1),
                     ),
                   ),
                 if (!compact) ...[
                   const SizedBox(width: 4),
                   Text(
-                  'PRESIÓN',
-                  style: KraftText.labelCode.copyWith(
-                    fontSize: 11,
-                    fontWeight: enabled ? FontWeight.w700 : FontWeight.w500,
-                    color: enabled ? KraftColors.ink : KraftColors.onSurfaceVariant,
+                    'PRESIÓN',
+                    style: KraftText.labelCode.copyWith(
+                      fontSize: 11,
+                      fontWeight: enabled ? FontWeight.w700 : FontWeight.w500,
+                      color: enabled
+                          ? KraftColors.ink
+                          : KraftColors.onSurfaceVariant,
+                    ),
                   ),
-                ),
                 ],
               ],
             ),
@@ -470,7 +552,12 @@ class _PressureToggle extends StatelessWidget {
 
 /// Modo del borrador: parcial, trazo completo o elemento.
 class _EraserModeChip extends StatelessWidget {
-  const _EraserModeChip({required this.mode, required this.selected, required this.onTap, this.compact = false});
+  const _EraserModeChip({
+    required this.mode,
+    required this.selected,
+    required this.onTap,
+    this.compact = false,
+  });
 
   final EraserMode mode;
   final bool selected;
@@ -498,7 +585,13 @@ class _EraserModeChip extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(mode.icon, size: 14, color: selected ? KraftColors.error : KraftColors.onSurfaceVariant),
+                Icon(
+                  mode.icon,
+                  size: 14,
+                  color: selected
+                      ? KraftColors.error
+                      : KraftColors.onSurfaceVariant,
+                ),
                 if (!compact) ...[
                   const SizedBox(width: 4),
                   Text(
@@ -506,7 +599,9 @@ class _EraserModeChip extends StatelessWidget {
                     style: KraftText.labelCode.copyWith(
                       fontSize: 11,
                       fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
-                      color: selected ? KraftColors.onSurface : KraftColors.onSurfaceVariant,
+                      color: selected
+                          ? KraftColors.onSurface
+                          : KraftColors.onSurfaceVariant,
                     ),
                   ),
                 ],
@@ -521,7 +616,11 @@ class _EraserModeChip extends StatelessWidget {
 
 /// "Dibujar con el dedo": apagado, el dedo selecciona, mueve y desplaza; sólo el lápiz dibuja.
 class _FingerToggle extends StatelessWidget {
-  const _FingerToggle({required this.enabled, required this.onChanged, this.compact = false});
+  const _FingerToggle({
+    required this.enabled,
+    required this.onChanged,
+    this.compact = false,
+  });
 
   final bool enabled;
   final ValueChanged<bool> onChanged;
@@ -531,7 +630,9 @@ class _FingerToggle extends StatelessWidget {
   Widget build(BuildContext context) {
     Theme.of(context); // Rebuild when the active palette changes.
     return Tooltip(
-      message: enabled ? 'El dedo también dibuja' : 'Sólo el Apple Pencil dibuja; el dedo selecciona y mueve',
+      message: enabled
+          ? 'El dedo también dibuja'
+          : 'Sólo el Apple Pencil dibuja; el dedo selecciona y mueve',
       child: Semantics(
         button: true,
         toggled: enabled,
@@ -541,17 +642,30 @@ class _FingerToggle extends StatelessWidget {
           child: AnimatedContainer(
             duration: KraftMotion.of(context, KraftMotion.fast),
             curve: KraftMotion.settle,
-            margin: compact ? const EdgeInsets.only(top: 6) : const EdgeInsets.only(left: 6),
+            margin: compact
+                ? const EdgeInsets.only(top: 6)
+                : const EdgeInsets.only(left: 6),
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
             decoration: BoxDecoration(
-              color: enabled ? KraftColors.primaryContainer : KraftColors.surfaceContainer,
+              color: enabled
+                  ? KraftColors.primaryContainer
+                  : KraftColors.surfaceContainer,
               borderRadius: BorderRadius.circular(KraftRadius.md),
-              border: Border.all(color: enabled ? KraftColors.ink : Colors.transparent, width: 1.5),
+              border: Border.all(
+                color: enabled ? KraftColors.ink : Colors.transparent,
+                width: 1.5,
+              ),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Symbols.touch_app, size: 15, color: enabled ? KraftColors.ink : KraftColors.onSurfaceVariant),
+                Icon(
+                  Symbols.touch_app,
+                  size: 15,
+                  color: enabled
+                      ? KraftColors.ink
+                      : KraftColors.onSurfaceVariant,
+                ),
                 if (!compact) ...[
                   const SizedBox(width: 4),
                   Text(
@@ -559,7 +673,9 @@ class _FingerToggle extends StatelessWidget {
                     style: KraftText.labelCode.copyWith(
                       fontSize: 11,
                       fontWeight: enabled ? FontWeight.w700 : FontWeight.w500,
-                      color: enabled ? KraftColors.ink : KraftColors.onSurfaceVariant,
+                      color: enabled
+                          ? KraftColors.ink
+                          : KraftColors.onSurfaceVariant,
                     ),
                   ),
                 ],

@@ -256,14 +256,13 @@ class _GeneratedCover extends StatelessWidget {
                         blurRadius: 14,
                         offset: const Offset(0, 4),
                       ),
-                      ...KraftShadow.hard(2, KraftColors.shadow.withValues(alpha: 0.4)),
+                      ...KraftShadow.hard(
+                        2,
+                        KraftColors.shadow.withValues(alpha: 0.4),
+                      ),
                     ],
                   ),
-                  child: Icon(
-                    project.kind.icon,
-                    size: 28,
-                    color: kindColor,
-                  ),
+                  child: Icon(project.kind.icon, size: 28, color: kindColor),
                 ),
                 const SizedBox(height: 6),
                 Text(

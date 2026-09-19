@@ -10,9 +10,24 @@ import 'helpers.dart';
 void main() {
   group('StrokePressure', () {
     test('sólo el Apple Pencil aporta presión normalizada', () {
-      const pencil = PointerDownEvent(kind: PointerDeviceKind.stylus, pressure: 2, pressureMin: 0, pressureMax: 4);
-      const finger = PointerDownEvent(kind: PointerDeviceKind.touch, pressure: 1, pressureMin: 0, pressureMax: 1);
-      const noRange = PointerDownEvent(kind: PointerDeviceKind.stylus, pressure: 1, pressureMin: 1, pressureMax: 1);
+      const pencil = PointerDownEvent(
+        kind: PointerDeviceKind.stylus,
+        pressure: 2,
+        pressureMin: 0,
+        pressureMax: 4,
+      );
+      const finger = PointerDownEvent(
+        kind: PointerDeviceKind.touch,
+        pressure: 1,
+        pressureMin: 0,
+        pressureMax: 1,
+      );
+      const noRange = PointerDownEvent(
+        kind: PointerDeviceKind.stylus,
+        pressure: 1,
+        pressureMin: 1,
+        pressureMax: 1,
+      );
 
       expect(StrokePressure.normalized(pencil), 0.5);
       expect(StrokePressure.normalized(finger), isNull);
@@ -22,14 +37,23 @@ void main() {
     test('el grosor crece con la presión entre 0.3x y 1.8x', () {
       expect(StrokePressure.widthFor(4, 0), closeTo(1.2, 1e-9));
       expect(StrokePressure.widthFor(4, 1), closeTo(7.2, 1e-9));
-      expect(StrokePressure.widthFor(4, 0.6), greaterThan(StrokePressure.widthFor(4, 0.3)));
+      expect(
+        StrokePressure.widthFor(4, 0.6),
+        greaterThan(StrokePressure.widthFor(4, 0.3)),
+      );
     });
   });
 
   group('LiveStroke', () {
     test('suaviza la presión y la conserva al terminar', () {
       final live = LiveStroke()
-        ..start(Offset.zero, color: const Color(0xFF000000), width: 4, highlighter: false, pressure: 0)
+        ..start(
+          Offset.zero,
+          color: const Color(0xFF000000),
+          width: 4,
+          highlighter: false,
+          pressure: 0,
+        )
         ..add(const Offset(10, 0), pressure: 1)
         ..add(const Offset(20, 0), pressure: 1);
 
@@ -39,18 +63,35 @@ void main() {
       expect(stroke.widths.first, lessThan(stroke.widths.last));
     });
 
-    test('el resaltador y los punteros sin presión dibujan con grosor uniforme', () {
-      final marker = LiveStroke()
-        ..start(Offset.zero, color: const Color(0xFF000000), width: 4, highlighter: true, pressure: 0.2);
-      expect(marker.usesPressure, isFalse);
+    test(
+      'el resaltador y los punteros sin presión dibujan con grosor uniforme',
+      () {
+        final marker = LiveStroke()
+          ..start(
+            Offset.zero,
+            color: const Color(0xFF000000),
+            width: 4,
+            highlighter: true,
+            pressure: 0.2,
+          );
+        expect(marker.usesPressure, isFalse);
 
-      final finger = LiveStroke()..start(Offset.zero, color: const Color(0xFF000000), width: 4, highlighter: false);
-      finger.add(const Offset(30, 0), pressure: 0.9);
-      expect(finger.finish(1)!.pressures, isNull);
-    });
+        final finger = LiveStroke()
+          ..start(
+            Offset.zero,
+            color: const Color(0xFF000000),
+            width: 4,
+            highlighter: false,
+          );
+        finger.add(const Offset(30, 0), pressure: 0.9);
+        expect(finger.finish(1)!.pressures, isNull);
+      },
+    );
   });
 
-  testWidgets('en el lienzo, más presión da un trazo más grueso', (tester) async {
+  testWidgets('en el lienzo, más presión da un trazo más grueso', (
+    tester,
+  ) async {
     await pumpKraft(tester, size: const Size(1366, 1024));
     await openCanvasEditor(tester);
     await tester.tap(toolButton('Lápiz / Trazo libre'));
@@ -60,27 +101,33 @@ void main() {
       for (var i = 0; i <= 10; i++) {
         final position = Offset(700.0 + i * 20, y);
         final common = (pressure: pressure, pressureMin: 0.0, pressureMax: 1.0);
-        tester.binding.handlePointerEvent(i == 0
-            ? PointerDownEvent(
-                pointer: pointer,
-                position: position,
-                kind: PointerDeviceKind.stylus,
-                pressure: common.pressure,
-                pressureMin: common.pressureMin,
-                pressureMax: common.pressureMax,
-              )
-            : PointerMoveEvent(
-                pointer: pointer,
-                position: position,
-                kind: PointerDeviceKind.stylus,
-                pressure: common.pressure,
-                pressureMin: common.pressureMin,
-                pressureMax: common.pressureMax,
-              ));
+        tester.binding.handlePointerEvent(
+          i == 0
+              ? PointerDownEvent(
+                  pointer: pointer,
+                  position: position,
+                  kind: PointerDeviceKind.stylus,
+                  pressure: common.pressure,
+                  pressureMin: common.pressureMin,
+                  pressureMax: common.pressureMax,
+                )
+              : PointerMoveEvent(
+                  pointer: pointer,
+                  position: position,
+                  kind: PointerDeviceKind.stylus,
+                  pressure: common.pressure,
+                  pressureMin: common.pressureMin,
+                  pressureMax: common.pressureMax,
+                ),
+        );
         await tester.pump(const Duration(milliseconds: 16));
       }
       tester.binding.handlePointerEvent(
-        PointerUpEvent(pointer: pointer, position: Offset(900, y), kind: PointerDeviceKind.stylus),
+        PointerUpEvent(
+          pointer: pointer,
+          position: Offset(900, y),
+          kind: PointerDeviceKind.stylus,
+        ),
       );
       await tester.pumpAndSettle();
     }

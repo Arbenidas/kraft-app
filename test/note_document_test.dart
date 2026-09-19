@@ -162,7 +162,8 @@ void main() {
     });
 
     test('pinta markdown y conserva cada carácter', () {
-      const src = 'Guía REST\n'
+      const src =
+          'Guía REST\n'
           '# Completa\n'
           '### Qué es\n'
           'Una **API REST** con `GET`\n'
@@ -174,15 +175,22 @@ void main() {
       final span = NoteTextController.spansFor(src);
       expect(span.toPlainText(), src);
       expect(
-        _styles(span).any((s) => s.fontSize == 28 && s.fontWeight == FontWeight.w700),
+        _styles(
+          span,
+        ).any((s) => s.fontSize == 28 && s.fontWeight == FontWeight.w700),
         isTrue,
       );
       expect(
-        _styles(span).any((s) => s.fontSize == 20 && s.fontWeight == FontWeight.w700),
+        _styles(
+          span,
+        ).any((s) => s.fontSize == 20 && s.fontWeight == FontWeight.w700),
         isTrue,
       );
       expect(_styles(span).any((s) => s.fontWeight == FontWeight.w700), isTrue);
-      expect(_styles(span).any((s) => s.fontFamily == NoteStyles.code.fontFamily), isTrue);
+      expect(
+        _styles(span).any((s) => s.fontFamily == NoteStyles.code.fontFamily),
+        isTrue,
+      );
       expect(
         NoteTextController.readablePreview(src),
         'Guía REST · Completa · Qué es · Una API REST con GET · POST: crear',

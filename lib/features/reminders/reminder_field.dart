@@ -25,14 +25,19 @@ String reminderLabel(DateTime at, {DateTime? now}) {
 
 /// Elegir cuándo avisar: accesos rápidos o fecha y hora exactas, y copia en Recordatorios de Apple.
 class ReminderField extends ConsumerWidget {
-  const ReminderField({super.key, required this.value, required this.onChanged});
+  const ReminderField({
+    super.key,
+    required this.value,
+    required this.onChanged,
+  });
 
   final DateTime? value;
   final ValueChanged<DateTime?> onChanged;
 
   Future<void> _set(WidgetRef ref, DateTime? at) async {
     onChanged(at);
-    if (at != null) await ref.read(reminderServiceProvider).ensureNotificationPermission();
+    if (at != null)
+      await ref.read(reminderServiceProvider).ensureNotificationPermission();
   }
 
   Future<void> _pick(BuildContext context, WidgetRef ref) async {
@@ -40,7 +45,10 @@ class ReminderField extends ConsumerWidget {
     final initial = value ?? now.add(const Duration(hours: 1));
     final picked = await showKraftDeadlinePicker(
       context,
-      initial: KraftDeadline(day: initial.isBefore(now) ? now : initial, time: TimeOfDay.fromDateTime(initial)),
+      initial: KraftDeadline(
+        day: initial.isBefore(now) ? now : initial,
+        time: TimeOfDay.fromDateTime(initial),
+      ),
       timeRequired: true,
       title: 'Recordatorio',
     );
@@ -54,7 +62,10 @@ class ReminderField extends ConsumerWidget {
     final now = DateTime.now();
     final today = dateOnly(now);
     final presets = <(String, DateTime)>[
-      ('En 1 hora', DateTime(now.year, now.month, now.day, now.hour + 1, now.minute)),
+      (
+        'En 1 hora',
+        DateTime(now.year, now.month, now.day, now.hour + 1, now.minute),
+      ),
       if (now.hour < 18) ('Hoy 18:00', today.add(const Duration(hours: 18))),
       ('Mañana 9:00', addDays(today, 1).add(const Duration(hours: 9))),
     ];
@@ -63,17 +74,34 @@ class ReminderField extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text('RECORDATORIO', style: KraftText.techBadge.copyWith(color: KraftColors.onSurfaceVariant)),
+        Text(
+          'RECORDATORIO',
+          style: KraftText.techBadge.copyWith(
+            color: KraftColors.onSurfaceVariant,
+          ),
+        ),
         const SizedBox(height: 6),
         Wrap(
           spacing: KraftSpace.sm,
           runSpacing: KraftSpace.sm,
           children: [
-            _Chip(label: 'Sin aviso', icon: Symbols.notifications_off, selected: value == null, onTap: () => _set(ref, null)),
-            for (final (label, at) in presets)
-              _Chip(label: label, icon: Symbols.alarm, selected: value == at, onTap: () => _set(ref, at)),
             _Chip(
-              label: value != null && !presets.any((p) => p.$2 == value) ? reminderLabel(value!) : 'Elegir fecha y hora',
+              label: 'Sin aviso',
+              icon: Symbols.notifications_off,
+              selected: value == null,
+              onTap: () => _set(ref, null),
+            ),
+            for (final (label, at) in presets)
+              _Chip(
+                label: label,
+                icon: Symbols.alarm,
+                selected: value == at,
+                onTap: () => _set(ref, at),
+              ),
+            _Chip(
+              label: value != null && !presets.any((p) => p.$2 == value)
+                  ? reminderLabel(value!)
+                  : 'Elegir fecha y hora',
               icon: Symbols.calendar_month,
               selected: value != null && !presets.any((p) => p.$2 == value),
               onTap: () => _pick(context, ref),
@@ -84,14 +112,28 @@ class ReminderField extends ConsumerWidget {
           const SizedBox(height: KraftSpace.sm),
           Row(
             children: [
-              Icon(Symbols.notifications_active, size: 18, color: KraftColors.secondary),
+              Icon(
+                Symbols.notifications_active,
+                size: 18,
+                color: KraftColors.secondary,
+              ),
               const SizedBox(width: 6),
-              Expanded(child: Text('Te avisaré ${reminderLabel(value!).toLowerCase()}', style: KraftText.bodySm)),
+              Expanded(
+                child: Text(
+                  'Te avisaré ${reminderLabel(value!).toLowerCase()}',
+                  style: KraftText.bodySm,
+                ),
+              ),
             ],
           ),
           Row(
             children: [
-              Expanded(child: Text('También en Recordatorios de Apple', style: KraftText.bodyMd)),
+              Expanded(
+                child: Text(
+                  'También en Recordatorios de Apple',
+                  style: KraftText.bodyMd,
+                ),
+              ),
               Switch(
                 value: service.appleSync,
                 activeTrackColor: KraftColors.inkFill,
@@ -99,7 +141,11 @@ class ReminderField extends ConsumerWidget {
                 onChanged: (enabled) async {
                   final ok = await service.setAppleSync(enabled);
                   if (!ok && context.mounted) {
-                    KraftToast.show(context, 'Permite el acceso en Ajustes › Privacidad › Recordatorios', icon: Symbols.lock);
+                    KraftToast.show(
+                      context,
+                      'Permite el acceso en Ajustes › Privacidad › Recordatorios',
+                      icon: Symbols.lock,
+                    );
                   }
                 },
               ),
@@ -112,7 +158,12 @@ class ReminderField extends ConsumerWidget {
 }
 
 class _Chip extends StatelessWidget {
-  const _Chip({required this.label, required this.icon, required this.selected, required this.onTap});
+  const _Chip({
+    required this.label,
+    required this.icon,
+    required this.selected,
+    required this.onTap,
+  });
 
   final String label;
   final IconData icon;
@@ -124,7 +175,9 @@ class _Chip extends StatelessWidget {
     Theme.of(context); // Rebuild when the active palette changes.
     return NeoBox(
       onTap: onTap,
-      color: selected ? KraftColors.primaryContainer : KraftColors.surfaceContainerLowest,
+      color: selected
+          ? KraftColors.primaryContainer
+          : KraftColors.surfaceContainerLowest,
       borderWidth: 1.5,
       shadow: selected ? 2 : 0,
       radius: KraftRadius.sm,
@@ -134,7 +187,12 @@ class _Chip extends StatelessWidget {
         children: [
           Icon(icon, size: 16),
           const SizedBox(width: 6),
-          Text(label, style: KraftText.labelCode.copyWith(fontWeight: selected ? FontWeight.w700 : FontWeight.w500)),
+          Text(
+            label,
+            style: KraftText.labelCode.copyWith(
+              fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+            ),
+          ),
         ],
       ),
     );

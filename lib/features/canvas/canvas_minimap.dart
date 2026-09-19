@@ -25,9 +25,16 @@ class MinimapProjection {
   }) {
     final visible = MinimapProjection.visibleWorld(view, viewportSize);
     final content = document.contentBounds;
-    var region = (content ?? visible).inflate(320).expandToInclude(visible).inflate(40);
-    if (region.isEmpty) region = Rect.fromCenter(center: region.center, width: 1000, height: 700);
-    final scale = math.min(mapSize.width / region.width, mapSize.height / region.height);
+    var region = (content ?? visible)
+        .inflate(320)
+        .expandToInclude(visible)
+        .inflate(40);
+    if (region.isEmpty)
+      region = Rect.fromCenter(center: region.center, width: 1000, height: 700);
+    final scale = math.min(
+      mapSize.width / region.width,
+      mapSize.height / region.height,
+    );
     // Centra la región en el mapa.
     final origin = Offset(
       (mapSize.width - region.width * scale) / 2 - region.left * scale,
@@ -41,11 +48,15 @@ class MinimapProjection {
   final Offset origin;
 
   Offset toMap(Offset world) => world * scale + origin;
-  Rect rectToMap(Rect world) => Rect.fromPoints(toMap(world.topLeft), toMap(world.bottomRight));
+  Rect rectToMap(Rect world) =>
+      Rect.fromPoints(toMap(world.topLeft), toMap(world.bottomRight));
   Offset toWorld(Offset map) => (map - origin) / scale;
 
   static Rect visibleWorld(Matrix4 view, Size viewportSize) =>
-      MatrixUtils.transformRect(Matrix4.inverted(view), Offset.zero & viewportSize);
+      MatrixUtils.transformRect(
+        Matrix4.inverted(view),
+        Offset.zero & viewportSize,
+      );
 }
 
 /// Minimapa plegable: muestra el contenido y la zona visible; tocar o arrastrar mueve la vista.
@@ -84,11 +95,11 @@ class _CanvasMinimapState extends State<CanvasMinimap> {
   MinimapProjection? _dragProjection;
 
   MinimapProjection _projection() => MinimapProjection.of(
-        document: widget.document,
-        view: widget.viewer.value,
-        viewportSize: widget.viewportSize,
-        mapSize: CanvasMinimap.mapSize,
-      );
+    document: widget.document,
+    view: widget.viewer.value,
+    viewportSize: widget.viewportSize,
+    mapSize: CanvasMinimap.mapSize,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +142,10 @@ class _CanvasMinimapState extends State<CanvasMinimap> {
   }
 
   Widget _expanded() {
-    return SizedBox(width: CanvasMinimap.mapSize.width, child: _expandedContent());
+    return SizedBox(
+      width: CanvasMinimap.mapSize.width,
+      child: _expandedContent(),
+    );
   }
 
   Widget _expandedContent() {
@@ -141,7 +155,11 @@ class _CanvasMinimapState extends State<CanvasMinimap> {
       children: [
         Container(
           padding: const EdgeInsets.only(left: 10),
-          decoration: BoxDecoration(border: Border(bottom: BorderSide(color: KraftColors.ink, width: 2))),
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(color: KraftColors.ink, width: 2),
+            ),
+          ),
           child: Row(
             children: [
               const Icon(Symbols.map, size: 16),
@@ -150,15 +168,24 @@ class _CanvasMinimapState extends State<CanvasMinimap> {
               const SizedBox(width: 8),
               Expanded(
                 child: ListenableBuilder(
-                  listenable: Listenable.merge([widget.document, widget.viewer]),
+                  listenable: Listenable.merge([
+                    widget.document,
+                    widget.viewer,
+                  ]),
                   builder: (context, _) {
-                    final center = MinimapProjection.visibleWorld(widget.viewer.value, widget.viewportSize).center;
+                    final center = MinimapProjection.visibleWorld(
+                      widget.viewer.value,
+                      widget.viewportSize,
+                    ).center;
                     return Text(
                       'X ${center.dx.round()}  Y ${center.dy.round()}',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.right,
-                      style: KraftText.techBadge.copyWith(fontWeight: FontWeight.w400, color: KraftColors.onSurfaceVariant),
+                      style: KraftText.techBadge.copyWith(
+                        fontWeight: FontWeight.w400,
+                        color: KraftColors.onSurfaceVariant,
+                      ),
                     );
                   },
                 ),
@@ -176,12 +203,15 @@ class _CanvasMinimapState extends State<CanvasMinimap> {
           label: 'Minimapa del lienzo',
           child: GestureDetector(
             behavior: HitTestBehavior.opaque,
-            onTapUp: (d) => widget.onJump(_projection().toWorld(d.localPosition)),
+            onTapUp: (d) =>
+                widget.onJump(_projection().toWorld(d.localPosition)),
             onPanStart: (d) {
               _dragProjection = _projection();
               widget.onDrag(_dragProjection!.toWorld(d.localPosition));
             },
-            onPanUpdate: (d) => widget.onDrag((_dragProjection ?? _projection()).toWorld(d.localPosition)),
+            onPanUpdate: (d) => widget.onDrag(
+              (_dragProjection ?? _projection()).toWorld(d.localPosition),
+            ),
             onPanEnd: (_) => _dragProjection = null,
             onPanCancel: () => _dragProjection = null,
             child: CustomPaint(
@@ -215,22 +245,39 @@ class _MinimapPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawRect(Offset.zero & size, Paint()..color = KraftColors.surfaceContainerLow);
+    canvas.drawRect(
+      Offset.zero & size,
+      Paint()..color = KraftColors.surfaceContainerLow,
+    );
     if (viewportSize.isEmpty) return;
 
-    final p = frozen() ??
-        MinimapProjection.of(document: document, view: viewer.value, viewportSize: viewportSize, mapSize: size);
+    final p =
+        frozen() ??
+        MinimapProjection.of(
+          document: document,
+          view: viewer.value,
+          viewportSize: viewportSize,
+          mapSize: size,
+        );
 
     // Trama de fondo: una cruz cada ~400 pt de lienzo para dar referencia de escala.
     final grid = Paint()
       ..color = KraftColors.outlineVariant.withValues(alpha: 0.6)
       ..strokeWidth = 1;
     const cell = 400.0;
-    for (var x = (p.region.left / cell).floor() * cell; x <= p.region.right; x += cell) {
+    for (
+      var x = (p.region.left / cell).floor() * cell;
+      x <= p.region.right;
+      x += cell
+    ) {
       final mx = p.toMap(Offset(x, 0)).dx;
       canvas.drawLine(Offset(mx, 0), Offset(mx, size.height), grid);
     }
-    for (var y = (p.region.top / cell).floor() * cell; y <= p.region.bottom; y += cell) {
+    for (
+      var y = (p.region.top / cell).floor() * cell;
+      y <= p.region.bottom;
+      y += cell
+    ) {
       final my = p.toMap(Offset(0, y)).dy;
       canvas.drawLine(Offset(0, my), Offset(size.width, my), grid);
     }
@@ -241,7 +288,9 @@ class _MinimapPainter extends CustomPainter {
       ..strokeWidth = 1;
     for (final item in document.items) {
       final r = p.rectToMap(document.itemRect(item));
-      final fill = item.type == CanvasItemType.node && item.active ? KraftColors.primaryContainer : canvasItemColor(item);
+      final fill = item.type == CanvasItemType.node && item.active
+          ? KraftColors.primaryContainer
+          : canvasItemColor(item);
       canvas
         ..drawRect(r, Paint()..color = fill)
         ..drawRect(r, border);
@@ -262,15 +311,22 @@ class _MinimapPainter extends CustomPainter {
         path,
         Paint()
           ..style = PaintingStyle.stroke
-          ..color = stroke.highlighter ? stroke.color.withValues(alpha: 0.5) : stroke.color
+          ..color = stroke.highlighter
+              ? stroke.color.withValues(alpha: 0.5)
+              : stroke.color
           ..strokeWidth = math.max(1, stroke.paintedWidth * p.scale)
           ..strokeCap = StrokeCap.round,
       );
     }
 
-    final visible = p.rectToMap(MinimapProjection.visibleWorld(viewer.value, viewportSize));
+    final visible = p.rectToMap(
+      MinimapProjection.visibleWorld(viewer.value, viewportSize),
+    );
     canvas
-      ..drawRect(visible, Paint()..color = KraftColors.primaryContainer.withValues(alpha: 0.28))
+      ..drawRect(
+        visible,
+        Paint()..color = KraftColors.primaryContainer.withValues(alpha: 0.28),
+      )
       ..drawRect(
         visible,
         Paint()
@@ -282,5 +338,7 @@ class _MinimapPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_MinimapPainter old) =>
-      old.document != document || old.viewer != viewer || old.viewportSize != viewportSize;
+      old.document != document ||
+      old.viewer != viewer ||
+      old.viewportSize != viewportSize;
 }

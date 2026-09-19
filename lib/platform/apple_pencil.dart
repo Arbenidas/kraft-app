@@ -12,8 +12,10 @@ enum PencilAction {
   showContextualPalette,
   runSystemShortcut;
 
-  static PencilAction parse(Object? raw) =>
-      PencilAction.values.firstWhere((a) => a.name == raw, orElse: () => PencilAction.switchEraser);
+  static PencilAction parse(Object? raw) => PencilAction.values.firstWhere(
+    (a) => a.name == raw,
+    orElse: () => PencilAction.switchEraser,
+  );
 }
 
 enum PencilGesture { doubleTap, squeeze }

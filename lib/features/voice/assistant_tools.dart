@@ -1022,7 +1022,9 @@ class AssistantTools {
       {'project_id': id, 'title': title, 'kind': kind.name, 'created': true},
       AssistantAction(
         'Proyecto creado: $title',
-        open: openViewHandler == null ? null : () => openViewHandler!('project', id),
+        open: openViewHandler == null
+            ? null
+            : () => openViewHandler!('project', id),
       ),
     );
   }
@@ -1093,10 +1095,10 @@ class AssistantTools {
         open: openViewHandler == null
             ? null
             : () => openViewHandler!(
-                  isRequirement ? 'requirements' : 'activities',
-                  projectId,
-                  requirementId: id,
-                ),
+                isRequirement ? 'requirements' : 'activities',
+                projectId,
+                requirementId: id,
+              ),
       ),
     );
   }

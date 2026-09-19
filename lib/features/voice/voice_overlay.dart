@@ -69,7 +69,9 @@ class _VoiceLayerState extends ConsumerState<_VoiceLayer> {
   @override
   void initState() {
     super.initState();
-    _creationSub = ref.read(voiceControllerProvider).creationEvents.listen((event) {
+    _creationSub = ref.read(voiceControllerProvider).creationEvents.listen((
+      event,
+    ) {
       if (mounted) {
         AiCreationToast.show(
           context,

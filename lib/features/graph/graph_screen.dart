@@ -42,14 +42,23 @@ class GraphScreen extends StatelessWidget {
                           foreground: KraftColors.onSurface,
                         ),
                         const SizedBox(height: KraftSpace.md),
-                        Icon(Symbols.hub, size: 48, color: KraftColors.onSurface),
+                        Icon(
+                          Symbols.hub,
+                          size: 48,
+                          color: KraftColors.onSurface,
+                        ),
                         const SizedBox(height: KraftSpace.sm),
-                        Text('Grafo de ideas', style: KraftText.headlineLg.copyWith(fontSize: 28)),
+                        Text(
+                          'Grafo de ideas',
+                          style: KraftText.headlineLg.copyWith(fontSize: 28),
+                        ),
                         const SizedBox(height: KraftSpace.xs),
                         Text(
                           'Conexiones entre proyectos, notas y bocetos.',
                           textAlign: TextAlign.center,
-                          style: KraftText.bodyMd.copyWith(color: KraftColors.onSurfaceVariant),
+                          style: KraftText.bodyMd.copyWith(
+                            color: KraftColors.onSurfaceVariant,
+                          ),
                         ),
                       ],
                     ),

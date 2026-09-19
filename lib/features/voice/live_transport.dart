@@ -20,7 +20,11 @@ class WebSocketLiveTransport implements LiveTransport {
   final WebSocket _socket;
 
   static Future<LiveTransport> connect(Uri url) async =>
-      WebSocketLiveTransport._(await WebSocket.connect(url.toString()).timeout(const Duration(seconds: 15)));
+      WebSocketLiveTransport._(
+        await WebSocket.connect(
+          url.toString(),
+        ).timeout(const Duration(seconds: 15)),
+      );
 
   @override
   late final Stream<Map<String, Object?>> messages = _socket.map((frame) {

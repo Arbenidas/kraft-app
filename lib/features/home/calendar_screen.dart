@@ -109,32 +109,33 @@ class _CalendarWorkInbox extends ConsumerWidget {
     final total = projectItems.length;
     final progress = total > 0 ? done / total : 0.0;
 
-    final visible = [
-      for (final item in projectItems)
-        if (switch (filter) {
-          _WorkFilter.all => true,
-          _WorkFilter.pending => item.status != 'done',
-          _WorkFilter.done => item.status == 'done',
-        })
-          item,
-    ]..sort((a, b) {
-      if (filter == _WorkFilter.all) {
-        final aDone = a.status == 'done' ? 1 : 0;
-        final bDone = b.status == 'done' ? 1 : 0;
-        if (aDone != bDone) return aDone.compareTo(bDone);
-      }
-      final aDate =
-          a.dueAt ??
-          (a.dueDay != null ? DateTime.tryParse(a.dueDay!) : null) ??
-          DateTime(9999);
-      final bDate =
-          b.dueAt ??
-          (b.dueDay != null ? DateTime.tryParse(b.dueDay!) : null) ??
-          DateTime(9999);
-      final comp = aDate.compareTo(bDate);
-      if (comp != 0) return comp;
-      return b.id.compareTo(a.id);
-    });
+    final visible =
+        [
+          for (final item in projectItems)
+            if (switch (filter) {
+              _WorkFilter.all => true,
+              _WorkFilter.pending => item.status != 'done',
+              _WorkFilter.done => item.status == 'done',
+            })
+              item,
+        ]..sort((a, b) {
+          if (filter == _WorkFilter.all) {
+            final aDone = a.status == 'done' ? 1 : 0;
+            final bDone = b.status == 'done' ? 1 : 0;
+            if (aDone != bDone) return aDone.compareTo(bDone);
+          }
+          final aDate =
+              a.dueAt ??
+              (a.dueDay != null ? DateTime.tryParse(a.dueDay!) : null) ??
+              DateTime(9999);
+          final bDate =
+              b.dueAt ??
+              (b.dueDay != null ? DateTime.tryParse(b.dueDay!) : null) ??
+              DateTime(9999);
+          final comp = aDate.compareTo(bDate);
+          if (comp != 0) return comp;
+          return b.id.compareTo(a.id);
+        });
 
     final projectNames = {
       for (final project in projects) project.id: project.title,
@@ -319,7 +320,9 @@ class _CalendarWorkRow extends ConsumerWidget {
     final completed = item.status == 'done';
     final isRequirement = item.kind == 'requirement';
     final typeLabel = isRequirement ? 'REQUERIMIENTO' : 'ACTIVIDAD';
-    final due = item.dueAt ?? (item.dueDay != null ? DateTime.tryParse(item.dueDay!) : null);
+    final due =
+        item.dueAt ??
+        (item.dueDay != null ? DateTime.tryParse(item.dueDay!) : null);
 
     Future<void> toggleDone() async {
       final nextDone = !completed;
@@ -359,7 +362,9 @@ class _CalendarWorkRow extends ConsumerWidget {
         children: [
           // Checkbox interactivo de 1-toque
           IconButton(
-            tooltip: completed ? 'Marcar como pendiente' : 'Marcar como terminado',
+            tooltip: completed
+                ? 'Marcar como pendiente'
+                : 'Marcar como terminado',
             padding: EdgeInsets.zero,
             constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
             icon: Icon(
@@ -379,16 +384,27 @@ class _CalendarWorkRow extends ConsumerWidget {
                 Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: isRequirement
-                            ? KraftColors.tertiaryContainer.withValues(alpha: 0.2)
-                            : KraftColors.primaryContainer.withValues(alpha: 0.2),
+                            ? KraftColors.tertiaryContainer.withValues(
+                                alpha: 0.2,
+                              )
+                            : KraftColors.primaryContainer.withValues(
+                                alpha: 0.2,
+                              ),
                         borderRadius: BorderRadius.circular(KraftRadius.sm),
                         border: Border.all(
                           color: isRequirement
-                              ? KraftColors.tertiaryContainer.withValues(alpha: 0.5)
-                              : KraftColors.primaryContainer.withValues(alpha: 0.5),
+                              ? KraftColors.tertiaryContainer.withValues(
+                                  alpha: 0.5,
+                                )
+                              : KraftColors.primaryContainer.withValues(
+                                  alpha: 0.5,
+                                ),
                         ),
                       ),
                       child: Text(
@@ -431,10 +447,15 @@ class _CalendarWorkRow extends ConsumerWidget {
                 Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1.5),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 5,
+                        vertical: 1.5,
+                      ),
                       decoration: BoxDecoration(
                         color: completed
-                            ? KraftColors.secondaryContainer.withValues(alpha: 0.15)
+                            ? KraftColors.secondaryContainer.withValues(
+                                alpha: 0.15,
+                              )
                             : KraftColors.surfaceContainerHigh,
                         borderRadius: BorderRadius.circular(KraftRadius.sm),
                       ),
@@ -521,7 +542,9 @@ class _EmptyWorkList extends StatelessWidget {
             Text(
               message,
               textAlign: TextAlign.center,
-              style: KraftText.bodySm.copyWith(color: KraftColors.onSurfaceVariant),
+              style: KraftText.bodySm.copyWith(
+                color: KraftColors.onSurfaceVariant,
+              ),
             ),
           ],
         ),

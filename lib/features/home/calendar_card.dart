@@ -727,7 +727,9 @@ class _EventTile extends ConsumerWidget {
             );
             await repo.moveRequirement(item, targetCol.id);
           } else {
-            await repo.update(item.copyWith(status: nextDone ? 'done' : 'todo'));
+            await repo.update(
+              item.copyWith(status: nextDone ? 'done' : 'todo'),
+            );
           }
         case TaskEntry(:final task):
           await ref.read(tasksRepositoryProvider).setDone(task, !task.done);
@@ -775,9 +777,13 @@ class _EventTile extends ConsumerWidget {
                               height: 32,
                               decoration: BoxDecoration(
                                 color: done
-                                    ? KraftColors.secondaryContainer.withValues(alpha: 0.2)
+                                    ? KraftColors.secondaryContainer.withValues(
+                                        alpha: 0.2,
+                                      )
                                     : KraftColors.surfaceContainer,
-                                borderRadius: BorderRadius.circular(KraftRadius.sm),
+                                borderRadius: BorderRadius.circular(
+                                  KraftRadius.sm,
+                                ),
                                 border: Border.all(
                                   color: done
                                       ? KraftColors.secondaryContainer
@@ -788,7 +794,9 @@ class _EventTile extends ConsumerWidget {
                               child: Icon(
                                 done ? Symbols.check_circle : s.icon,
                                 size: 18,
-                                color: done ? KraftColors.secondaryContainer : s.text,
+                                color: done
+                                    ? KraftColors.secondaryContainer
+                                    : s.text,
                               ),
                             ),
                           )
@@ -798,13 +806,11 @@ class _EventTile extends ConsumerWidget {
                             height: 32,
                             decoration: BoxDecoration(
                               color: KraftColors.surfaceContainer,
-                              borderRadius: BorderRadius.circular(KraftRadius.sm),
+                              borderRadius: BorderRadius.circular(
+                                KraftRadius.sm,
+                              ),
                             ),
-                            child: Icon(
-                              s.icon,
-                              size: 18,
-                              color: s.text,
-                            ),
+                            child: Icon(s.icon, size: 18, color: s.text),
                           ),
                         const SizedBox(width: KraftSpace.sm),
                         Expanded(

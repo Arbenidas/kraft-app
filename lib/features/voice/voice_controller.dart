@@ -120,8 +120,10 @@ class VoiceController extends ChangeNotifier {
   final Set<String> _seenTools = {};
   final List<VoiceTurn> turns = [];
   final List<AssistantAction> actions = [];
-  final _creationEventsController = StreamController<AiCreationEvent>.broadcast();
-  Stream<AiCreationEvent> get creationEvents => _creationEventsController.stream;
+  final _creationEventsController =
+      StreamController<AiCreationEvent>.broadcast();
+  Stream<AiCreationEvent> get creationEvents =>
+      _creationEventsController.stream;
 
   void emitAiCreation({
     required String title,
@@ -150,10 +152,13 @@ class VoiceController extends ChangeNotifier {
         onAction: action.open,
       );
     } else if (name == 'save_project_work') {
-      final isReq = action.label.toLowerCase().contains('requerimiento') ||
+      final isReq =
+          action.label.toLowerCase().contains('requerimiento') ||
           !action.label.toLowerCase().contains('actividad');
       emitAiCreation(
-        title: isReq ? 'Requerimiento generado con IA' : 'Actividad planificada con IA',
+        title: isReq
+            ? 'Requerimiento generado con IA'
+            : 'Actividad planificada con IA',
         subtitle: action.label,
         icon: isReq ? Symbols.task_alt : Symbols.calendar_today,
         actionLabel: action.open != null ? 'Ver' : null,

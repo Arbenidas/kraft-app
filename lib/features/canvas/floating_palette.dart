@@ -71,15 +71,29 @@ class _FloatingPaletteState extends State<FloatingPalette> {
       PaletteDock.topLeft => Offset(i.left, i.top),
       PaletteDock.centerLeft => Offset(i.left, (area.height - s) / 2),
       PaletteDock.bottomLeft => Offset(i.left, area.height - i.bottom - s),
-      PaletteDock.bottomCenter => Offset((area.width - s) / 2, area.height - i.bottom - s),
+      PaletteDock.bottomCenter => Offset(
+        (area.width - s) / 2,
+        area.height - i.bottom - s,
+      ),
       PaletteDock.topRight => Offset(area.width - i.right - s, i.top),
-      PaletteDock.centerRight => Offset(area.width - i.right - s, (area.height - s) / 2),
-      PaletteDock.bottomRight => Offset(area.width - i.right - s, area.height - i.bottom - s),
+      PaletteDock.centerRight => Offset(
+        area.width - i.right - s,
+        (area.height - s) / 2,
+      ),
+      PaletteDock.bottomRight => Offset(
+        area.width - i.right - s,
+        area.height - i.bottom - s,
+      ),
     };
   }
 
   PaletteDock _nearestDock(Offset position, Size area) {
-    final center = position + const Offset(FloatingPalette.bubbleSize / 2, FloatingPalette.bubbleSize / 2);
+    final center =
+        position +
+        const Offset(
+          FloatingPalette.bubbleSize / 2,
+          FloatingPalette.bubbleSize / 2,
+        );
     return PaletteDock.values.reduce((best, dock) {
       final a = (_dockPosition(best, area) - center).distanceSquared;
       final b = (_dockPosition(dock, area) - center).distanceSquared;
@@ -113,7 +127,10 @@ class _FloatingPaletteState extends State<FloatingPalette> {
                   child: AnimatedScale(
                     scale: collapsed ? 0.15 : 1,
                     alignment: dock.alignment,
-                    duration: KraftMotion.of(context, collapsed ? KraftMotion.base : KraftMotion.slow),
+                    duration: KraftMotion.of(
+                      context,
+                      collapsed ? KraftMotion.base : KraftMotion.slow,
+                    ),
                     curve: collapsed ? Curves.easeInCubic : KraftMotion.pop,
                     child: AnimatedOpacity(
                       opacity: collapsed ? 0 : 1,
@@ -125,7 +142,10 @@ class _FloatingPaletteState extends State<FloatingPalette> {
                             maxWidth: math.max(0, area.width - i.horizontal),
                             maxHeight: math.max(0, area.height - i.vertical),
                           ),
-                          child: FittedBox(fit: BoxFit.scaleDown, child: widget.palette),
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: widget.palette,
+                          ),
                         ),
                       ),
                     ),
@@ -135,7 +155,9 @@ class _FloatingPaletteState extends State<FloatingPalette> {
             ),
             // Burbuja.
             AnimatedPositioned(
-              duration: _drag != null ? Duration.zero : KraftMotion.of(context, KraftMotion.slow),
+              duration: _drag != null
+                  ? Duration.zero
+                  : KraftMotion.of(context, KraftMotion.slow),
               curve: Curves.easeOutBack,
               left: bubblePos.dx,
               top: bubblePos.dy,
@@ -145,7 +167,10 @@ class _FloatingPaletteState extends State<FloatingPalette> {
                 ignoring: !collapsed,
                 child: AnimatedScale(
                   scale: collapsed ? (_drag != null ? 1.08 : 1) : 0,
-                  duration: KraftMotion.of(context, collapsed ? KraftMotion.slow : KraftMotion.fast),
+                  duration: KraftMotion.of(
+                    context,
+                    collapsed ? KraftMotion.slow : KraftMotion.fast,
+                  ),
                   curve: collapsed ? KraftMotion.pop : Curves.easeIn,
                   child: Semantics(
                     button: true,
@@ -156,8 +181,20 @@ class _FloatingPaletteState extends State<FloatingPalette> {
                       onPanUpdate: (d) => setState(() {
                         final next = (_drag ?? bubblePos) + d.delta;
                         _drag = Offset(
-                          next.dx.clamp(0, math.max(0, area.width - FloatingPalette.bubbleSize)),
-                          next.dy.clamp(0, math.max(0, area.height - FloatingPalette.bubbleSize)),
+                          next.dx.clamp(
+                            0,
+                            math.max(
+                              0,
+                              area.width - FloatingPalette.bubbleSize,
+                            ),
+                          ),
+                          next.dy.clamp(
+                            0,
+                            math.max(
+                              0,
+                              area.height - FloatingPalette.bubbleSize,
+                            ),
+                          ),
                         );
                       }),
                       onPanEnd: (_) {
