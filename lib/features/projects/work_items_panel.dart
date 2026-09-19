@@ -229,7 +229,9 @@ class _ActivityRow extends ConsumerWidget {
       child: Row(
         children: [
           IconButton(
-            tooltip: completed ? 'Marcar como pendiente' : 'Marcar como terminado',
+            tooltip: completed
+                ? 'Marcar como pendiente'
+                : 'Marcar como terminado',
             padding: EdgeInsets.zero,
             constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
             icon: Icon(
@@ -711,9 +713,11 @@ class _RequirementDetail extends ConsumerWidget {
         allItems?.firstWhere((w) => w.id == item.id, orElse: () => item) ??
         item;
     final tasks =
-        ref.watch(requirementTasksProvider(currentItem.id)).valueOrNull ?? const [];
+        ref.watch(requirementTasksProvider(currentItem.id)).valueOrNull ??
+        const [];
     final history =
-        ref.watch(requirementHistoryProvider(currentItem.id)).valueOrNull ?? const [];
+        ref.watch(requirementHistoryProvider(currentItem.id)).valueOrNull ??
+        const [];
     final completed = tasks.where((task) => task.done).length;
     final progress = tasks.isEmpty ? 0.0 : completed / tasks.length;
     return Dialog(
@@ -1685,8 +1689,9 @@ class _PlanningChatState extends ConsumerState<_PlanningChat> {
                               ),
                               decoration: BoxDecoration(
                                 color: KraftColors.primaryContainer,
-                                borderRadius:
-                                    BorderRadius.circular(KraftRadius.lg),
+                                borderRadius: BorderRadius.circular(
+                                  KraftRadius.lg,
+                                ),
                               ),
                               child: Text(
                                 turn.text,
@@ -1705,8 +1710,9 @@ class _PlanningChatState extends ConsumerState<_PlanningChat> {
                             padding: const EdgeInsets.all(KraftSpace.md),
                             decoration: BoxDecoration(
                               color: KraftColors.surfaceContainerLowest,
-                              borderRadius:
-                                  BorderRadius.circular(KraftRadius.lg),
+                              borderRadius: BorderRadius.circular(
+                                KraftRadius.lg,
+                              ),
                               border: Border.all(
                                 color: KraftColors.outlineVariant,
                               ),
@@ -1749,7 +1755,9 @@ class _PlanningChatState extends ConsumerState<_PlanningChat> {
                   horizontal: KraftSpace.md,
                   vertical: 8,
                 ),
-                color: KraftColors.surfaceContainerHighest.withValues(alpha: 0.3),
+                color: KraftColors.surfaceContainerHighest.withValues(
+                  alpha: 0.3,
+                ),
                 child: Row(
                   children: [
                     SizedBox(
@@ -1824,9 +1832,7 @@ class _PlanningChatState extends ConsumerState<_PlanningChat> {
                   IconButton.filled(
                     tooltip: 'Enviar a la IA',
                     icon: Icon(
-                      voice.thinking
-                          ? Symbols.hourglass_empty
-                          : Symbols.send,
+                      voice.thinking ? Symbols.hourglass_empty : Symbols.send,
                       size: 18,
                     ),
                     onPressed: voice.thinking ? null : () => _send(input.text),

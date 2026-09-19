@@ -261,7 +261,8 @@ class _AiCreationToastViewState extends State<_AiCreationToastView>
                         ],
                       ),
                     ),
-                    if (widget.actionLabel != null && widget.onAction != null) ...[
+                    if (widget.actionLabel != null &&
+                        widget.onAction != null) ...[
                       const SizedBox(width: KraftSpace.sm),
                       TextButton(
                         onPressed: () {
@@ -279,7 +280,10 @@ class _AiCreationToastViewState extends State<_AiCreationToastView>
                       tooltip: 'Cerrar',
                       icon: const Icon(Symbols.close, size: 16),
                       padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(minWidth: 24, minHeight: 24),
+                      constraints: const BoxConstraints(
+                        minWidth: 24,
+                        minHeight: 24,
+                      ),
                       onPressed: _dismiss,
                     ),
                   ],

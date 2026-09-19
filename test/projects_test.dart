@@ -36,15 +36,15 @@ void main() {
     await tasks.create(title: 'Repasar BLoC', projectId: id);
     await tasks.create(title: 'Suelta');
 
-    expect((await notes.watchAll(projectId: id).first).map((n) => n.id), [mine]);
-    expect(
-      (await canvases.watchAll(projectId: id).first).map((c) => c.title),
-      ['Arquitectura'],
-    );
-    expect(
-      (await tasks.watchAll(projectId: id).first).map((t) => t.title),
-      ['Repasar BLoC'],
-    );
+    expect((await notes.watchAll(projectId: id).first).map((n) => n.id), [
+      mine,
+    ]);
+    expect((await canvases.watchAll(projectId: id).first).map((c) => c.title), [
+      'Arquitectura',
+    ]);
+    expect((await tasks.watchAll(projectId: id).first).map((t) => t.title), [
+      'Repasar BLoC',
+    ]);
 
     // Sacar algo del proyecto lo deja suelto, no lo borra.
     await notes.setProject(mine, null);

@@ -423,8 +423,12 @@ class _ProjectCoverPicker extends StatelessWidget {
                               height: 44,
                               decoration: BoxDecoration(
                                 color: KraftColors.surfaceContainerLow,
-                                borderRadius: BorderRadius.circular(KraftRadius.md),
-                                border: Border.all(color: KraftColors.outlineVariant),
+                                borderRadius: BorderRadius.circular(
+                                  KraftRadius.md,
+                                ),
+                                border: Border.all(
+                                  color: KraftColors.outlineVariant,
+                                ),
                               ),
                               child: Icon(
                                 Symbols.add_photo_alternate,
@@ -454,7 +458,9 @@ class _ProjectCoverPicker extends StatelessWidget {
                             stops: const [0.4, 1.0],
                             colors: [
                               Colors.transparent,
-                              KraftColors.surfaceContainerLowest.withValues(alpha: 0.85),
+                              KraftColors.surfaceContainerLowest.withValues(
+                                alpha: 0.85,
+                              ),
                             ],
                           ),
                         ),
@@ -485,7 +491,10 @@ class _ProjectCoverPicker extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(KraftRadius.md),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
               ),
               onPressed: onChoose,
               icon: Icon(
@@ -501,7 +510,10 @@ class _ProjectCoverPicker extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(KraftRadius.md),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                 ),
                 onPressed: remove,
                 icon: const Icon(Symbols.delete_outline, size: 18),
@@ -529,9 +541,7 @@ class _CoverImage extends StatelessWidget {
       fit: BoxFit.cover,
       errorBuilder: (_, _, _) => ColoredBox(
         color: KraftColors.surfaceContainerHigh,
-        child: const Center(
-          child: Icon(Symbols.broken_image, size: 32),
-        ),
+        child: const Center(child: Icon(Symbols.broken_image, size: 32)),
       ),
     );
   }

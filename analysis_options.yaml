@@ -3,4 +3,5 @@ analyzer:
     - build/**
     - ios/**
     - macos/**
+    - "**/*.g.dart"
 include: package:flutter_lints/flutter.yaml

@@ -249,9 +249,13 @@ final visibleScheduleProvider = Provider<List<ScheduleEntry>>((ref) {
               at.isBefore(to) &&
               (project == null || t.projectId == project))
         TaskEntry(t),
-  ]..sort((a, b) => a.allDay == b.allDay
-      ? a.startsAt.compareTo(b.startsAt)
-      : a.allDay ? -1 : 1);
+  ]..sort(
+    (a, b) => a.allDay == b.allDay
+        ? a.startsAt.compareTo(b.startsAt)
+        : a.allDay
+        ? -1
+        : 1,
+  );
 });
 
 final workItemsRepositoryProvider = Provider(
@@ -260,15 +264,15 @@ final workItemsRepositoryProvider = Provider(
 final projectWorkItemsProvider = StreamProvider.family<List<WorkItem>, int>(
   (ref, id) => ref.watch(workItemsRepositoryProvider).watchAll(projectId: id),
 );
-final requirementColumnsProvider = StreamProvider.family<List<RequirementColumn>, int>(
-  (ref, id) async* {
-    await ref.read(workItemsRepositoryProvider).ensureDefaultColumns(id);
-    yield* ref.watch(workItemsRepositoryProvider).watchColumns(id);
-  },
-);
-final requirementHistoryProvider = StreamProvider.family<List<RequirementHistoryData>, int>(
-  (ref, id) => ref.watch(workItemsRepositoryProvider).watchHistory(id),
-);
+final requirementColumnsProvider =
+    StreamProvider.family<List<RequirementColumn>, int>((ref, id) async* {
+      await ref.read(workItemsRepositoryProvider).ensureDefaultColumns(id);
+      yield* ref.watch(workItemsRepositoryProvider).watchColumns(id);
+    });
+final requirementHistoryProvider =
+    StreamProvider.family<List<RequirementHistoryData>, int>(
+      (ref, id) => ref.watch(workItemsRepositoryProvider).watchHistory(id),
+    );
 final allWorkItemsProvider = StreamProvider(
   (ref) => ref.watch(workItemsRepositoryProvider).watchAll(),
 );

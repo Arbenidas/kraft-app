@@ -3,18 +3,72 @@
 library;
 
 const _stopWords = {
-  'de', 'del', 'la', 'el', 'los', 'las', 'un', 'una', 'unos', 'unas', 'y', 'o', 'en', 'con', 'para', 'por',
-  'que', 'mi', 'mis', 'tu', 'sus', 'su', 'al', 'lo', 'sobre', 'como', 'este', 'esta', 'ese', 'esa', 'esto',
-  'nota', 'notas', 'lienzo', 'lienzos', 'diagrama', 'diagramas', 'proyecto', 'proyectos', 'tarea', 'tareas',
+  'de',
+  'del',
+  'la',
+  'el',
+  'los',
+  'las',
+  'un',
+  'una',
+  'unos',
+  'unas',
+  'y',
+  'o',
+  'en',
+  'con',
+  'para',
+  'por',
+  'que',
+  'mi',
+  'mis',
+  'tu',
+  'sus',
+  'su',
+  'al',
+  'lo',
+  'sobre',
+  'como',
+  'este',
+  'esta',
+  'ese',
+  'esa',
+  'esto',
+  'nota',
+  'notas',
+  'lienzo',
+  'lienzos',
+  'diagrama',
+  'diagramas',
+  'proyecto',
+  'proyectos',
+  'tarea',
+  'tareas',
 };
 
 const _accents = {
-  'á': 'a', 'à': 'a', 'ä': 'a', 'â': 'a',
-  'é': 'e', 'è': 'e', 'ë': 'e', 'ê': 'e',
-  'í': 'i', 'ì': 'i', 'ï': 'i', 'î': 'i',
-  'ó': 'o', 'ò': 'o', 'ö': 'o', 'ô': 'o',
-  'ú': 'u', 'ù': 'u', 'ü': 'u', 'û': 'u',
-  'ñ': 'n', 'ç': 'c',
+  'á': 'a',
+  'à': 'a',
+  'ä': 'a',
+  'â': 'a',
+  'é': 'e',
+  'è': 'e',
+  'ë': 'e',
+  'ê': 'e',
+  'í': 'i',
+  'ì': 'i',
+  'ï': 'i',
+  'î': 'i',
+  'ó': 'o',
+  'ò': 'o',
+  'ö': 'o',
+  'ô': 'o',
+  'ú': 'u',
+  'ù': 'u',
+  'ü': 'u',
+  'û': 'u',
+  'ñ': 'n',
+  'ç': 'c',
 };
 
 /// Minúsculas, sin acentos: "Arquitectura Tecnológica" → "arquitectura tecnologica".
@@ -29,9 +83,9 @@ String normalize(String text) {
 
 /// Palabras con contenido: sin acentos, sin artículos ni muletillas, de tres letras o más.
 Set<String> keywords(String text) => {
-      for (final word in normalize(text).split(RegExp(r'[^a-z0-9]+')))
-        if (word.length >= 3 && !_stopWords.contains(word)) word,
-    };
+  for (final word in normalize(text).split(RegExp(r'[^a-z0-9]+')))
+    if (word.length >= 3 && !_stopWords.contains(word)) word,
+};
 
 /// Cuánto se parecen dos conjuntos de palabras: 1 = uno contiene al otro, 0 = nada en común.
 /// Se divide por el más corto para que "Calculadora" siga reconociendo "Arquitectura de la calculadora".

@@ -80,10 +80,15 @@ class AppDatabase extends _$AppDatabase {
           for (final item in old) {
             final date = item.dueAt;
             if (date != null && date.hour == 0 && date.minute == 0) {
-              await (update(workItems)..where((w) => w.id.equals(item.id))).write(
-                WorkItemsCompanion(dueAt: const Value(null), dueDay: Value(
-                  '${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}',
-                )),
+              await (update(
+                workItems,
+              )..where((w) => w.id.equals(item.id))).write(
+                WorkItemsCompanion(
+                  dueAt: const Value(null),
+                  dueDay: Value(
+                    '${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}',
+                  ),
+                ),
               );
             }
           }

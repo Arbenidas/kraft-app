@@ -17,7 +17,13 @@ abstract final class KraftToast {
     String? actionLabel,
     VoidCallback? onAction,
   }) {
-    showOn(Overlay.of(context, rootOverlay: true), message, icon: icon, actionLabel: actionLabel, onAction: onAction);
+    showOn(
+      Overlay.of(context, rootOverlay: true),
+      message,
+      icon: icon,
+      actionLabel: actionLabel,
+      onAction: onAction,
+    );
   }
 
   /// Para avisos lanzados tras un `await` cuyo widget de origen puede haberse desmontado:
@@ -71,13 +77,16 @@ class _ToastView extends StatefulWidget {
   State<_ToastView> createState() => _ToastViewState();
 }
 
-class _ToastViewState extends State<_ToastView> with SingleTickerProviderStateMixin {
+class _ToastViewState extends State<_ToastView>
+    with SingleTickerProviderStateMixin {
   static const _inMs = 240;
   static const _outMs = 160;
 
   late final AnimationController _controller = AnimationController(
     vsync: this,
-    duration: Duration(milliseconds: _inMs + widget.visibleFor.inMilliseconds + _outMs),
+    duration: Duration(
+      milliseconds: _inMs + widget.visibleFor.inMilliseconds + _outMs,
+    ),
   );
 
   @override
@@ -97,7 +106,8 @@ class _ToastViewState extends State<_ToastView> with SingleTickerProviderStateMi
     final total = _controller.duration!.inMilliseconds;
     final ms = _controller.value * total;
     if (ms < _inMs) return KraftMotion.pop.transform(ms / _inMs);
-    if (ms > total - _outMs) return 1 - Curves.easeIn.transform((ms - (total - _outMs)) / _outMs);
+    if (ms > total - _outMs)
+      return 1 - Curves.easeIn.transform((ms - (total - _outMs)) / _outMs);
     return 1;
   }
 
@@ -122,7 +132,12 @@ class _ToastViewState extends State<_ToastView> with SingleTickerProviderStateMi
           child: Material(
             type: MaterialType.transparency,
             child: Container(
-              padding: EdgeInsets.fromLTRB(KraftSpace.md, 8, widget.actionLabel == null ? KraftSpace.md : 6, 8),
+              padding: EdgeInsets.fromLTRB(
+                KraftSpace.md,
+                8,
+                widget.actionLabel == null ? KraftSpace.md : 6,
+                8,
+              ),
               decoration: BoxDecoration(
                 color: KraftColors.inkFill,
                 borderRadius: BorderRadius.circular(KraftRadius.lg),
@@ -131,12 +146,19 @@ class _ToastViewState extends State<_ToastView> with SingleTickerProviderStateMi
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(widget.icon, size: 18, color: KraftColors.secondaryContainer),
+                  Icon(
+                    widget.icon,
+                    size: 18,
+                    color: KraftColors.secondaryContainer,
+                  ),
                   const SizedBox(width: 8),
                   Flexible(
                     child: Text(
                       widget.message,
-                      style: KraftText.labelCode.copyWith(color: KraftColors.surface, fontWeight: FontWeight.w700),
+                      style: KraftText.labelCode.copyWith(
+                        color: KraftColors.surface,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                   if (widget.actionLabel != null) ...[
@@ -147,14 +169,19 @@ class _ToastViewState extends State<_ToastView> with SingleTickerProviderStateMi
                         widget.onDone();
                       },
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 6,
+                        ),
                         decoration: BoxDecoration(
                           color: KraftColors.primaryContainer,
                           borderRadius: BorderRadius.circular(KraftRadius.md),
                         ),
                         child: Text(
                           widget.actionLabel!.toUpperCase(),
-                          style: KraftText.techBadge.copyWith(color: KraftColors.onPrimaryContainer),
+                          style: KraftText.techBadge.copyWith(
+                            color: KraftColors.onPrimaryContainer,
+                          ),
                         ),
                       ),
                     ),

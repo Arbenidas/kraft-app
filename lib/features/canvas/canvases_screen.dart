@@ -49,12 +49,20 @@ class CanvasesScreen extends ConsumerWidget {
               borderWidth: 1.5,
               shadow: 2,
               radius: KraftRadius.lg,
-              padding: const EdgeInsets.symmetric(horizontal: KraftSpace.md, vertical: 10),
+              padding: const EdgeInsets.symmetric(
+                horizontal: KraftSpace.md,
+                vertical: 10,
+              ),
               child: Row(
                 children: [
                   const Icon(Symbols.add, size: 20),
                   const SizedBox(width: 4),
-                  Text('NUEVO LIENZO', style: KraftText.labelCode.copyWith(fontWeight: FontWeight.w700)),
+                  Text(
+                    'NUEVO LIENZO',
+                    style: KraftText.labelCode.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -72,10 +80,15 @@ class CanvasesScreen extends ConsumerWidget {
               return ListView(
                 padding: const EdgeInsets.all(KraftSpace.xl),
                 children: [
-                  Text('Lienzos', style: KraftText.headlineLg.copyWith(fontSize: 28)),
+                  Text(
+                    'Lienzos',
+                    style: KraftText.headlineLg.copyWith(fontSize: 28),
+                  ),
                   Text(
                     'Toca uno para entrar en modo lienzo. Se guarda al salir.',
-                    style: KraftText.bodyMd.copyWith(color: KraftColors.onSurfaceVariant),
+                    style: KraftText.bodyMd.copyWith(
+                      color: KraftColors.onSurfaceVariant,
+                    ),
                   ),
                   const SizedBox(height: KraftSpace.lg),
                   if (canvases != null)
@@ -83,12 +96,20 @@ class CanvasesScreen extends ConsumerWidget {
                       spacing: gap,
                       runSpacing: gap,
                       children: [
-                        Entrance(child: _NewCanvasCard(width: cardWidth, onTap: () => createCanvasAndOpen(context, ref))),
+                        Entrance(
+                          child: _NewCanvasCard(
+                            width: cardWidth,
+                            onTap: () => createCanvasAndOpen(context, ref),
+                          ),
+                        ),
                         for (final (i, record) in canvases.indexed)
                           Entrance(
                             key: ValueKey(record.id),
                             index: i + 1,
-                            child: _CanvasCard(record: record, width: cardWidth),
+                            child: _CanvasCard(
+                              record: record,
+                              width: cardWidth,
+                            ),
                           ),
                       ],
                     ),
@@ -125,7 +146,12 @@ class _NewCanvasCard extends StatelessWidget {
             children: [
               const Icon(Symbols.draw, size: 40),
               const SizedBox(height: KraftSpace.sm),
-              Text('NUEVO LIENZO', style: KraftText.labelCode.copyWith(fontWeight: FontWeight.w700)),
+              Text(
+                'NUEVO LIENZO',
+                style: KraftText.labelCode.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ],
           ),
         ),
@@ -159,9 +185,14 @@ class _CanvasCard extends ConsumerWidget {
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   color: KraftColors.surfaceContainerLow,
-                  border: Border(bottom: BorderSide(color: KraftColors.ink, width: 2)),
+                  border: Border(
+                    bottom: BorderSide(color: KraftColors.ink, width: 2),
+                  ),
                 ),
-                child: _Thumbnail(key: ValueKey(record.updatedAt), data: record.data),
+                child: _Thumbnail(
+                  key: ValueKey(record.updatedAt),
+                  data: record.data,
+                ),
               ),
             ),
             Padding(
@@ -176,9 +207,17 @@ class _CanvasCard extends ConsumerWidget {
                           record.title,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: KraftText.headlineSm.copyWith(fontSize: 17, fontWeight: FontWeight.w700),
+                          style: KraftText.headlineSm.copyWith(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
-                        Text(relativeTime(record.updatedAt), style: KraftText.labelCode.copyWith(color: KraftColors.onSurfaceVariant)),
+                        Text(
+                          relativeTime(record.updatedAt),
+                          style: KraftText.labelCode.copyWith(
+                            color: KraftColors.onSurfaceVariant,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -243,7 +282,10 @@ class _Thumbnail extends StatelessWidget {
     final decoded = CanvasCodec.decode(data);
     if (decoded.isEmpty) {
       return Center(
-        child: Text('VACÍO', style: KraftText.techBadge.copyWith(color: KraftColors.outline)),
+        child: Text(
+          'VACÍO',
+          style: KraftText.techBadge.copyWith(color: KraftColors.outline),
+        ),
       );
     }
     return CustomPaint(painter: _ThumbnailPainter(decoded));
@@ -269,7 +311,10 @@ class _ThumbnailPainter extends CustomPainter {
     }
     if (bounds == null) return;
     bounds = bounds.inflate(40);
-    final scale = math.min(size.width / bounds.width, size.height / bounds.height);
+    final scale = math.min(
+      size.width / bounds.width,
+      size.height / bounds.height,
+    );
     final origin = Offset(
       (size.width - bounds.width * scale) / 2 - bounds.left * scale,
       (size.height - bounds.height * scale) / 2 - bounds.top * scale,
@@ -283,13 +328,17 @@ class _ThumbnailPainter extends CustomPainter {
     for (final (r, item) in rects) {
       final mapped = Rect.fromPoints(map(r.topLeft), map(r.bottomRight));
       canvas
-        ..drawRect(mapped.shift(const Offset(2, 2)), Paint()..color = KraftColors.ink)
+        ..drawRect(
+          mapped.shift(const Offset(2, 2)),
+          Paint()..color = KraftColors.ink,
+        )
         ..drawRect(mapped, Paint()..color = canvasItemColor(item))
         ..drawRect(mapped, border);
     }
     for (final s in data.strokes) {
       if (s.points.isEmpty) continue;
-      final path = Path()..moveTo(map(s.points.first).dx, map(s.points.first).dy);
+      final path = Path()
+        ..moveTo(map(s.points.first).dx, map(s.points.first).dy);
       final step = math.max(1, s.points.length ~/ 40);
       for (var i = step; i < s.points.length; i += step) {
         final p = map(s.points[i]);

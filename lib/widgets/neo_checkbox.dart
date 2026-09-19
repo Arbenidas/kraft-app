@@ -45,17 +45,33 @@ class NeoCheckbox extends StatelessWidget {
             width: size,
             height: size,
             decoration: BoxDecoration(
-              color: checked ? (fill ?? KraftColors.secondary) : KraftColors.surfaceContainerLowest,
+              color: checked
+                  ? (fill ?? KraftColors.secondary)
+                  : KraftColors.surfaceContainerLowest,
               borderRadius: BorderRadius.circular(KraftRadius.sm),
-              border: bordered ? Border.all(color: checked ? (fill ?? KraftColors.secondary) : KraftColors.border, width: 1.5) : null,
+              border: bordered
+                  ? Border.all(
+                      color: checked
+                          ? (fill ?? KraftColors.secondary)
+                          : KraftColors.border,
+                      width: 1.5,
+                    )
+                  : null,
             ),
             child: AnimatedSwitcher(
               duration: KraftMotion.of(context, KraftMotion.base),
               switchInCurve: KraftMotion.pop,
               switchOutCurve: Curves.easeIn,
-              transitionBuilder: (child, anim) => ScaleTransition(scale: anim, child: child),
+              transitionBuilder: (child, anim) =>
+                  ScaleTransition(scale: anim, child: child),
               child: checked
-                  ? Icon(Symbols.check, key: const ValueKey(true), size: size * 0.8, weight: 700, color: checkColor)
+                  ? Icon(
+                      Symbols.check,
+                      key: const ValueKey(true),
+                      size: size * 0.8,
+                      weight: 700,
+                      color: checkColor,
+                    )
                   : const SizedBox.shrink(key: ValueKey(false)),
             ),
           ),

@@ -48,7 +48,10 @@ class SectionHeader extends StatelessWidget {
           child: Text(
             title.toUpperCase(),
             overflow: TextOverflow.ellipsis,
-            style: KraftText.headlineSm.copyWith(fontWeight: FontWeight.w700, letterSpacing: -0.3),
+            style: KraftText.headlineSm.copyWith(
+              fontWeight: FontWeight.w700,
+              letterSpacing: -0.3,
+            ),
           ),
         ),
         ?trailing,

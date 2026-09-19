@@ -7,7 +7,7 @@ import 'helpers.dart';
 
 void main() {
   testWidgets('crear una tarea, marcarla y persistirla', (tester) async {
-    final db = await pumpKraft(tester);
+    final db = await pumpKraft(tester, size: const Size(1024, 2000));
 
     await tester.tap(find.text(' Nueva ').first);
     await settle(tester);
@@ -24,15 +24,21 @@ void main() {
     await settle(tester);
 
     final saved = await tester.runAsync(() => db.select(db.tasks).get());
-    expect(saved!.firstWhere((t) => t.title == 'Llamar al cliente').done, isTrue);
+    expect(
+      saved!.firstWhere((t) => t.title == 'Llamar al cliente').done,
+      isTrue,
+    );
   });
 
   testWidgets('borrar una tarea desde el menú y deshacer', (tester) async {
-    final db = await pumpKraft(tester);
+    final db = await pumpKraft(tester, size: const Size(1024, 2000));
     const title = 'Exportar esquemas de color para cliente';
 
     final menu = find.descendant(
-      of: find.ancestor(of: find.text(title), matching: find.byType(Dismissible)),
+      of: find.ancestor(
+        of: find.text(title),
+        matching: find.byType(Dismissible),
+      ),
       matching: find.byTooltip('Más opciones'),
     );
     await tester.tap(menu);
@@ -41,7 +47,9 @@ void main() {
     // Cierre del menú → borrado en la base → aviso entrando (sin esperar a que se oculte).
     for (var i = 0; i < 4; i++) {
       await tester.pump(const Duration(milliseconds: 120));
-      await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 10)));
+      await tester.runAsync(
+        () => Future<void>.delayed(const Duration(milliseconds: 10)),
+      );
     }
     await tester.pump(const Duration(milliseconds: 250));
     expect(find.text(title), findsNothing);
@@ -52,7 +60,9 @@ void main() {
     expect((await tester.runAsync(() => db.select(db.tasks).get()))!.length, 3);
   });
 
-  testWidgets('cronograma: navegar semanas, vista mes y volver a hoy', (tester) async {
+  testWidgets('cronograma: navegar semanas, vista mes y volver a hoy', (
+    tester,
+  ) async {
     await pumpKraft(tester);
     final today = DateTime.now();
     expect(find.text(longDay(today).toUpperCase()), findsOneWidget);
@@ -60,13 +70,19 @@ void main() {
 
     await tester.tap(find.byTooltip('Siguiente'));
     await settle(tester);
-    expect(find.text(longDay(addDays(dateOnly(today), 7)).toUpperCase()), findsOneWidget);
+    expect(
+      find.text(longDay(addDays(dateOnly(today), 7)).toUpperCase()),
+      findsOneWidget,
+    );
     expect(find.text('IR A HOY'), findsOneWidget);
 
     await tester.tap(find.text('Mes'));
     await settle(tester);
     // La cuadrícula mensual muestra 6 semanas × 7 días.
-    expect(find.text('${startOfWeek(DateTime(today.year, today.month, 1)).day}'), findsWidgets);
+    expect(
+      find.text('${startOfWeek(DateTime(today.year, today.month, 1)).day}'),
+      findsWidgets,
+    );
 
     await tester.tap(find.text('IR A HOY'));
     await settle(tester);
@@ -96,9 +112,11 @@ void main() {
 
 /// Casilla de la fila que contiene [text] (la fila más cercana que también contiene una casilla).
 Finder checkboxFor(String text) => find.descendant(
-      of: find.ancestor(
-        of: find.text(text),
-        matching: find.byWidgetPredicate((w) => w is Row && w.children.any((c) => c is NeoCheckbox)),
-      ),
-      matching: find.byType(NeoCheckbox),
-    );
+  of: find.ancestor(
+    of: find.text(text),
+    matching: find.byWidgetPredicate(
+      (w) => w is Row && w.children.any((c) => c is NeoCheckbox),
+    ),
+  ),
+  matching: find.byType(NeoCheckbox),
+);

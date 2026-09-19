@@ -30,14 +30,14 @@ class ThemeController extends ChangeNotifier {
 
   /// El brillo que toca pintar ahora mismo.
   Brightness brightness(Brightness system) => switch (mode) {
-        ThemeMode.light => Brightness.light,
-        ThemeMode.dark => Brightness.dark,
-        ThemeMode.system => system,
-      };
+    ThemeMode.light => Brightness.light,
+    ThemeMode.dark => Brightness.dark,
+    ThemeMode.system => system,
+  };
 
   String get label => switch (mode) {
-        ThemeMode.light => 'Claro',
-        ThemeMode.dark => 'Gruvbox',
-        ThemeMode.system => 'Como el sistema',
-      };
+    ThemeMode.light => 'Claro',
+    ThemeMode.dark => 'Gruvbox',
+    ThemeMode.system => 'Como el sistema',
+  };
 }

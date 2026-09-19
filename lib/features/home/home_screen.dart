@@ -18,6 +18,7 @@ import '../forms/entity_sheets.dart';
 import '../settings/settings_screen.dart';
 import 'calendar_card.dart';
 import 'project_card.dart';
+import 'quick_tasks.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -64,22 +65,26 @@ class HomeScreen extends ConsumerWidget {
                 ),
               );
               return Scrollbar(
-                child: ListView(
+                child: SingleChildScrollView(
                   padding: const EdgeInsets.only(
                     top: KraftSpace.lg,
                     bottom: KraftSpace.xl,
                   ),
-                  children: [
-                    section(0, _Greeting(showKeyboardHint: desktop)),
-                    const SizedBox(height: KraftSpace.lg),
-                    section(1, const _PrimaryActions()),
-                    const SizedBox(height: KraftSpace.sm),
-                    section(2, const _QuickUtilities()),
-                    const SizedBox(height: KraftSpace.xl),
-                    section(3, const CalendarCard()),
-                    const SizedBox(height: KraftSpace.xl),
-                    section(4, _RecentProjectsSection(desktop: desktop)),
-                  ],
+                  child: Column(
+                    children: [
+                      section(0, _Greeting(showKeyboardHint: desktop)),
+                      const SizedBox(height: KraftSpace.lg),
+                      section(1, const _PrimaryActions()),
+                      const SizedBox(height: KraftSpace.sm),
+                      section(2, const _QuickUtilities()),
+                      const SizedBox(height: KraftSpace.xl),
+                      section(3, const CalendarCard()),
+                      const SizedBox(height: KraftSpace.xl),
+                      section(4, _RecentProjectsSection(desktop: desktop)),
+                      const SizedBox(height: KraftSpace.xl),
+                      section(5, const _QuickTasksSection()),
+                    ],
+                  ),
                 ),
               );
             },
@@ -586,6 +591,31 @@ class _LinkButton extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _QuickTasksSection extends ConsumerWidget {
+  const _QuickTasksSection();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    Theme.of(context); // Rebuild when the active palette changes.
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        SectionHeader(
+          title: 'Notas Rápidas',
+          icon: Symbols.check_circle,
+          trailing: _LinkButton(
+            label: 'Nueva',
+            leadingIcon: Symbols.add,
+            onTap: () => showTaskSheet(context, ref),
+          ),
+        ),
+        const SizedBox(height: KraftSpace.sm + 4),
+        const QuickTaskList(),
+      ],
     );
   }
 }

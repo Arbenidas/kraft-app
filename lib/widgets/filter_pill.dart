@@ -27,14 +27,18 @@ class FilterPill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Theme.of(context);
-    final fg = selected ? KraftColors.onPrimaryContainer : muted ? KraftColors.onSurfaceVariant : KraftColors.onSurface;
+    final fg = selected
+        ? KraftColors.onPrimaryContainer
+        : muted
+        ? KraftColors.onSurfaceVariant
+        : KraftColors.onSurface;
     return NeoBox(
       onTap: onTap ?? () {},
       color: selected
           ? KraftColors.primaryContainer
           : muted
-              ? KraftColors.surfaceContainer
-              : KraftColors.surfaceContainerLowest,
+          ? KraftColors.surfaceContainer
+          : KraftColors.surfaceContainerLowest,
       shadow: muted ? 0 : 2,
       radius: KraftRadius.sm,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
